@@ -1,0 +1,33 @@
+.InputWrapper{
+    background-color: #fff;
+}
+.InputContainer{
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.colorDisplay{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    
+}
+.projectInput{
+    border: none;
+    height: 15px;
+    padding: 10px;
+    width: 100%;
+    font-size: 19px;
+    &:focus{
+        outline: none;
+    }
+    &::placeholder {
+
+    }
+}
+.colorPicker{
+    width: 90%;
+    margin: 0 auto;
+}

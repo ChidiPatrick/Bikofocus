@@ -1,0 +1,96 @@
+.SignUpWrapper,
+.signInUserForm {
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+	// flex-direction: column;
+	width: 90%;
+	margin: 0 10px;
+	min-height: 100vh;
+	position: relative;
+}
+.inputEl,
+.userNameInput {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	height: 15px;
+	border: none;
+	font-size: 20px;
+	border-bottom: solid 1px grey;
+	&::placeholder {
+		font-size: 18px;
+		// text-align: center;
+	}
+	&:focus{
+		outline: none;
+		border: none;
+		border-bottom: solid 1px tomato;
+	}
+}
+.label {
+	display: flex;
+	// justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+	width: 100%;
+}
+.labelTitle{
+	display: block;
+}
+.submitBtn {
+	height: 40px;
+	padding: 10px;
+	background-color: tomato;
+	color: #fff;
+	border: none;
+	font-size: 20px;
+}
+.required{
+	color: red;
+	text-align: left;
+}
+.ctaBtn{
+	padding: 10px;
+	width: 150px;
+	font-size: 20px;
+	border-radius: 100px;
+
+}
+.signIn{
+	background-color: tomato;
+	color:  #fff;
+	border: none;
+	margin-right: 20px;
+	&:hover{
+		background-color:red;
+		// color: tomato;
+	}
+}
+.forgottenPassword{
+	background-color: tomato;
+	color:  #fff;
+	padding: 10px;
+	width: 150px;
+	font-size: 20px;
+	border-radius: 100px;
+}
+.signUp{
+	border: solid 1px tomato;
+	background-color: transparent;
+	color: tomato;
+	&:hover{
+		background-color: tomato;
+		color: #fff;
+	}
+}
+.CTAButtons{
+	display: flex;
+	margin-top: 30px;
+}
+.forgottenPasswordLink{
+	color: tomato;
+	display: block;
+	margin-top: 20px;
+
+}

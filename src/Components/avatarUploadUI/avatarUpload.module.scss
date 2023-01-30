@@ -1,0 +1,47 @@
+.uploadAvatarWrapper{
+    background-color: rgb(34, 33, 33);
+    min-height: 100vh;
+    color: grey;
+}
+.backLink{
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+}
+.btnsWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.uploadFileInputElement{
+    // display: block;
+    visibility: hidden;
+
+}
+.inputFileWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 20px auto;
+    height: 250px;
+    border: dashed 2px grey;
+}
+
+.goBackBtn{
+    color: white;
+    font-size: 20px;
+}
+.uploadBtn{
+    width: 100px;
+    padding: 10px;
+    border-radius: 100px;
+}
+.checkMarkIcons{
+    font-size: 30px;
+    color: #fff;
+}
+.hidden{
+    visibility: hidden;
+}

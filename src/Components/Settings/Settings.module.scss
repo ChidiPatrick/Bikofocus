@@ -1,0 +1,276 @@
+.Setting {
+	background-color: rgb(241, 241, 241);
+}
+
+.HeaderWrapper {
+	display: flex;
+	align-content: center;
+	// justify-content: center;
+	height: 60px;
+	background-color: #fff;
+	margin-bottom: 10px;
+}
+.navLink {
+	// display: flex;
+	// justify-content: center;
+	// align-content: center;
+	height: 100%;
+	margin-right: 20px;
+}
+.SettingHeader {
+	// height: 50px;
+	margin: 0;
+}
+.iconBack {
+	padding: 5px;
+	font-size: 20px;
+	font-weight: length;
+	fill: rgb(124, 124, 124);
+}
+.accountDetails {
+	// display: flex;
+	// justify-content: space-between;
+	// align-content: center;
+	// min-height: 120px;
+	display: grid;
+	grid-template-columns: min-content 150px min-content;
+	grid-gap: 15px;
+	justify-items: center;
+	align-items: center;
+	background-color: #fff;
+	text-decoration: none;
+	padding: 10px 0;
+}
+.projectsLink{
+	text-decoration: none;
+	width: 100%;
+	display: block;
+	display: flex;
+	// justify-content: space-between;
+	align-items: center;
+}
+.projectLinkContainer{
+	height: 40px;
+	background-color: #fff;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	margin: 10px 0;
+	color: black;
+	font-size: 18px;
+
+}
+.syncWrapper {
+	display: flex;
+	flex-direction: column;
+}
+.sync {
+	font-size: 10px;
+}
+.Avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: grey;
+	margin: 0;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+
+}
+.userName {
+	align-self: flex-start;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: left;
+	color: black;
+	font-size:  20px;
+	
+	
+
+	
+	// text
+}
+
+.AlarmSettings {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 10px;
+}
+.workAlarm {
+	text-decoration: none;
+	color: black;
+	margin: 8px 0;
+}
+.linkWrapper {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	text-decoration: none;
+	color: black;
+	margin: 8px 0;
+}
+.alarmTone {
+	display: flex;
+	align-items: center;
+}
+.alarm {
+	margin-right: 10px;
+}
+.timeSettingsWrapper {
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-direction: column;
+}
+.pomodoroLength {
+	// padding: 10px;
+	margin: 8px 0;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.pomodoroDuration {
+	color: rgb(163, 162, 162);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.minutes {
+	width: 100%;
+	// border: none;
+}
+.minuteList {
+	width: 100%;
+}
+.minuteList {
+	width: 100%;
+}
+.minuteOption {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.selectMinutes {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border: none;
+	outline: none;
+	margin: 0;
+	height: 50px;
+}
+.minutesLabel {
+	display: block;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.inputLabel {
+	border: none;
+}
+.hidden {
+	visibility: none;
+	height: 0;
+	opacity: 0;
+}
+.breakSwitch,
+.AutoStartPomodoroSwitch,
+.AutoStartBreakSwitch {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.AutoStartPomodoroSwitch {
+	margin-top: 20px;
+}
+.AutoStartBreakSwitch {
+	margin-top: 20px;
+}
+.switch {
+	// background-color: tomato;
+}
+.loadingSpinner{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+
+}
+.Avatar{
+	// visibility: hidden;
+}
+.avatarImage{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: aqua;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+	padding: 0;
+}
+.innerWrapper{
+	display: flex;
+	width: 100%;
+	// grid-column: 1 / -1;
+}
+.userAvatar{
+	aspect-ratio: 1 / 1;
+	max-width: 100%;
+	height: 100%;
+	// border-radius: 50%;
+	
+}
+.avatarInput{
+	display: block;
+	width: 100px;
+}
+.profilePicture{
+
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.loader {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.loader:before , .loader:after{
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.loader:after {
+  box-shadow: 0 2px 0 #FF3D00 inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+}
+.avatarInput{
+	visibility: hidden;
+}
+.avatarInputLabel{
+
+}

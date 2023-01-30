@@ -1,0 +1,57 @@
+.BtnPause,
+.BtnStop {
+  background-color: rgb(221, 43, 12);
+  padding: 10px;
+  border-radius: 100px;
+  border: solid 1px #fff;
+  color: #fff;
+}
+.BtnContinue,
+.BtnStart {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 100px;
+  border: solid 1px #fff;
+  color: rgb(221, 43, 12);
+  font-weight: bold;
+}
+// .BtnContinue,
+// .BtnStop,
+.BtnPause,
+.BtnStart,
+.BtnWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+}
+.BtnStart {
+  z-index: 5;
+}
+.BtnPause {
+  z-index: 4;
+}
+.BtnContinue {
+  z-index: 3;
+}
+.BtnStop {
+  z-index: 3;
+  width: 100px;
+  padding: 10px;
+  border-radius: 100px;
+  border: solid 1px #fff;
+}
+
+.BtnHide {
+  z-index: 3;
+  visibility: hidden;
+}
+.BtnWrapper {
+  width: 220px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}

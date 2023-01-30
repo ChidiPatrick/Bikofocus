@@ -1,0 +1,30 @@
+.PopUpUIWrapper{
+    width: 100%;
+    min-height: 100vh;
+   display: flex;
+   justify-content: center;
+   background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5));
+   align-items: center;
+   position: absolute;
+   top: 0;
+   left: 0;
+
+//    opacity: 0.6;
+}
+.hidden{
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+}
+.PopUpUI{
+    background-color: #fff;
+    color: black;
+    width: 60%;
+    margin: 0 auto;
+}
+.popUpHeader{
+    color: red
+}
+.popUpMessage{
+    
+}

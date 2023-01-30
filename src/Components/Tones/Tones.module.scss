@@ -1,0 +1,26 @@
+.TonesWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+}
+.tone {
+	padding: 10px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: 100%;
+
+	&:hover {
+		background-color: rgba(255, 111, 86, 0.3);
+		width: 100%;
+	}
+}
+.theTone {
+	// width: 100%;
+	display: block;
+}
+.active {
+	background-color: rgb(241, 115, 92);
+}

@@ -1,0 +1,168 @@
+.TaskWrapper {
+  background-color: rgb(241, 241, 241);
+  min-height: 100vh;
+  position: relative;
+ 
+  
+}
+.TaskTimeWrapper{
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 85px) ;
+  justify-items: center;
+  align-content: center;
+}
+.TaskTimeEstimateWrapper ,
+.TaskTobeCompletedWrapper, 
+.ElapsedTimeWrapper,
+.TaskCompletedWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.TaskTimeUnit {
+  color: rgb(138, 138, 138);
+  font-size: 10px;
+}
+// .TaskEstimatedTime,
+.TaskTimeEstimateWrapper,
+.TaskCompletedWrapper,
+.ElapsedTimeWrapper,
+.TaskTobeCompletedWrapper {
+  font-size: 25px;
+  color: #eb2f06;
+  font-weight: 600;
+}
+.TaskHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.TaskTimePartition {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50px;
+}
+.TaskTimeEstimateWrapper {
+  // display: grid;
+  // grid-column: 100px;
+  // justify-items: center;
+  // grid-template-rows: repeat(3);
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  // width: 100px;
+  // flex-direction: column;
+}
+.TaskTimeWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+.TaskTobeCompletedWrapper {
+  width: 50px;
+}
+
+.sort{
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+}
+.addTaskInputNotFocused
+{
+    height: 20px;
+    padding: 10px;
+    border: none;
+    color: black;
+    width: 80%;
+    margin: auto 0;
+    margin-top: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    &:focus{
+     border: 1px solid tomato;  
+    border-radius: 10px;
+    outline: none;
+    }
+    &::placeholder{
+        font-size: 18px;
+    }
+
+}
+.tasksWrapper{
+  margin-top: 20px;
+  font-size: 18px;
+}
+.taskContainer{
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 3px 1px;
+}
+.circle{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid grey;
+  margin-right: 10px;
+
+}
+.hideShowFinishedTaskContainer{
+ width: 100%;
+
+}
+.hideShowFinishedTask{
+   background-color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52%;
+  margin: 10px auto;
+  border-radius: 100px;
+}
+.dropDownIcon{
+  margin-left: 5px;
+  font-size: 18px;
+}
+.loadingSpinner{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+
+}
+.loader {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.loader:before , .loader:after{
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.loader:after {
+  box-shadow: 0 2px 0 #FF3D00 inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+}

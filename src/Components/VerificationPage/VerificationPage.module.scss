@@ -1,0 +1,44 @@
+.verifyEmailWrapper{
+    background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
+    height: 100vh;
+    display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.innerEmailWrapper{
+    background-color: #fff;
+    width:  80%;
+    margin: 0 auto
+}
+.verifyEmailHeader{
+color: green
+}
+.verifyEmailParagraph{
+
+}
+.hidden{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.Close{
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    background-color: grey;
+    border-radius: 50%;
+    
+    // align-self: flex-end;
+}
+.closeContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 10px;
+}

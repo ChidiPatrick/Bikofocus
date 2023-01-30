@@ -1,0 +1,56 @@
+.AddProject{
+    background-color: rgb(241, 241, 241);
+    height: 100vh;
+
+}
+.projectHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cancle{
+    text-decoration: none;
+    font-size: 35px;
+    color: grey;
+}
+.projectTitle{
+    justify-self: flex-start;
+
+}
+.projectInput{
+    background-color: #fff;
+    height: 20px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+}
+/////////////////////////
+.InputWrapper{
+    background-color: #fff;
+}
+.InputContainer{
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.colorDisplay{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    
+}
+.projectInput{
+    border: none;
+    height: 15px;
+    padding: 10px;
+    width: 100%;
+    font-size: 19px;
+    &:focus{
+        outline: none;
+    }
+    &::placeholder {
+
+    }
+}

@@ -1,0 +1,61 @@
+.FrontPageMainWrapper {
+  background-image: linear-gradient(
+    to bottom,
+    #dd2b0c,
+    #e52e1a,
+    #ec3225,
+    #f33630,
+    #fa3a3a
+  );
+  position: relative;
+}
+.FrontPageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
+}
+.FrontPageTime {
+  font-size: 30px;
+  color: #fff;
+  display: flex;
+  // height: 150px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+}
+.timer {
+  border: solid 1px #fff;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: -50px;
+}
+.BtnWrapper {
+  position: relative;
+  height: 100px;
+  width: 150px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+.UserAccountLink {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  // background-color: #fff;
+  color: #fff;
+  font-size: 20px;
+}

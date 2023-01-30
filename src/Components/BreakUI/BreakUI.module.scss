@@ -1,0 +1,48 @@
+.BreakTimerWrapper {
+  background-image: linear-gradient(
+    to bottom,
+    #22a6b3,
+    #009cc6,
+    #008fda,
+    #007ee8,
+    #0065e7,
+    #295be3,
+    #3e50de,
+    #4f44d8,
+    #554fdb,
+    #5b59dd,
+    #6163df,
+    #686de0
+  );
+  height: 100vh;
+  width: 100%;
+  color: #fff;
+  font-weight: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.BreakTimer {
+  font-size: 30px;
+  height: 200px;
+  width: 200px;
+  border: solid 1px #fff;
+  border-radius: 50%;
+  display: flex;
+  // flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.SkipBreakBtn {
+  padding: 10px;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 16px;
+  background-color: transparent;
+  margin-top: 50px;
+  border: solid 1px #fff;
+}
+// last color : #fc5c65
+// Middle color: rgb(221, 43, 12)
+//  first rgba(250, 58, 58, 0.966)

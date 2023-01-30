@@ -1,0 +1,193 @@
+.UserAccountUI {
+  // background-color: rgb(216, 215, 215);
+  min-height: 100vh;
+  margin-top: -20px;
+  box-sizing: border-box;
+}
+.Nav {
+  height: 50px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.listContainer {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  list-style: none;
+  text-decoration: none;
+  padding: 0px
+  // width: 100%;
+}
+.listItem {
+  padding: 10px;
+  // width: 75px; 
+}
+.link {
+  text-decoration: none;
+  // color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.icon {
+  fill: rgb(148, 145, 145);
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+.settingLink {
+  font-size: 30px;
+  fill: rgb(204, 204, 204);
+}
+
+.sunIcon,
+.todayTodo,
+.upcomingIcon,
+.somedayIcon,
+.eventIcon,
+.completedIcon,
+.tomorrowIcon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.sunIcon {
+  fill: lightgreen;
+}
+.todoWrapper {
+}
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+.todayTodo
+ {
+  margin-left: 10px;
+}
+.upcomingIcon {
+  fill: rgb(90, 100, 247);
+}
+.somedayIcon {
+  fill: rgb(155, 15, 155);
+}
+.eventIcon {
+  fill: rgb(73, 197, 73);
+}
+.completedIcon {
+  fill: gray;
+}
+.tomorrowIcon {
+  fill: orange;
+}
+.AddProject{
+ margin-left: 10px;
+ 
+}
+.linkToAddProject{
+  text-decoration: none;
+  color: red;
+  display: block;
+  font-weight: 400;
+}
+.addProjectSpan{
+  width: 80%;
+  display: block;
+}
+.projectWrapper{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  color: black;
+  padding-right: 10px;
+}
+.project{
+  display: flex;
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+ 
+}
+.projectColor{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+.addProjectWrapper{
+  margin: 0;
+  margin-top: 20px;
+
+}
+.AddProject{
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  width: 100%;
+  margin: 0;
+}
+.innerWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addTagIcon,
+.addFolderIcon{
+  fill: red;
+  padding: 10px
+}
+.addProjectIcon{
+  font-size: 30px;
+}
+.colorAndProjectWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.projectColor,
+.focusTime{
+  margin-right: 10px;
+}
+.navigateBackIcon {
+    width: 30px;
+    height: 30px;
+  }
+.backBtn {
+    background-color: transparent;
+    border: none;
+  }
+.loadingSpinner{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+
+}
+.loader {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.loader:before , .loader:after{
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.loader:after {
+  box-shadow: 0 2px 0 #FF3D00 inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+}
