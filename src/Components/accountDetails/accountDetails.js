@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './accountDetails.module.scss'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import Account from '../PopsUps/account';
 
 const accountDetails = () => {
     return <div className={styles.accountDetailsWrapper}>
@@ -8,12 +9,44 @@ const accountDetails = () => {
             <FaChevronLeft className= {styles.navLinkIcon}/>
             <span className= {styles.headerHeading}>Account Details</span>
         </h3>
-        <label htmlFor='userAvatar'>Avatar</label>
-        <input type= 'file' id  ="userAvatar" />
-        <div className= {styles.newUsername}>Username</div>
-        <div className= {styles.newEmail}>okafor@gmail.com</div>
-        <div className={styles.changePassword}>change Password</div>
-        <button>Sign Out</button>
+        <div className={styles.accountDetailsInnerWrapper}>
+            <label htmlFor='userAvatar' className= {styles.inputLabel}>
+                <span>Avatar</span>
+                <div className={styles.figureWrapper}>
+                    <figure className={styles.avatarFigure}>
+                    {/* <img src ={} alt ="avata"/> */}
+                    
+                    </figure>
+                    <FaChevronRight className= {styles.navLinkIconRight}/>
+                    <input type= 'file' id  ="userAvatar" className={styles.inputFile} />
+                </div> 
+            </label>
+            
+
+            <div className= {styles.newUsername}>
+                <span>Username</span>
+                <div className={styles.rightContainer}>
+                    <span>Patrick Chidiebele</span>
+                    <FaChevronRight className= {styles.navLinkIconRight}/>
+                </div>
+                
+            </div>
+            <div className= {styles.newEmail}>
+                <span>Account</span>
+                <div className={styles.rightContainer}>
+                    <span>okaforPatrick@gmail.com</span>
+                    <FaChevronRight className= {styles.navLinkIconRight}/>
+                </div>
+                
+            </div>
+            <div className= {styles.newPassword}>
+                <span>Change Password</span>
+                <FaChevronRight className= {styles.navLinkIconRight}/>
+            </div>
+        </div>
+        
+        <button className={styles.signOutBtn}>Sign Out</button>
+        <Account/>
     </div>;
 }
 export default accountDetails;

@@ -1,10 +1,79 @@
 .accountDetailsWrapper{
     height: 100vh;
     padding: 5px;
-    background-color: rgb(223, 223, 223);
+    background-color: rgb(241, 241, 241);
+    font-size: 16px;
+    position: relative
+    
 
 }
 .accountDetailsHeader{
-    width: 100%;
+    // width: 100%;
+    border-radius: 10px;
     background-color: #fff;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
+.navLinkIcon{
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.inputFile{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    
+}
+.accountDetailsInnerWrapper{
+    margin: 10px 0;
+}
+.avatarFigure{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: lawngreen;
+    margin: 0;
+}
+.figureWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navLinkIconRight{
+   font-size: 20px;
+   margin-left: 10px; 
+}
+.newUsername,
+.newPassword,
+.newEmail,
+.inputLabel{
+    height: 50px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    // border-bottom: solid 1px grey;
+}
+.rightContainer{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signOutBtn{
+    background-color: #fff;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: tomato;
+    font-size: 20px;
+}
+
