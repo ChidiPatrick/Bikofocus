@@ -19,6 +19,7 @@ import SignUpForm from './Components/SignUpForms/SignUpForm';
 import SignInUser from "./Components/SignUpForms/SignInUser"
 import AddProject from './Components/AddProject/AddProject';
 import VerifyEmail from './Components/VerificationPage/VerificationPage';
+import AccountDetails from './Components/accountDetails/accountDetails';
 // import { useAuthState } from "react-firebase-hooks/auth";
 import {auth} from "./Components/Firebase/Firebase"
 import {getUserId} from "./Components/SignUpForms/SignUpFormSlice"
@@ -93,6 +94,7 @@ function App() {
 				<Route path="/Projects" element={<Projects/>}/>
 				<Route path = "/forgottenPassword" element = {<PasswordReset/>}/>
 				<Route path = "/uploadAvatarUI" element = {<AvatarUploadUI/>}/>
+				<Route path = "/accountDetails" element = {<AccountDetails/>}/>
 			</Routes>
 		</div>
 		

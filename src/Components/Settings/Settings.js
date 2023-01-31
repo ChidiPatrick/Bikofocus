@@ -273,18 +273,13 @@ onAuthStateChanged(auth, (user) => {
 				</Link>
 				<h3 className={styles.SettingHeader}>Settings</h3>
 			</div>
-			<Link to="/userAccount" className={styles.accountDetails}>
-			<Link to = "/uploadAvatarUI" className = {styles.avatarImageLeftWrap}>
-				<figure className = {styles.avatarImage}>
+			<Link to="/accountDetails" className={styles.accountDetails}>
+				<div className={styles.avatarParentContainer}>
+					<figure className = {styles.avatarImage}>
 					<img className={styles.profilePicture} src = {userAvatarURL}/>
 				</figure>
+				</div>
 				
-				{/* <div className= {styles.innerWrapper}>
-					<label className={styles.avatarInputLabel} htmlFor='userAvatar'>Upload Image</label>
-					<input type = "file" id ='userAvatar' className={styles.avatarInput}/>
-					<button type = "submit" onClick={() => uploadTask(preview)}>Upload</button>
-			 	</div> */}
-			 </Link >
 				<div className={styles.userName}>{userBioData.firstName} {userBioData.lastName} </div>
 				<FaChevronRight className={styles.iconBack} />
 			</Link>

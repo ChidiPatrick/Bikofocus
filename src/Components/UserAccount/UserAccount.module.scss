@@ -3,6 +3,7 @@
   min-height: 100vh;
   margin-top: -20px;
   box-sizing: border-box;
+  padding: 5px;
 }
 .Nav {
   height: 50px;
@@ -56,8 +57,7 @@
 .sunIcon {
   fill: lightgreen;
 }
-.todoWrapper {
-}
+
 .todo {
   display: flex;
   align-items: center;
