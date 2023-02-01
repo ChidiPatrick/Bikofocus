@@ -61,15 +61,11 @@ const UserAccountUI = (props) => {
   const numbersArray = useSelector(state => state.settings.numbersArray)
   console.log(userTasks);
   /////////Get projects /////////////////
-  // let finishedTasksArray = [1,2,3,4,5,6,7,8,9,10]
-  // const [numArray,setNumArray] = useState(numbersArray)
+  
   const removeNum = (array,numIndex) => {
     const newArray = numbersArray.filter((num,index) => numIndex !== index)
     const totalNum = newArray.reduce((i,s) => i+s,0)
     console.log(totalNum);
-    // setNumArray(newArray)
-    // finishedTasksArray = newArray
-    // console.log(newArray);
     dispatch(updateNumbersArray(newArray))
   }
   console.log(numbersArray);

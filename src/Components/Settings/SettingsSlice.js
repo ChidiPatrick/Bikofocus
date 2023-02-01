@@ -45,6 +45,7 @@ const initialState = {
 	popUp: false,
 	changePasswordPopUp: false,
 	changeUsername: false,
+	
 };
 export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", async (userId,{dispatch,getState}) =>{
 	try{
@@ -63,16 +64,25 @@ export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", 
 })
 export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (userId,{dispatch,getState}) =>{
 	try{
-		const tasksRef = doc(db,"users",`${userId}`,"userTasksCollection","tasks")
-		const data = await getDoc(tasksRef)
+		const userBioInfo = doc(db,"users",`${userId}`,"userTasksCollection","tasks")
+		const data = await getDoc(userBioInfo)
     	if(data.exists()){
-		const projectsTasks = data.data().projectsTasks
-		console.log(projectsTasks);
-		// const tasks = projectsTasks
-		dispatch(setUserTasks(projectsTasks))
-		dispatch(setTaskDataAvailable())
-		// dispatch(setTasksTimesArray())
-         return projectsTasks
+		const userBioData = data.data()
+		console.log(userBioData);
+		
+   	 }
+	}
+	catch(err) {
+		console.log(err);
+	}
+})
+export const FetchUserBioData = createAsyncThunk("settings/fetchUserBioData",async (userId,{dispatch,getState}) =>{
+	try{
+		const userBioInfo = doc(db,"users",`${userId}`,"userInfoFolder","userData")
+		const data = await getDoc(userBioInfo)
+    	if(data.exists()){
+		const userBioData = data.data()
+		dispatch(userBioInfo)
    	 }
 	}
 	catch(err) {
@@ -264,6 +274,9 @@ const SettingSlice = createSlice({
 		},
 		hideChangeUsernameUI(state,action){
 			state.changeUsername = false
+		},
+		setUserBioInformation(state,action){
+			state.userBioInfo = action.payload
 		}
 	}
 });
@@ -320,6 +333,7 @@ export const {
 	showChangePasswordUI,
 	hideChangePasswordUI,
 	showUsernameUI,
-	hideChangeUsernameUI
+	hideChangeUsernameUI,
+	setUserBioInformation,
 } = SettingSlice.actions;
 export default SettingSlice.reducer;

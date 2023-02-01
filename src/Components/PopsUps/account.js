@@ -18,7 +18,7 @@ const Account = () => {
     }
     return <div className={popUp ? styles.popUpWrapper : styles.hidden  } id = "accountPop" onClick = {handlePopUp}>
         <div className={styles.popUpInnerWrapper}>
-            <h4 className={styles.popUpHeader}>Change Username</h4>
+            <h4 className={styles.popUpHeader}>Change Email</h4>
             <input className={styles.popUpInput} type= "text" placeholder = "New username"/>
             <div className={styles.actionBtnsContainer}>
                 <button className={styles.CTABtn} id = "cancleBtnId" onClick = {handlePopUp}>Cancle</button>

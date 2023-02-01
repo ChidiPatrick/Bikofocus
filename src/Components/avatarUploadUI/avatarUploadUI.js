@@ -19,8 +19,8 @@ const AvatarUploadUI = () => {
 	const [imgUrl,setImgUrl] = useState("")
 	const [showDoneIcon,setShowDoneIcon] = useState(false)
 	// const []
-	const [loadingPercentage,setLoadingPercentage] = useState(`${0}%`)
-
+	const [loadingPercentage,setLoadingPercentage] = useState(`${0}`)
+	const [showLoader, setShowLoader] = useState(false)
     /////////Upload File //////////////////////
     const handleChange = (e) => {
 		setSelectedFile(e.target.files[0])
@@ -30,6 +30,7 @@ const AvatarUploadUI = () => {
     const uploadTask = async(selectedFile) => {
 		if(!selectedFile) return
         console.log(selectedFile);
+		setShowLoader(true)
 		const storageRef = ref(storage, `/usersAvatars/${selectedFile.name}`)
 		const  uploadAvatar = uploadBytesResumable(storageRef, selectedFile)
 		uploadAvatar.on("state_changed", (snapshot) => {
@@ -46,7 +47,9 @@ const AvatarUploadUI = () => {
 			})
 		})
 	} 
-	
+	const loadingSpinner = <div className={styles.loadingSpinner}>
+			<span className={styles.loader}></span>
+		</div>
     return <div className={styles.uploadAvatarWrapper}>
                 <div className={styles.btnsWrapper}>
                     <Link to = "/accountDetails" className={styles.backLink}>
@@ -60,7 +63,9 @@ const AvatarUploadUI = () => {
 				</div>
 				
                 
-				<div>Uploaded {loadingPercentage}</div>
+				<div className = {showLoader ? styles.loadingPercentage : styles.hidden}>
+					{loadingPercentage === 100 ? `Uploaded ${loadingPercentage}%` : `Uploading...${loadingPercentage}%`}
+				</div>
     </div>;
 }
 

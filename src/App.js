@@ -24,7 +24,7 @@ import AccountDetails from './Components/accountDetails/accountDetails';
 import {auth} from "./Components/Firebase/Firebase"
 import {getUserId} from "./Components/SignUpForms/SignUpFormSlice"
 import Projects from './Components/Projects/Projects';
-import {fetchUserSettings,FetchTasks,FetchUserData} from "./Components/Settings/SettingsSlice"
+import {fetchUserSettings,FetchTasks,FetchUserData,FetchUserBioData} from "./Components/Settings/SettingsSlice"
 import PasswordReset from './Components/SignUpForms/forgottenPassword';
 import AvatarUploadUI from './Components/avatarUploadUI/avatarUploadUI';
 
@@ -50,6 +50,7 @@ function App() {
 			dispatch(fetchUserSettings(user.uid))
 			dispatch(FetchTasks(user.uid))
 			dispatch(FetchUserData(user.uid))
+			// dispatch(FetchUserBioData(user.uid))
 
 		}
 	})
