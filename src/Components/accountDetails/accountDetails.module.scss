@@ -39,19 +39,30 @@
     background-color: lawngreen;
     margin: 0;
 }
+.avatarImage{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
 .figureWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .navLinkIconRight{
    font-size: 20px;
    margin-left: 10px; 
 }
+.changeAvatarLink{
+    text-decoration: none;
+    list-style: none;
+    color: black
+}
 .newUsername,
 .newPassword,
 .newEmail,
-.inputLabel{
+.changeAvatarLink{
     height: 50px;
     margin: 5px;
     display: flex;

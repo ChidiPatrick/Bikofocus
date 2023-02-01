@@ -24,7 +24,7 @@ const AvatarUploadUI = () => {
     /////////Upload File //////////////////////
     const handleChange = (e) => {
 		setSelectedFile(e.target.files[0])
-
+		setSrc(`${setSelectedFile}`)
 	}
 	
     const uploadTask = async(selectedFile) => {
@@ -49,11 +49,11 @@ const AvatarUploadUI = () => {
 	
     return <div className={styles.uploadAvatarWrapper}>
                 <div className={styles.btnsWrapper}>
-                    <Link to = "/settings" className={styles.backLink}>
+                    <Link to = "/accountDetails" className={styles.backLink}>
 						<FaChevronLeft className={styles.goBackBtn}/>
 					</Link>
                     <span className= {styles.uploadBtn} type = "submit" onClick={() => uploadTask(selectedFile)}><IoMdCheckmark className ={ styles.checkMarkIcons}/></span>
-                </div>			
+                </div>		
 				<div className={styles.inputFileWrapper}>
 					<label htmlFor='userAvatar' className={styles.inputLabel}>Choose a Profile Image</label>
 					<input type= "file" onChange={handleChange} id = "userAvatar" className = {styles.uploadFileInputElement}/>

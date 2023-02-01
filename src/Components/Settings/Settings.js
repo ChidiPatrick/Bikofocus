@@ -84,7 +84,7 @@ onAuthStateChanged(auth, (user) => {
 	const userId = useSelector((state) => state.signUpSlice.userId)
 	const [settings,setSettings] = useState(userSettings)
 	const userBioData = useSelector(state => state.settings.userBioData)
-	
+	const avatarURL = useSelector(state => state.settings.userAvatarURL)
 	
 	
 	//////////////////////////////////////
@@ -276,7 +276,7 @@ onAuthStateChanged(auth, (user) => {
 			<Link to="/accountDetails" className={styles.accountDetails}>
 				<div className={styles.avatarParentContainer}>
 					<figure className = {styles.avatarImage}>
-					<img className={styles.profilePicture} src = {userAvatarURL}/>
+					<img className={styles.profilePicture} src = {avatarURL}/>
 				</figure>
 				</div>
 				

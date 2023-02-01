@@ -42,6 +42,9 @@ const initialState = {
 	tasksTimesArray: [],
 	userBioData: null,
 	userAvatarURL: null,
+	popUp: false,
+	changePasswordPopUp: false,
+	changeUsername: false,
 };
 export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", async (userId,{dispatch,getState}) =>{
 	try{
@@ -241,6 +244,26 @@ const SettingSlice = createSlice({
 		},
 		setUserAvatarURL(state,action){
 			state.userAvatarURL = action.payload
+		},
+		showPopUp(state,action){
+			state.popUp = true
+		},
+		hidePopUP(state,action){
+			state.popUp = false
+		},
+		showChangePasswordUI(state,action){
+			state.changePasswordPopUp = true
+		},
+		hideChangePasswordUI(state,account){
+			state.changePasswordPopUp = false
+		},
+		showUsernameUI(state,action){
+			state.changeUsername = true
+			console.log("Showing change...");
+			console.log(state.changeUsername);
+		},
+		hideChangeUsernameUI(state,action){
+			state.changeUsername = false
 		}
 	}
 });
@@ -291,6 +314,12 @@ export const {
 	setActivePomodoroLength,
 	setElapsedTimeHoursMinutesArray,
 	setUserBioData,
-	setUserAvatarURL
+	setUserAvatarURL,
+	showPopUp,
+	hidePopUP,
+	showChangePasswordUI,
+	hideChangePasswordUI,
+	showUsernameUI,
+	hideChangeUsernameUI
 } = SettingSlice.actions;
 export default SettingSlice.reducer;
