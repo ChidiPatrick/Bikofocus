@@ -64,11 +64,13 @@ export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", 
 })
 export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (userId,{dispatch,getState}) =>{
 	try{
-		const userBioInfo = doc(db,"users",`${userId}`,"userTasksCollection","tasks")
-		const data = await getDoc(userBioInfo)
+		const userTasksDoc = doc(db,"users",`${userId}`,"userTasksCollection","tasks")
+		const data = await getDoc(userTasksDoc)
     	if(data.exists()){
-		const userBioData = data.data()
-		console.log(userBioData);
+		const userProjectTasks = data.data().projectsTasks
+		dispatch(setUserTasks(userProjectTasks))
+		dispatch(setTaskDataAvailable())
+		console.log(userProjectTasks);
 		
    	 }
 	}

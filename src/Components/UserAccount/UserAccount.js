@@ -61,7 +61,7 @@ const UserAccountUI = (props) => {
   const numbersArray = useSelector(state => state.settings.numbersArray)
   console.log(userTasks);
   /////////Get projects /////////////////
-  
+  console.log(projects);
   const removeNum = (array,numIndex) => {
     const newArray = numbersArray.filter((num,index) => numIndex !== index)
     const totalNum = newArray.reduce((i,s) => i+s,0)
@@ -96,19 +96,20 @@ const UserAccountUI = (props) => {
       dispatch(setTasksTimesArray(projectTask.tasksTimesArray))
     }
     const selectProject = (projects,projectId) => {
-      projects.filter((project,index) => {
-        if (index === projectId){
-          const taskName = project.projectTitle.split(" ").join("")
+      // projects.filter((project,index) => {
+        // if (index === projectId){
+          console.log(userTasks);
+          const taskName = projects[projectId].projectTitle.split(" ").join("")
           dispatch(setClickedProjectId(taskName))
           dispatch(setCurrTasks(userTasks[taskName]))
           dispatch(getProjectTasks(userTasks[taskName].tasks))
-          dispatch(getProjectTitle(project.projectTitle))
+          dispatch(getProjectTitle(projects[projectId].projectTitle))
           dispatch(setProjectId(projectId))
           getProjectTaskData(userTasks[taskName])
           navigate("/todayTodo")
-          return 
-        }
-      })
+          // return 
+        // }
+      // })
     }
     
     
