@@ -36,22 +36,15 @@ function App() {
 	// const [user,loading,erro] = useAuthState(auth)
 	const dispatch = useDispatch()
 	const app = initializeApp(firebaseConfig);
-	// const db = getFirestore(app);
-	// let folder = null;
 	
-	// createUserCollection('Patrick okafor');
 	const verified = useSelector(state => state.signUpSlice.verified)
-	// console.log(user);
-	// dispatch(getUserId(user.uid))
+	
 	onAuthStateChanged(auth, (user) => {
 		if(user) {
 			dispatch(getUserId(user.uid))
-			console.log(user.uid);
 			dispatch(fetchUserSettings(user.uid))
 			dispatch(FetchTasks(user.uid))
 			dispatch(FetchUserData(user.uid))
-			// dispatch(FetchUserBioData(user.uid))
-
 		}
 	})
 	////////////////////////////////////////////////////
