@@ -6,6 +6,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { updateDoc,doc,onSnapshot } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
 
+
 import {
 	showMinutes,
 	hideMinutes,
@@ -29,6 +30,7 @@ import {
 	getUserSettings,
 	getUserProjects
 } from '../Settings/SettingsSlice';
+	
 
 const SettingsComponent = ({resource}) => {
     const data = resource.data.read()
@@ -211,6 +213,7 @@ const SettingsComponent = ({resource}) => {
 			</div>
 			<Link to="/userAccount" className={styles.accountDetails}>
 				<figure className={styles.Avatar} />
+				
 				<div className={styles.userName}>Mr. Somebody</div>
 				<FaChevronRight className={styles.iconBack} />
 			</Link>
@@ -233,15 +236,6 @@ const SettingsComponent = ({resource}) => {
 				<div className={styles.linkWrapper}>
 					<Link to="workAlarm" className={styles.workAlarm}>
 						Break Alarm
-					</Link>
-					<div className={styles.alarmTone}>
-						<span className={styles.alarm}>Bell3</span>
-						<FaChevronRight className={styles.iconBack} />
-					</div>
-				</div>
-				<div className={styles.linkWrapper}>
-					<Link to="workAlarm" className={styles.workAlarm}>
-						White Noise
 					</Link>
 					<div className={styles.alarmTone}>
 						<span className={styles.alarm}>Bell3</span>

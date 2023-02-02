@@ -7,6 +7,7 @@ import {useCollection, useDocument, useDocumentData, useDocumentOnce} from "reac
 import { db,auth,app,storage } from '../Firebase/Firebase';
 import {doc,collection,getDoc,updateDoc} from "firebase/firestore"
 import { getAuth,onAuthStateChanged } from 'firebase/auth';
+import { ImUser } from "react-icons/im";
 // import Spinner from '../Spinner/Spinner';
 // import Projects from '../Projects/Projects';
 import {
@@ -34,18 +35,12 @@ import {
 	
 	
 } from '../Settings/SettingsSlice';
-// import { fetchUserSettings } from '../Settings/SettingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuthState } from "react-firebase-hooks/auth";
-// import { Switch } from 'evergreen-ui';
 import { createResource } from '../PersonApi/PersonApi';
-// import SettingsComponent from './settingsComponent';
-
-// import FrontPage from '../FrontPage/FrontPage';
-// import AvatarUploadUI from '../avatarUploadUI/avatarUploadUI';
 import {ref,getDownloadURL,uploadBytesResumable} from "@firebase/storage";
 
-
+////////////////////////////////////
 const Settings = (props) => {	
 onAuthStateChanged(auth, (user) => {
 	console.log(user.id);
@@ -86,7 +81,7 @@ onAuthStateChanged(auth, (user) => {
 	const userBioData = useSelector(state => state.settings.userBioData)
 	const avatarURL = useSelector(state => state.settings.userAvatarURL)
 	
-	
+	console.log(avatarURL);
 	//////////////////////////////////////
 	// const [user, loading, error ] = useAuthState(auth)
 	const uploadTask = async(selectedFile) => {
@@ -107,13 +102,7 @@ onAuthStateChanged(auth, (user) => {
 			})
 		})
 	} 
-	// const onClose = () => {
-	// 	setPreview(null)
-    //     setShowPreview(false)
-	// }
-	// const onCrop = view => {
-    //     setPreview(view)
-    //     setShowPreview(true)
+	
     // }
 	dispatch(getUserSettings())
 	let userData = []
@@ -275,9 +264,15 @@ onAuthStateChanged(auth, (user) => {
 			</div>
 			<Link to="/accountDetails" className={styles.accountDetails}>
 				<div className={styles.avatarParentContainer}>
+					{avatarURL ?
 					<figure className = {styles.avatarImage}>
-					<img className={styles.profilePicture} src = {avatarURL}/>
-				</figure>
+						<img className={styles.profilePicture} src = {avatarURL}/>
+					</figure>
+					:
+					<ImUser className = {styles.fallbackAvatar}/>
+				}
+					
+					
 				</div>
 				
 				<div className={styles.userName}>{userBioData.firstName} {userBioData.lastName} </div>
@@ -302,14 +297,6 @@ onAuthStateChanged(auth, (user) => {
 						<div>Break Alarm</div>
 						<div className={styles.alarmTone}>
 						<span className={styles.alarm}>{settings ? settings.breakAlarm : breakAlarm }</span>
-						<FaChevronRight className={styles.iconBack} />
-						</div>
-					</Link>
-	
-					<Link to="workAlarm" className={styles.linkWrapper}>
-						<div>White Noise</div>
-						<div className={styles.alarmTone}>
-						<span className={styles.alarm}>Bell3</span>
 						<FaChevronRight className={styles.iconBack} />
 						</div>
 					</Link>

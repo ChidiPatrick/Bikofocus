@@ -11,6 +11,8 @@ import {ref,getDownloadURL,uploadBytesResumable} from "@firebase/storage"
 import { db,auth,app,storage } from '../Firebase/Firebase';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
+import { signOut } from 'firebase/auth';
+import { ImUser } from "react-icons/im";
 
 
 const AccountDetails = () => {
@@ -36,6 +38,12 @@ const AccountDetails = () => {
         console.log(e);
         dispatch(showUsernameUI())
     }
+    //////////////////////////////////////////
+    const logOutUser = () => {
+        signOut(auth)
+        navigate('/')
+        console.log("logged out");
+    }
     
     /////////////////////////////////////////
    
@@ -49,10 +57,14 @@ const AccountDetails = () => {
             <Link to = "/uploadAvatarUI" className= {styles.changeAvatarLink}>
                 <span>Avatar</span>
                 <div className={styles.figureWrapper}>
-                    <figure className={styles.avatarFigure}>
-                    <img src ={avatarURL}  className={styles.avatarImage}/>
+                    {avatarURL ?
+					<figure className = {styles.avatarFigure}>
+						<img className={styles.avatarImage} src = {avatarURL}/>
+					</figure>
+					:
+					<ImUser className = {styles.fallbackAvatar}/>
+				}
                     
-                    </figure>
                     <FaChevronRight className= {styles.navLinkIconRight}/>
                     {/* <input type= 'file' id  ="userAvatar" className={styles.inputFile} onChange = {handleChange} /> */}
                 </div> 
@@ -78,7 +90,7 @@ const AccountDetails = () => {
             </div>
         </div>
         
-        <button className={styles.signOutBtn}>Sign Out</button>
+        <button className={styles.signOutBtn} onClick = {logOutUser}>Sign Out</button>
         <Account/>
         <ChangeUsernamePopUp/>
         <ChangePasswordPopUp/>
