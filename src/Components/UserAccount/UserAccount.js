@@ -25,6 +25,12 @@ import {auth} from "../Firebase/Firebase"
 import { db } from "../Firebase/Firebase";
 // import {doc,getDoc} from "firebase/firestore"
 import { HiChevronLeft } from "react-icons/hi";
+import { IoMdFolderOpen } from "react-icons/io";
+import { ImUser } from "react-icons/im";
+// FcList
+// FcTodoList
+// FcBullish
+import { FcSettings, FcTodoList,FcBullish } from "react-icons/fc";
 import { 
   getProjectTasks,
   getProjectTitle,
@@ -59,7 +65,9 @@ const UserAccountUI = (props) => {
   const currPomodoroLength = useSelector(state => state.settings.pomodoroCurrLength)
   const numbSelectedPomodoros =  useSelector(state => state.settings.numbSelectedPomodoro)
   const numbersArray = useSelector(state => state.settings.numbersArray)
-  console.log(userTasks);
+  const avatarURL = useSelector(state => state.settings.userAvatarURL)
+  const userBioData = useSelector(state => state.settings.userBioData)
+  console.log(userBioData);
   /////////Get projects /////////////////
   console.log(projects);
   const removeNum = (array,numIndex) => {
@@ -106,7 +114,7 @@ const UserAccountUI = (props) => {
           dispatch(getProjectTitle(projects[projectId].projectTitle))
           dispatch(setProjectId(projectId))
           getProjectTaskData(userTasks[taskName])
-          navigate("/todayTodo")
+          navigate("/project")
           // return 
         // }
       // })
@@ -125,31 +133,40 @@ const UserAccountUI = (props) => {
     <div className={styles.UserAccountUI}>
       <nav className={styles.Nav}>
         <ul className={styles.listContainer}>
-          <li className={styles.listItem}>
+          <li className={[styles.listItem, styles.navBtn].join(" ")}>
             <Link to = "/" className ={styles.backBtn}>
               <HiChevronLeft className={styles.navigateBackIcon}/>
             </Link>
           </li>
-          <li className={styles.listItem}>
-            <Link className={styles.link} to = {user && user.uid ? "/settings" : "/signInForm" } >
-            
-              <IoIosSettings className={styles.settingLink} />
+          <li className={[styles.listItem,styles.avatarParentContainer].join(' ')}>
+            <Link className={styles.link}  to = "/accountDetails">
+                { avatarURL ?
+                  <figure className = {styles.settingsAvatar}>
+                    <img className={styles.profilePicture} src = {avatarURL}/>
+                  </figure>
+                  :
+                  <ImUser className = {styles.fallbackAvatar}/>
+                }
+               
             </Link>
+             <span className={styles.userName}>{userBioData.userName.slice(0,5).padEnd(8,".")}</span>
           </li>
          
           <li className={styles.listItem}>
-            <Link className={styles.link} to="/community">
-              <FaUserFriends className={styles.icon} />
-            </Link>
+               <Link to= '/Projects'>
+                  {/* <IoMdFolderOpen className={styles.icon}/> */}
+                  <FcTodoList className={styles.icon}/>
+              </Link>
           </li>
           <li className={styles.listItem}>
-            <Link className={styles.link} to="/Sunlight">
-              <FaSeedling className={styles.icon} />
+            <Link className={styles.link} to = {user && user.uid ? "/settings" : "/signInForm" }>
+              <FcSettings className={styles.icon} />
             </Link>
           </li>
           <li className={styles.listItem}>
             <Link className={styles.link} to="/statistics">
-              <FaChartLine className={styles.icon} />
+              {/* <FaChartLine className={styles.icon} /> */}
+              <FcBullish className={styles.icon}/>
             </Link>
           </li>
         </ul>

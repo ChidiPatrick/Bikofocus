@@ -21,6 +21,11 @@
   align-items: center;
   justify-content: center;
 }
+.linkBtn{
+  padding: 10px;
+  color: black;
+  font-size: 18px;
+}
 .TaskTimeUnit {
   color: rgb(138, 138, 138);
   font-size: 10px;
@@ -49,17 +54,7 @@
   align-items: center;
   width: 50px;
 }
-.TaskTimeEstimateWrapper {
-  // display: grid;
-  // grid-column: 100px;
-  // justify-items: center;
-  // grid-template-rows: repeat(3);
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: center;
-  // width: 100px;
-  // flex-direction: column;
-}
+
 .TaskTimeWrapper {
   display: flex;
   justify-content: space-between;

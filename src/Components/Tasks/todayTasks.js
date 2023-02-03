@@ -1,5 +1,7 @@
 import React,{useRef,useState,useEffect} from "react";
-import style from "./addTask.module.scss";
+// import styles from './Tasks.module.scss';
+import AddTaskComponent from '../addTask/addTaskComponent';
+import style from "../addTask/addTask.module.scss";
 import { useNavigate } from "react-router";
 import {ButtonBack} from "../NavButtons/NavButton";
 import { TbArrowsDownUp } from "react-icons/tb";
@@ -33,12 +35,11 @@ import { setTriggerPlayFromTask } from "../FrontPage/FrontPageSlice";
 import { Link } from "react-router-dom";
 import { FaChevronLeft } from 'react-icons/fa';
 
-//////////////////////////////////////////////////
-////Add task Component//////////////
-/////////To do list ////////////
-//1. 
-const AddTaskComponent = () => {
-  const navigate = useNavigate();
+
+
+const defaultProps = {};
+const TodayTasks = () => {
+    const navigate = useNavigate();
   const dispatch = useDispatch()
   const projects = useSelector(state => state.settings.projects)
   const projectTitle = useSelector(state => state.settings.taskHeader)
@@ -274,7 +275,7 @@ const AddTaskComponent = () => {
     <div className={style.TaskWrapper}>
       <div className={style.TaskHeaderWrapper}>
         <Link to = "/UserAccount" className={style.linkBtn}><FaChevronLeft/></Link>
-        <h2 className={style.TaskHeader}>{projectTitle.length > 20 ? projectTitle.slice(0,17).padEnd(20,"."): projectTitle}</h2>
+        <h2 className={style.TaskHeader}>Today</h2>
         <button className={style.sort} >
           <TbArrowsDownUp />
         </button>
@@ -361,7 +362,7 @@ const AddTaskComponent = () => {
      
     </div>
   );
-}
-;
 
-export default AddTaskComponent;
+}
+
+export default TodayTasks;

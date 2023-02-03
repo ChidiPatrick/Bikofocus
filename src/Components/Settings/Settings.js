@@ -271,8 +271,6 @@ onAuthStateChanged(auth, (user) => {
 					:
 					<ImUser className = {styles.fallbackAvatar}/>
 				}
-					
-					
 				</div>
 				
 				<div className={styles.userName}>{userBioData.firstName} {userBioData.lastName} </div>

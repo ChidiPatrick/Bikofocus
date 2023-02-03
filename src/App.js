@@ -27,6 +27,7 @@ import Projects from './Components/Projects/Projects';
 import {fetchUserSettings,FetchTasks,FetchUserData,FetchUserBioData} from "./Components/Settings/SettingsSlice"
 import PasswordReset from './Components/SignUpForms/forgottenPassword';
 import AvatarUploadUI from './Components/avatarUploadUI/avatarUploadUI';
+import TodayTasks from './Components/Tasks/todayTasks';
 
 
 // const analytics = getAnalytics(app);
@@ -72,7 +73,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={frontpage} />
 				<Route path="/UserAccount" element={<UserAccountUI />} />
-				<Route path="/todayTodo" element={<AddTask />} />
+				<Route path="/project" element={<AddTask />} />
 				<Route path="/tomorrowTodo" element={<AddTask />} />
 				<Route path="/upcomingTodo" element={<AddTask />} />
 				<Route path="/somedayTodo" element={<AddTask />} />
@@ -89,6 +90,7 @@ function App() {
 				<Route path = "/forgottenPassword" element = {<PasswordReset/>}/>
 				<Route path = "/uploadAvatarUI" element = {<AvatarUploadUI/>}/>
 				<Route path = "/accountDetails" element = {<AccountDetails/>}/>
+				<Route path = "/todayTodo" element = {<TodayTasks/>}/>
 			</Routes>
 		</div>
 		
