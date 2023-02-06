@@ -63,7 +63,8 @@ const AddTask = () => {
 	const loadingSpinner = <div className={style.loadingSpinner}>
 			<span className={style.loader}></span>
 		</div>
-  return ( taskDataAvailable ?  <AddTaskComponent/> : loadingSpinner)
+  // return ( taskDataAvailable ?  <AddTaskComponent/> : loadingSpinner)
+   return <AddTaskComponent/>
 }
 ;
 
