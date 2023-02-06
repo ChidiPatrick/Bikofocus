@@ -2,13 +2,9 @@ import React,{useState,useEffect,useRef} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./UserAccount.module.scss";
 import {
-  FaChartLine,
-  FaSeedling,
-  FaUserFriends,
   FaSun,
   FaRegCalendarCheck,
   FaRegCalendarAlt,
-  WiSunrise,
 } from "react-icons/fa";
 import { BiCalendar, BiCheckCircle } from "react-icons/bi";
 import { IoIosSettings, IoIosSearch } from "react-icons/io";
@@ -67,7 +63,7 @@ const UserAccountUI = (props) => {
   const numbersArray = useSelector(state => state.settings.numbersArray)
   const avatarURL = useSelector(state => state.settings.userAvatarURL)
   const userBioData = useSelector(state => state.settings.userBioData)
-  console.log(userBioData);
+  console.log(userTasks);
   /////////Get projects /////////////////
   console.log(projects);
   const removeNum = (array,numIndex) => {
@@ -104,10 +100,10 @@ const UserAccountUI = (props) => {
       dispatch(setTasksTimesArray(projectTask.tasksTimesArray))
     }
     const selectProject = (projects,projectId) => {
-      // projects.filter((project,index) => {
-        // if (index === projectId){
+      projects.filter((project,index) => {
+        if (index === projectId){
           console.log(userTasks);
-          const taskName = projects[projectId].projectTitle.split(" ").join("")
+          const taskName = project.projectTitle.split(" ").join("")
           dispatch(setClickedProjectId(taskName))
           dispatch(setCurrTasks(userTasks[taskName]))
           dispatch(getProjectTasks(userTasks[taskName].tasks))
@@ -115,9 +111,9 @@ const UserAccountUI = (props) => {
           dispatch(setProjectId(projectId))
           getProjectTaskData(userTasks[taskName])
           navigate("/project")
-          // return 
-        // }
-      // })
+          return 
+        }
+      })
     }
     
     
@@ -202,13 +198,13 @@ const UserAccountUI = (props) => {
           </Link>
           
         </div>
-        <div className={styles.todo}>
+        {/* <div className={styles.todo}>
           <Link className={styles.link} to="/events">
             <MdEventNote className={styles.eventIcon} />
              <span className={styles.todayTodo}>Events</span>
           </Link>
          
-        </div>
+        </div> */}
         <div className={styles.todo}>
           <Link className={styles.link} to="/completed">
             <BiCheckCircle className={styles.completedIcon} />

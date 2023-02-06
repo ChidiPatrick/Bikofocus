@@ -45,6 +45,12 @@ const initialState = {
 	popUp: false,
 	changePasswordPopUp: false,
 	changeUsername: false,
+	todayTasks: [],
+	someDayTasks: [],
+	tomorrowTasks: [],
+	upcomingTasks: [],
+	tasksCategory: "today",
+	showTasksCategoryPopUp: false,
 	
 };
 export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", async (userId,{dispatch,getState}) =>{
@@ -68,7 +74,12 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
 		const data = await getDoc(userTasksDoc)
     	if(data.exists()){
 		const userProjectTasks = data.data().projectsTasks
+		const tasksByCategories = data.data().task
 		dispatch(setUserTasks(userProjectTasks))
+		dispatch(setTodayCategoryTasks(tasksByCategories.today))
+		dispatch(setTomorrowCategoryTasks(tasksByCategories.tomorrow))
+		dispatch(setUpcomingCategoryTasks(tasksByCategories.upcoming))
+		dispatch(setSomedayCategoryTasks(tasksByCategories.someday))
 		dispatch(setTaskDataAvailable())
 		console.log(userProjectTasks);
 		
@@ -279,7 +290,30 @@ const SettingSlice = createSlice({
 		},
 		setUserBioInformation(state,action){
 			state.userBioInfo = action.payload
+		},
+		setTaskCategory(state,action){
+			state.tasksCategory = action.payload
+		},
+		setTodayCategoryTasks(state,action){
+			state.todayTasks = action.payload
+		},
+		setSomedayCategoryTasks(state,action){
+			state.someDayTasks = action.payload
+		},
+		setTomorrowCategoryTasks(state,action){
+			state.tomorrowTasks = action.payload
+		},
+		setUpcomingCategoryTasks(state,action){
+			state.upcomingTasks = action.payload
+		},
+		showTaskCategoryPopUp(state,action){
+			state.showTasksCategoryPopUp = true
+		},
+		hideTaskCategoryPopUp(state,account){
+			state.showTasksCategoryPopUp = false
 		}
+			
+			
 	}
 });
 export const {
@@ -337,5 +371,12 @@ export const {
 	showUsernameUI,
 	hideChangeUsernameUI,
 	setUserBioInformation,
+	setSomedayCategoryTasks,
+	setTomorrowCategoryTasks,
+	setTodayCategoryTasks,
+	setUpcomingCategoryTasks,
+	setTaskCategory,
+	hideTaskCategoryPopUp,
+	showTaskCategoryPopUp
 } = SettingSlice.actions;
 export default SettingSlice.reducer;

@@ -32,6 +32,12 @@ import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
 import { setTriggerPlayFromTask } from "../FrontPage/FrontPageSlice";
 import { Link } from "react-router-dom";
 import { FaChevronLeft } from 'react-icons/fa';
+import TasksCategoryPopUp from "../tasksCategoryPopUp/tasksCategoryPopUp"
+import {
+  setSomedayCategoryTasks,
+	setTomorrowCategoryTasks,
+	setTodayCategoryTasks,
+	setUpcomingCategoryTasks,} from "../Settings/SettingsSlice"
 
 //////////////////////////////////////////////////
 ////Add task Component//////////////
@@ -64,14 +70,19 @@ const AddTaskComponent = () => {
   const [showUI,setShowUI] = useState(false)
   const [showFinishedTasks,setShowFinishedTask] = useState((false))
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
-  
+  const todayTasksArray = useSelector(state => state.settings.todayTasks)
+  const somedayTasksArray = useSelector(state => state.settings.someDayTasks)
+  const upcomingTasksArray = useSelector(state => state.settings.upcomingTasks)
+  const tomorrowTasksArray = useSelector(state => state.settings.tomorrowTasks)
+  const tasksCategory = useSelector(state => state.settings.tasksCategory)
+  console.log(todayTasksArray);
+  console.log(somedayTasksArray);
+  console.log(upcomingTasksArray);
+  console.log(tomorrowTasksArray);
    ///////////////////////////////////////////////////////////////
    console.log(elapsedTimeHoursMinutesArray)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
-  const moveToPreviousePage = () => {
-    navigate(-1);
-  };
-  
+ 
   useEffect(() =>{
     const cleanUp = () => {
       dispatch(setNumSelectedPomodoro(0))
@@ -129,16 +140,6 @@ const AddTaskComponent = () => {
       [`projectsTasks.${taskName}.tasksToBeCompleted`]: newTasksToBeCompletedNum
     })
   }
-  const updateTasksTimesArray = async (newTasksTimesArray) => {
-     await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.tasksTimesArray`]: newTasksTimesArray
-    })
-  }
-  const updateTotalEstimatedTasksTime = async (newTotalEstimatedTasksTime) => {
-    await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.totalEstimatedTasksTime`]: newTotalEstimatedTasksTime
-    })
-  }
   const removeTaskTime = async (tasksTimesArray,tasksIndex) => {
     //1. Remove task time
     const newTasksTimesArray = tasksTimesArray.filter((task,index) => tasksIndex !== index)
@@ -159,32 +160,6 @@ const AddTaskComponent = () => {
 
    
 }
-  const decreaseTotalEstimatedTasksTime = async (taskIndex,totalEstimatedTasksTime,tasksTimesArray) =>{
-    // console.log(`Tasks times array ${tasksTimesArray}`);
-    // console.log(`Deleted task index: ${taskIndex}`);
-    // if(totalEstimatedTasksTime === 0) return
-    // if(tasksTimesArray.length === 0) return
-    // const newTotalEstimatedTasksTime = totalEstimatedTasksTime - tasksTimesArray[taskIndex]
-    // console.log(newTotalEstimatedTasksTime);
-    // if(newTotalEstimatedTasksTime >= 0){
-    //   dispatch(setTotalEstimatedTaskTime(newTotalEstimatedTasksTime))
-    const newTotalEstimatedTasksTime = tasksTimesArray.reduce((initialValue,secondValue) => initialValue + secondValue,0)
-      await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.totalEstimatedTasksTime`]: newTotalEstimatedTasksTime
-    })
-    }
-    // else {
-    //   dispatch(setTotalEstimatedTaskTime(0))
-    //   await updateDoc(userTasksRef,{
-    //   [`projectsTasks.${taskName}.totalEstimatedTasksTime`]: 0
-    // })
-    // }
-    
-  //   // dispatch(FetchTasks(userId))
-  // }
-  
-  // console.log(totalEstimatedTasksTime);
-  
   
   const updateTotalTasksTime = async (totalTasksTime) => {
     dispatch(setTotalEstimatedTaskTime(totalTasksTime))
@@ -192,15 +167,44 @@ const AddTaskComponent = () => {
       [`projectsTasks.${taskName}.totalEstimatedTasksTime`]: totalTasksTime
      })
   }
-
+  const updateTasksCategory = async (taskCategory, newArray) => {
+    await updateDoc(userTasksRef,{
+     [`tasks.${taskCategory}`]: newArray
+    })
+  }
    const inputRef = useRef()
     ///Add task handler////////
     console.log(currTaskObject);
+    ///////////////////////////////////////////////////
     ///Handle   Add task ////
     const handleAddTask = () => {
     if(inputRef.current.value === ""){
       setShowUI(false)
        return
+      }
+      switch (tasksCategory) {
+        case 'today':
+          const newTodayTasksArray = [...todayTasksArray,inputRef.current.value]
+          console.log(newTodayTasksArray);
+          dispatch(setTodayCategoryTasks(newTodayTasksArray))
+          updateTasksCategory(tasksCategory,newTodayTasksArray)
+          
+          break;
+        case 'tomorrow':
+          const newTomorrowTasksArray = [...tomorrowTasksArray,inputRef.current.value]
+          dispatch(setTodayCategoryTasks(newTomorrowTasksArray))
+          updateTasksCategory(tasksCategory,newTomorrowTasksArray)
+          break;
+        case 'upcoming':
+          const newUpcomingTasksArray = [...upcomingTasksArray,inputRef.current.value]
+          dispatch(setTodayCategoryTasks(newUpcomingTasksArray))
+          updateTasksCategory(tasksCategory,newUpcomingTasksArray)
+          break;
+        case 'someday':
+          const newSomedayTasksArray = [...somedayTasksArray,inputRef.current.value]
+          dispatch(setTodayCategoryTasks(newSomedayTasksArray))
+          updateTasksCategory(tasksCategory,somedayTasksArray)
+          break;
       }
     inputRef.current.blur()
     dispatch(getProjectTodos(inputRef.current.value))
@@ -358,6 +362,7 @@ const AddTaskComponent = () => {
       </div>
       <CompletedTasks showFinishedTasks={showFinishedTasks} completedTasksArray = {completedTasksArray}/>
      <PomodoroSetting showUI ={showUI} handleAddTask={handleAddTask}/>
+     <TasksCategoryPopUp/>
      
     </div>
   );

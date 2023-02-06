@@ -65,7 +65,8 @@ const TodayTasks = () => {
   const [showUI,setShowUI] = useState(false)
   const [showFinishedTasks,setShowFinishedTask] = useState((false))
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
-  
+  const todayTasksArray = useSelector(state => state.settings.todayTasks)
+  console.log(todayTasksArray);
    ///////////////////////////////////////////////////////////////
    console.log(elapsedTimeHoursMinutesArray)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
@@ -341,7 +342,7 @@ const TodayTasks = () => {
         />
          
      <div className={style.tasksWrapper}>
-        {tasksArray.length > 0 ? tasksArray.map((task, i) => {
+        {todayTasksArray.length > 0 ? todayTasksArray.map((task, i) => {
         return (<div className={style.taskContainer} key ={i}>
           <div className={style.circle} onClick = {() => handleComplete(i,totalEstimatedTasksTime,tasksTimesArray,tasksArray,completedTasksArray)}></div>
            <div className={style.task}>

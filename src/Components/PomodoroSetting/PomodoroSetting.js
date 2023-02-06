@@ -8,6 +8,7 @@ import {showStopWatchIcon,blurStopWatchIcon} from "../PomodoroSetting/PomodoroSe
 import StopWatch from '../StopWatch/StopWatch';
 import StopWatchNumber from '../StopWatch/StopWatchNumber';
 import { hidePomodoroSettings } from '../PomodoroSetting/PomodoroSettingSlice';
+import { showTaskCategoryPopUp } from '../Settings/SettingsSlice';
 // import classames from "./classnames"
 const PomodoroSetting = ({handleAddTask,showUI}) => {
     const iconState = useSelector((state) => state.PomodoroSetting.stopWatchIcon)
@@ -36,7 +37,7 @@ const PomodoroSetting = ({handleAddTask,showUI}) => {
             <StopWatchNumber/>
             </div>
             <div className={style.taskSetting} >
-                <div className={style.taskIcon}>Task Icon</div>
+                <div className={style.taskIcon} onClick = {() => dispatch(showTaskCategoryPopUp())}>Task Icon</div>
                 <TbFlag className={style.flagIcon}/>
                 <div className={style.tag}>Tag</div>
                 <div className={style.Task}>Task</div>
