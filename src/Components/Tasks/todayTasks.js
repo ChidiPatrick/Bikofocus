@@ -262,7 +262,7 @@ const TodayTasks = () => {
             <span className={style.TaskTimeUnit}>HH</span>
             <span className={style.TaskTimeUnit}>MM</span>
           </div>
-          <div className={style.TaskEstimatedTime}>
+          {/* <div className={style.TaskEstimatedTime}>
             <span>
                {todaysTasksElaspedTime[0] < 10 ? `0${todaysTasksElaspedTime[0]}` : todaysTasksElaspedTime[0]}
             </span>
@@ -272,7 +272,7 @@ const TodayTasks = () => {
                 {todaysTasksElaspedTime[1] < 10 ? `0${todaysTasksElaspedTime[1]}` : todaysTasksElaspedTime[1]}
               
              </span>
-          </div>
+          </div> */}
           <span className={style.TaskTimeUnit}>Elasped Time</span>
         </div>
         <div className={style.TaskCompletedWrapper}>
