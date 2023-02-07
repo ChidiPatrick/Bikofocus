@@ -56,14 +56,14 @@ const TodayTasks = () => {
   // const [elaspedTimeHoursMinutesArray,setElapsedTimeHoursMinutes] = useState(calculateMinutesAndHours(elapsedTime))
   const todaysCompletedTasksArray = useSelector(state => state.settings.todaysCompletedTasksArray)
   const tasksTimesArray = useSelector(state => state.settings.todaysTasksTimesArray)
-  const elapsedTimeHoursMinutesArray = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
+  const todaysTasksElaspedTime = useSelector(state => state.settings.todaysTasksElaspedTime)
   const [showUI,setShowUI] = useState(false)
   const [showFinishedTasks,setShowFinishedTask] = useState((false))
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
   const todayTasksArray = useSelector(state => state.settings.todayTasks)
   console.log(todaysCompletedTasksArray);
    ///////////////////////////////////////////////////////////////
-   console.log(elapsedTimeHoursMinutesArray)
+   console.log(todaysTasksElaspedTime)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
   
   useEffect(() =>{
@@ -264,12 +264,12 @@ const TodayTasks = () => {
           </div>
           <div className={style.TaskEstimatedTime}>
             <span>
-               {elapsedTimeHoursMinutesArray[0] < 10 ? `0${elapsedTimeHoursMinutesArray[0]}` : elapsedTimeHoursMinutesArray[0]}
+               {todaysTasksElaspedTime[0] < 10 ? `0${todaysTasksElaspedTime[0]}` : todaysTasksElaspedTime[0]}
             </span>
              <span>:</span>
              <span>
               
-                {elapsedTimeHoursMinutesArray[1] < 10 ? `0${elapsedTimeHoursMinutesArray[1]}` : elapsedTimeHoursMinutesArray[1]}
+                {todaysTasksElaspedTime[1] < 10 ? `0${todaysTasksElaspedTime[1]}` : todaysTasksElaspedTime[1]}
               
              </span>
           </div>
