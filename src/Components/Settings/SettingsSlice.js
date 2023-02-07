@@ -45,12 +45,23 @@ const initialState = {
 	popUp: false,
 	changePasswordPopUp: false,
 	changeUsername: false,
-	todayTasks: [],
+	todayTasks: null,
 	someDayTasks: [],
 	tomorrowTasks: [],
 	upcomingTasks: [],
 	tasksCategory: "today",
 	showTasksCategoryPopUp: false,
+	/////Today Tasks state/////////////
+	todaysTasksEstimatedTimeArray: [0,0],
+	todaysCompletedTasks: 0,
+    todaysTasksToBeCompleted: 0,
+    todaysEstimatedTasksTime: 0,
+    todaysTasksElaspedTime: [0,0],
+    todaysTasks: [],
+    todaysTotalEstimatedTasksTime: 0,
+    todaysCompletedTasksArray: [],
+    todaysTasksTimesArray: [],
+	todaysTasksHoursMinutesArray: [0,0]
 	
 };
 export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", async (userId,{dispatch,getState}) =>{
@@ -74,7 +85,7 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
 		const data = await getDoc(userTasksDoc)
     	if(data.exists()){
 		const userProjectTasks = data.data().projectsTasks
-		const tasksByCategories = data.data().task
+		const tasksByCategories = data.data().tasksCategories
 		dispatch(setUserTasks(userProjectTasks))
 		dispatch(setTodayCategoryTasks(tasksByCategories.today))
 		dispatch(setTomorrowCategoryTasks(tasksByCategories.tomorrow))
@@ -311,8 +322,48 @@ const SettingSlice = createSlice({
 		},
 		hideTaskCategoryPopUp(state,account){
 			state.showTasksCategoryPopUp = false
+		},
+		updataTodayTasksEstimatedTime(state,action){
+			state.todayTasksEstimatedTimeArray = action.payload
+		},
+		///////////////////Todays Task Reducers////////////////////////////
+		setTodaysTasksEstimatedTimeArray(state,action){
+			state.todaysTasksEstimatedTimeArray = action.payload
+		},
+		setTodaysCompletedTasks(state,action){
+			state.todaysCompletedTasks = action.payload
+		},
+		setTodaysEstimatedTasksTime(state,action){
+			state.todaysEstimatedTasksTime = action.payload
+		},
+		setTodaysTasksToBeCompleted(state,action){
+			state.todaysTasksToBeCompleted = action.payload
+		},
+		setTodaysTasksElapsedTime(state,action){
+			state.todaysTasksElaspedTime = action.payload
+		},
+		setTodaysTasks(state,action){
+			state.todayTasks = action.payload
+		},
+		setTodaysTotalEstimatedTime(state,action){
+			state.todaysTotalEstimatedTasksTime = action.payload
+		},
+		setTodaysCompletedTasksArray(state,action){
+			state.todaysCompletedTasksArray = action.payload
+		},
+		setTodaysTasksTimeArray(state,action){
+			state.todaysTasksTimesArray = action.payload
+		},
+		updateTodaysTasksArray(state,action){
+			state.todaysTasks.push(action.payload)
+		},
+		increaseTodaysTasksToBeCompleted(state,action){
+			state.todaysTasksToBeCompleted = state.todaysTasksToBeCompleted + 1
+		},
+		setTodaysTaskHoursMinutesArray(state,action){
+			state.todaysTasksHoursMinutesArray = action.payload
 		}
-			
+		
 			
 	}
 });
@@ -377,6 +428,19 @@ export const {
 	setUpcomingCategoryTasks,
 	setTaskCategory,
 	hideTaskCategoryPopUp,
-	showTaskCategoryPopUp
+	showTaskCategoryPopUp,
+	/////////////////////
+	setTodaysTasksEstimatedTimeArray,
+	setTodaysCompletedTasks,
+	setTodaysEstimatedTasksTime,
+	setTodaysTasksToBeCompleted,
+	setTodaysTasksElapsedTime,
+	setTodaysTasks,
+	setTodaysTotalEstimatedTime,
+	setTodaysCompletedTasksArray,
+	setTodaysTasksTimeArray,
+	updateTodaysTasksArray,
+	increaseTodaysTasksToBeCompleted,
+	setTodaysTaskHoursMinutesArray
 } = SettingSlice.actions;
 export default SettingSlice.reducer;

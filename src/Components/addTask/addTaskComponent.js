@@ -75,10 +75,7 @@ const AddTaskComponent = () => {
   const upcomingTasksArray = useSelector(state => state.settings.upcomingTasks)
   const tomorrowTasksArray = useSelector(state => state.settings.tomorrowTasks)
   const tasksCategory = useSelector(state => state.settings.tasksCategory)
-  console.log(todayTasksArray);
-  console.log(somedayTasksArray);
-  console.log(upcomingTasksArray);
-  console.log(tomorrowTasksArray);
+  
    ///////////////////////////////////////////////////////////////
    console.log(elapsedTimeHoursMinutesArray)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
