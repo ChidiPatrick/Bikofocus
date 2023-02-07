@@ -170,34 +170,7 @@ const UserAccountUI = (props) => {
       {/* <SearchInput/> */}
       {/* <input type="search" placeholder="Search" className={styles.search} /> */}
       <div className={styles.todoWrapper}>
-        <div className={styles.todo}>
-          <Link className={styles.link} to="/todayTodo">
-            <FaSun className={styles.sunIcon} />
-            <span className={styles.todayTodo}>Today</span>
-          </Link>
-          
-        </div>
-        <div className={styles.todo}>
-          <Link className={styles.link} to="/tomorrowTodo">
-            <MdOutlineWbTwilight className={styles.tomorrowIcon} />
-            <span className={styles.todayTodo}>Tomorrow</span>
-          </Link>
-          
-        </div>
-        <div className={styles.todo}>
-          <Link className={styles.link} to="/upcomingTodo">
-            <FaRegCalendarCheck className={styles.upcomingIcon} />
-            <span className={styles.todayTodo}>Upcoming</span>
-          </Link>
-          
-        </div>
-        <div className={styles.todo}>
-          <Link className={styles.link} to="/somedayTodo">
-            <FaRegCalendarAlt className={styles.somedayIcon} />
-            <span className={styles.todayTodo}>Someday</span>
-          </Link>
-          
-        </div>
+        {/* s */}
         {/* <div className={styles.todo}>
           <Link className={styles.link} to="/events">
             <MdEventNote className={styles.eventIcon} />

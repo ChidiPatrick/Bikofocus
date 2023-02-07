@@ -6,12 +6,12 @@ import { IoIosCheckmark } from "react-icons/io";
 import { useSelector } from "react-redux";
 // import { format,formatDistance, subDays } from "date-fns";
 ////////////////////////////////////////////////
-const CompletedTasks = ({todaysCompletedTasksArray, showFinishedTasks}) => {
-    console.log(todaysCompletedTasksArray);
+const CompletedTasks = ({completedTasksArray, showFinishedTasks}) => {
+    console.log(completedTasksArray);
     return(
-        todaysCompletedTasksArray.length > 0 ?
+        completedTasksArray.length > 0 ?
         <div className={showFinishedTasks ? styles.finishedTaskComponent : styles.hideTasks}>
-            {todaysCompletedTasksArray.map((task,index) => {
+            {completedTasksArray.map((task,index) => {
                 const date = new Date(task.date)
               return <div className={styles.finishedTasksWrapper} key = {index}>
                     <div className={styles.taskDate}>{date.toDateString()}</div>
