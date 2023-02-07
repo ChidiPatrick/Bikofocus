@@ -60,10 +60,10 @@ const TodayTasks = () => {
   const [showUI,setShowUI] = useState(false)
   const [showFinishedTasks,setShowFinishedTask] = useState((false))
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
-  const todayTasksArray = useSelector(state => state.settings.todayTasks)
+  const todayTasksArray = useSelector(state => state.settings.todaysTasks)
   console.log(todaysCompletedTasksArray);
    ///////////////////////////////////////////////////////////////
-   console.log(todaysTasksElaspedTime)
+   console.log(todayTasksArray)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
   
   useEffect(() =>{

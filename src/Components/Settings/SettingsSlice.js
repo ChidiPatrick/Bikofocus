@@ -45,7 +45,7 @@ const initialState = {
 	popUp: false,
 	changePasswordPopUp: false,
 	changeUsername: false,
-	todayTasks: null,
+	todayTasksObject: null,
 	someDayTasks: [],
 	tomorrowTasks: [],
 	upcomingTasks: [],
@@ -324,7 +324,7 @@ const SettingSlice = createSlice({
 			state.showTasksCategoryPopUp = false
 		},
 		updataTodayTasksEstimatedTime(state,action){
-			state.todayTasksEstimatedTimeArray = action.payload
+			state.todaysTasksEstimatedTimeArray = action.payload
 		},
 		///////////////////Todays Task Reducers////////////////////////////
 		setTodaysTasksEstimatedTimeArray(state,action){
