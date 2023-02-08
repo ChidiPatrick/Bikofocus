@@ -1,0 +1,47 @@
+.completedTasksWrapper{
+    height: 100vh;
+    padding: 10px;
+
+}
+.completedTasksHeader{
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 20px;
+}
+// .backBtn{
+// }
+.navigateBackIcon{
+    margin-right: 40px;
+    margin-left: -20px;
+    font-size: 30px;
+    color: black;
+    font-weight: 100;
+}
+.completedTask{
+    // width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.completedBadge{
+    background-color: rgb(13, 196, 13);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    fill: #fff;
+    margin-right: 20px;
+}
+.tasksCompletionDate{
+    background-color: rgb(231, 231, 231);
+    color: black;
+    // height: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

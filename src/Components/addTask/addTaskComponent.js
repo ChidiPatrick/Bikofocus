@@ -21,6 +21,7 @@ import {
   setTasksTimesArray,
   setCurrTasks,
   setActivePomodoroLength,
+  setProjectsCompletedTasks,
   reduceTasksToBeCompleted
 } from "../Settings/SettingsSlice";
 import { ImBin,ImRadioUnchecked } from "react-icons/im";
@@ -75,9 +76,11 @@ const AddTaskComponent = () => {
   const upcomingTasksArray = useSelector(state => state.settings.upcomingTasks)
   const tomorrowTasksArray = useSelector(state => state.settings.tomorrowTasks)
   const tasksCategory = useSelector(state => state.settings.tasksCategory)
-  
+  const projectsCompletedTasks = useSelector(state => state.settings.projectsCompletedTasks)
+  const date = new Date()
+  console.log(projectsCompletedTasks);
    ///////////////////////////////////////////////////////////////
-   console.log(elapsedTimeHoursMinutesArray)
+   console.log(completedTasksArray)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
  
   useEffect(() =>{
@@ -138,6 +141,7 @@ const AddTaskComponent = () => {
     })
   }
   const removeTaskTime = async (tasksTimesArray,tasksIndex) => {
+    console.log(typeof tasksTimesArray);
     //1. Remove task time
     const newTasksTimesArray = tasksTimesArray.filter((task,index) => tasksIndex !== index)
     //2. Update tasksTimesArray
@@ -157,21 +161,15 @@ const AddTaskComponent = () => {
 
    
 }
-  
+
   const updateTotalTasksTime = async (totalTasksTime) => {
     dispatch(setTotalEstimatedTaskTime(totalTasksTime))
      await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.totalEstimatedTasksTime`]: totalTasksTime
      })
   }
-  const updateTasksCategory = async (taskCategory, newArray) => {
-    await updateDoc(userTasksRef,{
-     [`tasks.${taskCategory}`]: newArray
-    })
-  }
    const inputRef = useRef()
     ///Add task handler////////
-    console.log(currTaskObject);
     ///////////////////////////////////////////////////
     ///Handle   Add task ////
     const handleAddTask = () => {
@@ -179,30 +177,7 @@ const AddTaskComponent = () => {
       setShowUI(false)
        return
       }
-      switch (tasksCategory) {
-        case 'today':
-          const newTodayTasksArray = [...todayTasksArray,inputRef.current.value]
-          console.log(newTodayTasksArray);
-          dispatch(setTodayCategoryTasks(newTodayTasksArray))
-          updateTasksCategory(tasksCategory,newTodayTasksArray)
-          
-          break;
-        case 'tomorrow':
-          const newTomorrowTasksArray = [...tomorrowTasksArray,inputRef.current.value]
-          dispatch(setTodayCategoryTasks(newTomorrowTasksArray))
-          updateTasksCategory(tasksCategory,newTomorrowTasksArray)
-          break;
-        case 'upcoming':
-          const newUpcomingTasksArray = [...upcomingTasksArray,inputRef.current.value]
-          dispatch(setTodayCategoryTasks(newUpcomingTasksArray))
-          updateTasksCategory(tasksCategory,newUpcomingTasksArray)
-          break;
-        case 'someday':
-          const newSomedayTasksArray = [...somedayTasksArray,inputRef.current.value]
-          dispatch(setTodayCategoryTasks(newSomedayTasksArray))
-          updateTasksCategory(tasksCategory,somedayTasksArray)
-          break;
-      }
+      
     inputRef.current.blur()
     dispatch(getProjectTodos(inputRef.current.value))
     dispatch(updateCurrProjectTasks(inputRef.current.value))
@@ -220,34 +195,51 @@ const AddTaskComponent = () => {
   }
   const updateCurrTasksArray = (currTasksArray,taskIndex) => {
     const newTasksArray =  currTasksArray.filter((task,index) => index !== taskIndex) 
-    console.log(newTasksArray);
     dispatch(updateProjectTasks(newTasksArray))
-   
   }
   const updateCompletedTasksArray = async (completedTasksArray,tasksArray,index) => {
-    const date = new Date().toString()
-    const completedTaskTitle = tasksArray[index]
-    const newCompletedTasksArray = [...completedTasksArray,{taskTitle: completedTaskTitle,date}]
+    // const completedTaskTitle = tasksArray[index]
+    // const newCompletedTasksArray = [...completedTasksArray,tasksArray[index]]
+     const date = new Date()
+    const newCompletedTasksArray = [...completedTasksArray,{date: date.toDateString(),taskTitle: tasksArray[index], time: date.toLocaleTimeString()}]
     console.log(newCompletedTasksArray);
     dispatch(setCompletedTasksArray(newCompletedTasksArray))
      await updateDoc(userTasksRef,{
     [`projectsTasks.${taskName}.completedTasksArray`]: newCompletedTasksArray
      })
   }
+  
   const removeAndUpdateTaskFromTasksArray = async (taskIndex,tasksArray,completedTasksArray) => {
-    const newCompletedTasksArray = [...completedTasksArray,tasksArray[taskIndex]]
+    const date = new Date()
+    const newCompletedTasksArray = [...completedTasksArray,{date: date.toDateString(),taskTitle: tasksArray[taskIndex], time: date.toLocaleTimeString()}]
     dispatch(setCompletedTasksArray(newCompletedTasksArray))
-   const newTasksArray = tasksArray.filter((task,index) => index !== taskIndex)
+   const newTasksArray = tasksArray.filter((task,index) => {
+    if(taskIndex === index){
+      dispatch(setProjectsCompletedTasks({
+        date: date.toDateString(),
+        taskTitle: tasksArray[index],
+        time: date.toLocaleTimeString()
+      }))
+      return false
+    }
+    else if (index !== taskIndex) {
+      return true
+    }
+     
+   })
+  //  const newTasksArray = updateProjectsCompletedTasks(taskIndex,index,tasksArray)
    console.log(newTasksArray);
    dispatch(setCurrTasks(newTasksArray))
    await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.tasks`]: newTasksArray
      })
   }
-  const handleComplete = async (index,totalEstimatedTasksTime,tasksTimesArray,tasksArray,completedTasksArray) => {
+  const handleComplete = async (index,tasksTimesArray,tasksArray,completedTasksArray) => {
+    console.log(tasksTimesArray);
     updateCurrTasksArray(tasksArray,index)
     const numCompletedTasks = completedTasks + 1
     dispatch(setCompletedTasks(numCompletedTasks))
+    // dispatch()
     removeTaskTime(tasksTimesArray,index)
     removeAndUpdateTaskFromTasksArray(index,tasksArray,completedTasksArray)
     decrementTasksTodo(tasksToBeCompleted)
@@ -343,7 +335,7 @@ const AddTaskComponent = () => {
      <div className={style.tasksWrapper}>
         {tasksArray.length > 0 ? tasksArray.map((task, i) => {
         return (<div className={style.taskContainer} key ={i}>
-          <div className={style.circle} onClick = {() => handleComplete(i,totalEstimatedTasksTime,tasksTimesArray,tasksArray,completedTasksArray)}></div>
+          <div className={style.circle} onClick = {() => handleComplete(i,tasksTimesArray,tasksArray,completedTasksArray)}></div>
            <div className={style.task}>
             <span>{task}</span>
             <span onClick={handleStart}>Play</span>
@@ -367,3 +359,27 @@ const AddTaskComponent = () => {
 ;
 
 export default AddTaskComponent;
+// switch (tasksCategory) {
+      //   case 'today':
+      //     const newTodayTasksArray = [...todayTasksArray,inputRef.current.value]
+      //     console.log(newTodayTasksArray);
+      //     dispatch(setTodayCategoryTasks(newTodayTasksArray))
+      //     updateTasksCategory(tasksCategory,newTodayTasksArray)
+          
+      //     break;
+      //   case 'tomorrow':
+      //     const newTomorrowTasksArray = [...tomorrowTasksArray,inputRef.current.value]
+      //     dispatch(setTodayCategoryTasks(newTomorrowTasksArray))
+      //     updateTasksCategory(tasksCategory,newTomorrowTasksArray)
+      //     break;
+      //   case 'upcoming':
+      //     const newUpcomingTasksArray = [...upcomingTasksArray,inputRef.current.value]
+      //     dispatch(setTodayCategoryTasks(newUpcomingTasksArray))
+      //     updateTasksCategory(tasksCategory,newUpcomingTasksArray)
+      //     break;
+      //   case 'someday':
+      //     const newSomedayTasksArray = [...somedayTasksArray,inputRef.current.value]
+      //     dispatch(setTodayCategoryTasks(newSomedayTasksArray))
+      //     updateTasksCategory(tasksCategory,somedayTasksArray)
+      //     break;
+      // }

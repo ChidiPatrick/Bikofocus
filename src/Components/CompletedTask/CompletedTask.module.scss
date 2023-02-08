@@ -1,20 +1,22 @@
 .finishedTaskComponent{
-    width: 100%;
+    // width: 100%;
     min-height: 100px;
     color: black;
 }
 .finishedTasksWrapper{
     background-color: #fff;
-    width: 100%;
+    // width: 100%;
     padding: 5px;
     border-radius: 5px;
     margin: 10px 5px;
 }
 .taskDate{
-    min-width: 100px;
+    // min-width: 100px;
     // padding: 10px;
     color: rgb(173, 173, 173);
     text-align: left;
+    display: flex;
+    justify-content: space-between;
 }
 .finishedTaskContainer{
     display: flex;

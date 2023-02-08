@@ -6,12 +6,9 @@ import {
   FaRegCalendarCheck,
   FaRegCalendarAlt,
 } from "react-icons/fa";
-import { BiCalendar, BiCheckCircle } from "react-icons/bi";
+import {BiCheckCircle } from "react-icons/bi";
 import { IoIosSettings, IoIosSearch } from "react-icons/io";
-// import SearchInput from "../SearchInput/SearchInput"
 import { MdEventNote, MdOutlineWbTwilight } from "react-icons/md";
-// import {ButtonBack} from '../NavButtons/NavButton'
-// import AddProject from "../AddProject/AddProject";
 import { useDispatch,useSelector } from "react-redux";
 import { IoIosAdd,IoIosPricetag,IoIosClose } from "react-icons/io";
 import { ImFolderPlus } from "react-icons/im";
@@ -179,7 +176,7 @@ const UserAccountUI = (props) => {
          
         </div> */}
         <div className={styles.todo}>
-          <Link className={styles.link} to="/completed">
+          <Link className={styles.link} to="/completedTasks">
             <BiCheckCircle className={styles.completedIcon} />
             <span className={styles.todayTodo}>Completed</span>
           </Link>
