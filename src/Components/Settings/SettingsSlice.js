@@ -366,7 +366,7 @@ const SettingSlice = createSlice({
 		// }
 		
 		setProjectsCompletedTasks(state,action){
-			state.projectsCompletedTasks = [...state.projectsCompletedTasks,action.payload]
+			state.projectsCompletedTasks = action.payload
 		}
 	}
 });

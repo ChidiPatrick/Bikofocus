@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { HiChevronLeft } from "react-icons/hi";
 import styles from "./projectsCompletedTasks.module.scss"
-import {BiCheckCircle } from "react-icons/bi";
 import { useSelector } from 'react-redux';
 import { IoIosCheckmark } from "react-icons/io";
 const ProjectsCompletedTasks = () => {

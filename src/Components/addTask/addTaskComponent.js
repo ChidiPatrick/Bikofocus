@@ -215,11 +215,12 @@ const AddTaskComponent = () => {
     dispatch(setCompletedTasksArray(newCompletedTasksArray))
    const newTasksArray = tasksArray.filter((task,index) => {
     if(taskIndex === index){
-      dispatch(setProjectsCompletedTasks({
+      const newProjectsCompletedTasks = [...projectsCompletedTasks,{
         date: date.toDateString(),
         taskTitle: tasksArray[index],
         time: date.toLocaleTimeString()
-      }))
+      }]
+      dispatch(setProjectsCompletedTasks(newProjectsCompletedTasks))
       return false
     }
     else if (index !== taskIndex) {
