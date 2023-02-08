@@ -80,7 +80,7 @@ const AddTaskComponent = () => {
   const date = new Date()
   console.log(projectsCompletedTasks);
    ///////////////////////////////////////////////////////////////
-   console.log(completedTasksArray)
+   console.log(elapsedTimeHoursMinutesArray)
 //  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
  
   useEffect(() =>{
@@ -221,6 +221,7 @@ const AddTaskComponent = () => {
         time: date.toLocaleTimeString()
       }]
       dispatch(setProjectsCompletedTasks(newProjectsCompletedTasks))
+      
       return false
     }
     else if (index !== taskIndex) {

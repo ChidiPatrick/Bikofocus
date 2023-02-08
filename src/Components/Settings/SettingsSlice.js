@@ -86,14 +86,17 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
 		const data = await getDoc(userTasksDoc)
     	if(data.exists()){
 		const userProjectTasks = data.data().projectsTasks
-		const tasksByCategories = data.data().tasksCategories
+		const allCompletedTasks = data.data().allCompletedTasks
 		dispatch(setUserTasks(userProjectTasks))
-		dispatch(setTodayCategoryTasks(tasksByCategories.today))
-		dispatch(setTomorrowCategoryTasks(tasksByCategories.tomorrow))
-		dispatch(setUpcomingCategoryTasks(tasksByCategories.upcoming))
-		dispatch(setSomedayCategoryTasks(tasksByCategories.someday))
+		dispatch(setProjectsCompletedTasks(allCompletedTasks))
 		dispatch(setTaskDataAvailable())
 		console.log(userProjectTasks);
+		// const tasksByCategories = data.data().tasksCategories
+		// dispatch(setTodayCategoryTasks(tasksByCategories.today))
+		// dispatch(setTomorrowCategoryTasks(tasksByCategories.tomorrow))
+		// dispatch(setUpcomingCategoryTasks(tasksByCategories.upcoming))
+		// dispatch(setSomedayCategoryTasks(tasksByCategories.someday))
+		
 		
    	 }
 	}
