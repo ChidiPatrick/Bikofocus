@@ -15,7 +15,7 @@ const ProjectsCompletedTasks = () => {
             </Link>
             <span>Completed Tasks</span>
         </h3>
-        {completeTasksArray.map((task,index) => {
+        {completeTasksArray.length > 0 ?  completeTasksArray.map((task,index) => {
         return <div className={styles.completedTasks} key = {index}>
                 <div className={styles.tasksCompletionDate}>
                   <span>{task.date}</span>
@@ -26,7 +26,9 @@ const ProjectsCompletedTasks = () => {
                     <div className={styles.taskTitle}>{task.taskTitle}</div>
                 </div>
         </div>
-        })}
+        })
+    : <div>No completed tasks</div>
+        }
         
     </div>;
 }
