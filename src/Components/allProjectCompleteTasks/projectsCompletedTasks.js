@@ -6,8 +6,8 @@ import {BiCheckCircle } from "react-icons/bi";
 import { useSelector } from 'react-redux';
 import { IoIosCheckmark } from "react-icons/io";
 const ProjectsCompletedTasks = () => {
-    const completeTasksArray = useSelector(state => state.settings.projectsCompletedTasks)
-    console.log(completeTasksArray);
+    const projectsCompletedTasks = useSelector(state => state.settings.projectsCompletedTasks)
+    console.log(projectsCompletedTasks);
     return <div className={styles.completedTasksWrapper}>
         <h3 className={styles.completedTasksHeader}>
             <Link to = "/UserAccount" className ={styles.backBtn}>
@@ -15,7 +15,7 @@ const ProjectsCompletedTasks = () => {
             </Link>
             <span>Completed Tasks</span>
         </h3>
-        {completeTasksArray.length > 0 ?  completeTasksArray.map((task,index) => {
+        {projectsCompletedTasks.length > 0 ?  projectsCompletedTasks.map((task,index) => {
         return <div className={styles.completedTasks} key = {index}>
                 <div className={styles.tasksCompletionDate}>
                   <span>{task.date}</span>
