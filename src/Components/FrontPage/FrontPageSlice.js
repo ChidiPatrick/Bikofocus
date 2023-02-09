@@ -13,7 +13,9 @@ const initialState = {
   break: false,
   counting: false,
   countDownRunning: false,
-  triggerPlayFromTask: false
+  triggerPlayFromTask: false,
+  activeProject: null,
+  isRunning: false
 };
 const FrontPageSlice = createSlice({
   name: "FrontPage",
@@ -76,6 +78,15 @@ const FrontPageSlice = createSlice({
     },
     setTriggerPlayFromTask(state,action){
       state.triggerPlayFromTask = true
+    },
+    turnOffTriggerPlayFromTak(state,action){
+      state.triggerPlayFromTask = false
+    },
+    setActiveProject(state,action){
+      state.activeProject = action.payload
+    },
+    setIsRunning(state,action){
+      state.isRunning = action.payload
     }
   },
 });
@@ -97,6 +108,9 @@ export const {
   updateCurrnetTime,
   turnOffCountDownRunning,
   turnOnCountDownRunning,
-  setTriggerPlayFromTask
+  setTriggerPlayFromTask,
+  turnOffTriggerPlayFromTak,
+  setActiveProject,
+  setIsRunning
 } = FrontPageSlice.actions;
 export default FrontPageSlice.reducer;

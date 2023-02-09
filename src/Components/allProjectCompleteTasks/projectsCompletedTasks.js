@@ -4,12 +4,14 @@ import { HiChevronLeft } from "react-icons/hi";
 import styles from "./projectsCompletedTasks.module.scss"
 import { useSelector } from 'react-redux';
 import { IoIosCheckmark } from "react-icons/io";
+import { HiFolderAdd,HiFolder,HiOutlineFolderAdd,HiOutlineDocument,HiOutlineDocumentText } from "react-icons/hi";
+// HiFolderAdd
 const ProjectsCompletedTasks = () => {
     const projectsCompletedTasks = useSelector(state => state.settings.projectsCompletedTasks)
     console.log(projectsCompletedTasks);
     return <div className={styles.completedTasksWrapper}>
         <h3 className={styles.completedTasksHeader}>
-            <Link to = "/UserAccount" className ={styles.backBtn}>
+            <Link to = "/UserAccount" className ={styles.backLink}>
               <HiChevronLeft className={styles.navigateBackIcon}/>
             </Link>
             <span>Completed Tasks</span>
@@ -26,7 +28,13 @@ const ProjectsCompletedTasks = () => {
                 </div>
         </div>
         })
-    : <div>No completed tasks</div>
+    : <div className={styles.fallbackUI}>
+        <HiOutlineDocument className={styles.documentIcon}/>
+        <span>
+            No completed tasks
+        </span>
+        
+    </div>
         }
         
     </div>;

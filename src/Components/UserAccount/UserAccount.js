@@ -167,18 +167,10 @@ const UserAccountUI = (props) => {
       {/* <SearchInput/> */}
       {/* <input type="search" placeholder="Search" className={styles.search} /> */}
       <div className={styles.todoWrapper}>
-        {/* s */}
-        {/* <div className={styles.todo}>
-          <Link className={styles.link} to="/events">
-            <MdEventNote className={styles.eventIcon} />
-             <span className={styles.todayTodo}>Events</span>
-          </Link>
-         
-        </div> */}
         <div className={styles.todo}>
           <Link className={styles.link} to="/completedTasks">
             <BiCheckCircle className={styles.completedIcon} />
-            <span className={styles.todayTodo}>Completed</span>
+            <span className={styles.todayTodo}>Completed Tasks</span>
           </Link>
           
         </div>
@@ -195,10 +187,10 @@ const UserAccountUI = (props) => {
                   <span style={{backgroundColor: `${project.projectColor}`}} className={styles.projectColor}></span>
                   <p className={styles.projectName}>{project.projectTitle}</p>
                 </div>
-                  <div>
+                  {/* <div>
                     <span className={styles.focusTime}>45m</span>
                     <span className={styles.numberOfTask}>3</span>
-                  </div>
+                  </div> */}
               </div>
             </div>
           })

@@ -14,7 +14,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   height: 100vh;
 }
 .FrontPageTime {
@@ -30,6 +29,22 @@
   // flex-direction: column;
   // align-items: center;
   // justify-content: center;
+}
+.timerHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%
+}
+.refreshIcon{
+  fill: #fff;
+}
+
+.refreshTimer{
+  padding: 10px;
+  // color: #dd2b0c;
+  width: 50px;
+  justify-self: flex-end;
 }
 .timer {
   border: solid 1px #fff;
@@ -52,10 +67,70 @@
   // align-items: center;
 }
 .UserAccountLink {
-  position: absolute;
-  top: 10px;
-  left: 20px;
+  // position: absolute;
+  // top: 10px;
+  // left: 20px;
   // background-color: #fff;
   color: #fff;
   font-size: 20px;
+}
+.navLink{
+  fill: #fff;
+  font-size: 25px;
+  margin-left: 5px;
+
+}
+.popUp{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5));
+}
+.cautionMessage{
+  width: 90%;
+  height: 100px;
+  background-color: #fff;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // color: #dd2b0c;
+}
+.cautionIcon{
+  font-size:  25px;
+  color: #dd2b0c;
+  
+  margin-right: 10px;
+}
+.iconConatainer{
+  height: 100%;
+  align-self: flex-start;
+}
+.hidden{
+  visibility: hidden;
+}
+.navContainer{
+  width: 80%;
+  margin: 0 auto;
+  height: 50px;
+  color: grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  // background-color: #fff;
+
+}
+.icon{
+  fill: #fff;
+  font-size: 20px;
+}
+.btnActionWord{
+  margin-left: 5px;
 }

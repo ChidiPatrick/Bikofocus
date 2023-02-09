@@ -55,11 +55,13 @@
 .eventIcon,
 .completedIcon,
 .tomorrowIcon {
-  width: 20px;
-  height: 20px;
+  // width: 20px;
+  // height: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  color: black;
+  font-size: 18px;
 }
 .sunIcon {
   fill: lightgreen;

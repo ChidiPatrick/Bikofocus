@@ -55,3 +55,17 @@
   align-items: center;
   background-color: transparent;
 }
+.BtnContinue,
+.BtnStart,
+.BtnStop,
+.BtnPause{
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btnIcon{
+  display: block;
+  margin-right: 10px;
+  
+}

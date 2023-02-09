@@ -14,7 +14,7 @@
 // .backBtn{
 // }
 .navigateBackIcon{
-    margin-right: 40px;
+    margin-right: 20px;
     margin-left: -20px;
     font-size: 30px;
     color: black;
@@ -44,4 +44,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.backLink{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fallbackUI{
+    height: 100%;
+    background-color: rgb(214, 214, 214);
+}
+.fallbackUI{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.documentIcon{
+    font-size: 40px;
+    // color: tomato;
 }

@@ -22,8 +22,10 @@ import {
   setCurrTasks,
   setActivePomodoroLength,
   setProjectsCompletedTasks,
+  
   reduceTasksToBeCompleted
 } from "../Settings/SettingsSlice";
+import {setActiveProject} from "../FrontPage/FrontPageSlice"
 import { ImBin,ImRadioUnchecked } from "react-icons/im";
 import { hidePomodoroSettings,showPomodoroSettings } from "../PomodoroSetting/PomodoroSettingSlice";
 import CompletedTasks from "../CompletedTask/CompletedTask";
@@ -42,8 +44,7 @@ import {
 
 //////////////////////////////////////////////////
 ////Add task Component//////////////
-/////////To do list ////////////
-//1. 
+/////////To do list //////////// 
 const AddTaskComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -259,9 +260,8 @@ const AddTaskComponent = () => {
     }
   }
   const handleStart = () => {
-    dispatch(setTriggerPlayFromTask())
+    dispatch(setActiveProject(projectTitle))
     dispatch(setActivePomodoroLength(pomodoroCurrLength))
-    
      navigate('/')
   } 
   

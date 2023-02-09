@@ -1,11 +1,5 @@
 import React, { useContext, } from "react";
 import styles from "./FrontPage.module.scss";
-// import Button, {
-//   ButtonContinue,
-//   ButtonPause,
-//   ButtonStop,
-//   ButtonStart,
-// } from "../Button/Button";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useRef } from "react";
 import {  useTimer } from "react-timer-hook";
@@ -34,9 +28,11 @@ import {
   updateCurrnetTime,
   turnOffCountDownRunning,
   turnOnCountDownRunning,
+  turnOffTriggerPlayFromTak,
+  setIsRunning
 
 } from "./FrontPageSlice";
-import {setTimeElasped,setElapsedTimeHoursMinutesArray} from "../Settings/SettingsSlice"
+import {setTimeElasped,setElapsedTimeHoursMinutesArray, FetchTasks} from "../Settings/SettingsSlice"
 import { getUserId } from "../SignUpForms/SignUpFormSlice";
 // import Toness from "../audioFiles/AudioFiles"
 import Bell from "../audioFiles/Bell.mp3"
@@ -51,6 +47,25 @@ import TubularBell from "../audioFiles/TubularBell.mp3"
 import Announcement from "../audioFiles/Announcement.mp3"
 import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
+import { FcExpired, FcFolder, FcInfo } from "react-icons/fc";
+import { IoIosArrowBack,IoIosList,IoMdListBox,IoIosStats } from "react-icons/io";
+import { IoBarChar,IoBarChart,IoStatsChartSharpt } from "react-icons/io5";
+import { FcSettings, FcTodoList,FcBullish } from "react-icons/fc";
+import { 
+        ImFilesEmpt,
+        ImFolder,
+        ImStopwatch,
+        ImHourGlass,
+        ImLoop2,
+        ImLock,
+        ImNotification,
+        ImPause2,
+        ImStop2,
+        ImUser,
+        ImList, 
+        ImPlay3
+      } from "react-icons/im";
+// 
 // import { settings } from "firebase/analytics";
 /////////////////////////////////
 const FrontPage = ({ expiryTimestamp }) => {
@@ -67,21 +82,22 @@ const FrontPage = ({ expiryTimestamp }) => {
   const pomodoroTime = useSelector(state => state.settings.pomodoroCurrLength)
   const countDownRunning = useSelector(state => state.frontPage.countDownRunning)
   const triggerPlayFromTask = useSelector(state => state.frontPage.triggerPlayFromTask)
-  const activeRunningPomodoroLength = useSelector(state => state.settings.activeRunningPomodoroLength)
+  // const activeRunningPomodoroLength = useSelector(state => state.settings.activeRunningPomodoroLength)
+  const activeProject = useSelector(state => state.frontPage.activeProject)
   console.log(triggerPlayFromTask);
   const userId =  useSelector((state) => state.signUpSlice.userId)
+  const userTasks = useSelector(state => state.settings.userTasks)
+  const activePomodoroLength = useSelector(state => state.settings.activeRunningPomodoroLength)
+  const countDownIsRunning = useSelector(state => state.frontPage.isRunning)
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
+  const [showCautionMessage,setShowCautionMessage] = useState(false)
   const date = new Date()
-  console.log(date);
+  console.log(activeProject);
+  console.log(countDownIsRunning)
 
   const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
    const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
  ////////////////////////////////////////////////////////////
-
-  //  console.log(timeElapsed);
-  //  const arr = [...timeElapsed,parseInt(activeRunningPomodoroLength)]
-  //  console.log(arr);
-   ///Create an object of tones///
    const tones = {
     Bell,Swoosh,Thriller,TubularBell,Announcement,Notification,Buzzer,Decide,Ding,Impact
    }
@@ -102,10 +118,10 @@ const FrontPage = ({ expiryTimestamp }) => {
   } = useTimer({
     expiryTimestamp,
     autoStart: false,
-    onExpire: () => {
-      onExpiry();
-    },
+    onExpire: () => onExpiry()
+
   });
+  console.log(isRunning);
   //Handle Time Elapsed ///
   function calculateElapsedMinutesAndHours(minutes){
     const remainingMinutes = minutes % 60
@@ -114,54 +130,86 @@ const FrontPage = ({ expiryTimestamp }) => {
     console.log(minutes);
     return [parseInt(hours),parseInt(remainingMinutes)]
   }
+  /////Convert time to hours and minutes//////////
+  function calculateMinutesAndHours(minutes){
+    const remainingMinutes = minutes % 60
+    const hours = minutes / 60
+    // dispatch(setTasksHourMinutesArray([parseInt(hours),remainingMinutes]))
+    return [parseInt(hours),remainingMinutes]
+  }
+  const updateTotalElaspedTime = async (newTotalElapsedTime) => {
+    await updateDoc(userTasksRef,{
+      [`projectsTasks.${activeProject}.totalElaspedTime`]: newTotalElapsedTime,
+     })
+  }
+  //// Update Elasped Time ////////
+  // const updateElapsedTime = async (currPomodoroLength) => {
+  //   const activeProjectId = activeProject.split(" ").join("")
+  //   const currProject = userTasks[activeProjectId]
+  //   const totalElaspedTime = currProject.totalElaspedTime
+  //   const newTotalElapsedTime = totalElaspedTime + activePomodoroLength
+  //   const elapsedTimeHoursMinutesArray = calculateMinutesAndHours(newTotalElapsedTime)
+    // await updateDoc(userTasksRef,{
+    //   [`projectsTasks.${activeProject}.totalElaspedTime`]: newTotalElapsedTime,
+    //  })
+    // await updateDoc(userTasksRef,{
+    //   [`projectsTasks.${activeProject}.elaspedTime`]: elapsedTimeHoursMinutesArray,
+    //  })
+    //  updateTotalElaspedTime(newTotalElapsedTime)
+    //  dispatch(FetchTasks())
+  // }
+  ////////////////////////////////////////////////
   const handleTimeElapsed = async (timeElapsed,activeRunningPomodoroLength) => {
     const newTasksElapsedTimeArray = [...timeElapsed,parseInt(activeRunningPomodoroLength)]
     const newTotalElapsedTime = newTasksElapsedTimeArray.reduce((firstValue,secondValue) => firstValue + secondValue,0)
-    console.log('TIME ELAPSED!');
-    console.log();
     const newElapsedHourseMinutesArray = calculateElapsedMinutesAndHours(newTotalElapsedTime)
     dispatch(setElapsedTimeHoursMinutesArray(newElapsedHourseMinutesArray))
-    console.log(`TIMES ARRAY: ${newElapsedHourseMinutesArray}`);
     await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.elaspedTime`]: newElapsedHourseMinutesArray
-     
      })
+    dispatch(FetchTasks())
   }
-  useEffect(() => {
-    if(countDownRunning) {
-      start()
+  const pauseOnUnMount = () => {
+    if(countDownIsRunning){
+       pauseCountDown()
     }
-    else {
-      return
-    }
-  },[countDownRunning])
+   
+  }
+  // useEffect(() => {
+  //   if(countDownIsRunning)
+  //   return pauseCountDown()
+  // },[countDownIsRunning])
+  // useEffect(() => {
+  //   if(countDownRunning) {
+  //     start()
+  //   }
+  //   else {
+  //     return
+  //   }
+  // },[countDownRunning])
   
-  useEffect(() => {
-    if(triggerPlayFromTask){
-      start()
-    }
-  },[triggerPlayFromTask])
-
   const getDate = () => {
     const time = new Date();
     time.setSeconds(time.getSeconds() + (60 * pomodoroTime));
-    console.log(time);
     return time
    
   };
-   useEffect(() => {
-    if(!isRunning && !countDownRunning){
-      restart(getDate(),false)
-    }
-  },[countDownRunning,isRunning])
+  //  useEffect(() => {
+  //   if(!isRunning && !countDownRunning){
+  //     restart(getDate(),false)
+  //   }
+  // },[countDownRunning,isRunning])
   // console.log(expiryTimestamp);
   const onExpiry = () => {
     workAlarm.play();
-    handleTimeElapsed(timeElapsed,parseInt(activeRunningPomodoroLength))
+    handleTimeElapsed(timeElapsed,parseInt(activePomodoroLength))
     dispatch(resetState());
     restart(getDate(), false);
     dispatch(breakStart());
+    // updateElapsedTime(activePomodoroLength)
     dispatch(turnOffCountDownRunning())
+    dispatch(turnOffTriggerPlayFromTak())
+    dispatch(setIsRunning(isRunning))
   };
   const Style = [styles.FrontPageTime];
   // let classes = [classNames(btnStyles.BtnStart)];
@@ -171,24 +219,23 @@ const FrontPage = ({ expiryTimestamp }) => {
     dispatch(hideStartBtn());
     dispatch(startCounting());
     dispatch(turnOnCountDownRunning())
+    dispatch(setIsRunning(isRunning))
   };
-   useEffect(() => {
-    if(triggerPlayFromTask){
-      start()
-    }
-  },[triggerPlayFromTask])
+   
   // dispatch(updateCurrnetTime({ minute }));
   const pauseCountDown = () => {
     pause();
     dispatch(hidePauseBtn());
     dispatch(showContinueBtn());
     dispatch(showStopBtn());
+    dispatch(setIsRunning(isRunning))
   };
   const countinueCountDown = () => {
     resume();
     dispatch(hideContinueBtn());
     dispatch(hideStopBtn());
     dispatch(showPauseBtn());
+    dispatch(setIsRunning(isRunning))
   };
   const stopCountDown = () => {
     dispatch(resetState());
@@ -197,14 +244,45 @@ const FrontPage = ({ expiryTimestamp }) => {
     dispatch(hideContinueBtn());
     dispatch(hideStopBtn());
     dispatch(turnOffCountDownRunning())
+    dispatch(turnOffTriggerPlayFromTak())
+    dispatch(setIsRunning(isRunning))
    
   };
-  
+  const refresh = () => {
+    navigate(0)
+  }
+  const handleNavigation = () => {
+    if(isRunning) {
+      setShowCautionMessage(!showCautionMessage)
+      navigate('/')
+    }
+    else{
+      navigate("/UserAccount")
+    }
+    
+  }
   return (
     <div className={styles.FrontPageMainWrapper}>
-      <Link to="/UserAccount" className={styles.UserAccountLink}>
-        <IoIosArrowDown />
-      </Link>
+      <div className={showCautionMessage ? styles.popUp: styles.hidden} onClick = {() => setShowCautionMessage(!showCautionMessage)}>
+        <div className={styles.cautionMessage} >
+          <div className={styles.iconConatainer}>
+            <ImNotification className={styles.cautionIcon}/>
+          </div>
+          
+         <span>
+            You cannot access this page when the countdown is running,
+            pause the countdown or stop it in order to access this page
+         </span>
+        </div>
+      </div>
+      <div className={styles.timerHeader}>
+        <div onClick = {handleNavigation} className={styles.UserAccountLink}>
+        <IoIosArrowBack className={styles.navLink} />
+      </div>
+      <div className={styles.refreshTimer} onClick = {refresh}>
+        <ImLoop2 className={styles.refreshIcon}/>
+      </div>
+      </div>
       <div className={styles.FrontPageWrapper}>
         <div className={styles.FrontPageTime}>
           <div className={styles.timer}>
@@ -215,26 +293,26 @@ const FrontPage = ({ expiryTimestamp }) => {
               className={running ? btnStyles.BtnStart : btnStyles.BtnHide}
               onClick={startCountDown}
             >
-              Start Focus
+             <ImPlay3 className={btnStyles.btnIcons}/> <span className={styles.btnActionWord}>Start</span>
             </button>
             <button
               className={Pause ? btnStyles.BtnPause : btnStyles.BtnHide}
               onClick={pauseCountDown}
             >
-              Pause
+             <ImPause2 className={btnStyles.btnIcons}/> <span className={styles.btnActionWord}>Pause</span>
             </button>
             <div className={btnStyles.BtnWrapper}>
               <button
                 className={Continue ? btnStyles.BtnContinue : btnStyles.BtnHide}
                 onClick={countinueCountDown}
               >
-                Continue
+               <ImPlay3 className={btnStyles.btnIcons}/> <span className={styles.btnActionWord}>Continue</span>
               </button>
               <button
                 className={stop ? btnStyles.BtnStop : btnStyles.BtnHide}
                 onClick={stopCountDown}
               >
-                Stop
+               <ImStop2 className={btnStyles.btnIcons}/> <span className={styles.btnActionWord}>Stop</span>
               </button>
             </div>
           </div>
@@ -242,6 +320,12 @@ const FrontPage = ({ expiryTimestamp }) => {
         </div>
         {/* <Link /> */}
       </div>
+      <nav className={styles.navContainer}>
+        <div className={styles.navIcon}><ImUser className={styles.icon}/></div>
+        <div className={styles.navIcon}><ImHourGlass className={styles.icon}/></div>
+        <div className={styles.navIcon}><ImList className={styles.icon}/></div>
+        <div className={styles.navIcon}><IoBarChart className={styles.icon}/></div>
+      </nav>
     </div>
   );
 };
