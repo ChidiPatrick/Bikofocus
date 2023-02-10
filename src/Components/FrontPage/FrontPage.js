@@ -320,6 +320,23 @@ const FrontPage = ({ expiryTimestamp }) => {
   }
   return (
     <div className={styles.FrontPageMainWrapper}>
+      <div className={styles.navContainerWrapper}>
+        <nav className={styles.navContainer}>
+          <div className={styles.navIcon} onClick = {handleNavigationToUserAccount}>
+            <ImUser className={styles.icon}/>  
+          </div>
+          <div className={styles.navIcon} onClick = {handleNavigationToTimerSettings}>
+            <ImHourGlass className={styles.icon}/>
+          </div>
+          <div className={styles.navIcon} onClick = {handleNavigationToProjectsList}>
+            <ImList className={styles.icon}/>
+          </div>
+          <div className={styles.navIcon} onClick = {handleNavigationToUserStats}>
+            <IoBarChart className={styles.icon}/>
+          </div>
+        </nav>
+      </div>
+      
       <div className={showCautionMessage ? styles.popUp: styles.hidden} onClick = {() => setShowCautionMessage(!showCautionMessage)}>
         <div className={styles.cautionMessage} >
           <div className={styles.iconConatainer}>
@@ -377,20 +394,7 @@ const FrontPage = ({ expiryTimestamp }) => {
         </div>
         {/* <Link /> */}
       </div>
-      <nav className={styles.navContainer}>
-        <div className={styles.navIcon} onClick = {handleNavigationToUserAccount}>
-          <ImUser className={styles.icon}/>  
-        </div>
-        <div className={styles.navIcon} onClick = {handleNavigationToTimerSettings}>
-          <ImHourGlass className={styles.icon}/>
-        </div>
-        <div className={styles.navIcon} onClick = {handleNavigationToProjectsList}>
-          <ImList className={styles.icon}/>
-        </div>
-        <div className={styles.navIcon} onClick = {handleNavigationToUserStats}>
-          <IoBarChart className={styles.icon}/>
-        </div>
-      </nav>
+      
     </div>
   );
 };

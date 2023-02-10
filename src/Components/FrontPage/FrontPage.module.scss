@@ -8,13 +8,17 @@
     #fa3a3a
   );
   position: relative;
+  height: 100vh;
+  padding-top: 20px;
 }
 .FrontPageWrapper {
+  // height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  // height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  
+  
 }
 .FrontPageTime {
   font-size: 30px;
@@ -101,7 +105,17 @@
 .hidden{
   visibility: hidden;
 }
+.navContainerWrapper{
+  position: absolute;
+  top: 85%;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .navContainer{
+  
   width: 80%;
   margin: 0 auto;
   height: 50px;
@@ -110,6 +124,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  
   // background-color: #fff;
 
 }
