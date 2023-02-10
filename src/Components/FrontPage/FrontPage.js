@@ -256,10 +256,67 @@ const FrontPage = ({ expiryTimestamp }) => {
       setShowCautionMessage(!showCautionMessage)
       navigate('/')
     }
+    else if(!userId){
+      alert("Please register or login sign in to access this page")
+      navigate('/signInForm')
+
+    }
     else{
       navigate("/UserAccount")
     }
     
+  }
+  const handleNavigationToUserAccount = () => {
+    if(isRunning) {
+      setShowCautionMessage(!showCautionMessage)
+      navigate("/")
+    }
+     else if(!userId){
+      alert("Please register or sign in with your login details to access this page")
+      navigate('/signInForm')
+    }
+    else{
+      navigate('/accountDetails')
+    }
+  }
+  const handleNavigationToTimerSettings = () => {
+    if(isRunning) {
+      setShowCautionMessage(!showCautionMessage)
+      navigate("/")
+    }
+     else if(!userId){
+      alert("Please register or sign in with your login details to access this page")
+      navigate('/signInForm')
+    }
+    else{
+      navigate('/settings')
+    }
+  }
+  const handleNavigationToProjectsList = () =>{
+    if(isRunning) {
+      setShowCautionMessage(!showCautionMessage)
+      navigate("/")
+    }
+     else if(!userId){
+      alert("Please register or sign in with your login details to access this page")
+      navigate('/signInForm')
+    }
+    else{
+      navigate('/Projects')
+    }
+  }
+  const handleNavigationToUserStats = () => {
+    if(isRunning) {
+      setShowCautionMessage(!showCautionMessage)
+      navigate("/")
+    }
+     else if(!userId){
+      alert("Please register or sign in with your login details to access this page")
+      navigate('/signInForm')
+    }
+    else{
+      navigate('/')
+    }
   }
   return (
     <div className={styles.FrontPageMainWrapper}>
@@ -270,8 +327,8 @@ const FrontPage = ({ expiryTimestamp }) => {
           </div>
           
          <span>
-            You cannot access this page when the countdown is running,
-            pause the countdown or stop it in order to access this page
+            You cannot access this page when the counter is running,
+            pause or stop the counter in order to access this page
          </span>
         </div>
       </div>
@@ -321,10 +378,18 @@ const FrontPage = ({ expiryTimestamp }) => {
         {/* <Link /> */}
       </div>
       <nav className={styles.navContainer}>
-        <div className={styles.navIcon}><ImUser className={styles.icon}/></div>
-        <div className={styles.navIcon}><ImHourGlass className={styles.icon}/></div>
-        <div className={styles.navIcon}><ImList className={styles.icon}/></div>
-        <div className={styles.navIcon}><IoBarChart className={styles.icon}/></div>
+        <div className={styles.navIcon} onClick = {handleNavigationToUserAccount}>
+          <ImUser className={styles.icon}/>  
+        </div>
+        <div className={styles.navIcon} onClick = {handleNavigationToTimerSettings}>
+          <ImHourGlass className={styles.icon}/>
+        </div>
+        <div className={styles.navIcon} onClick = {handleNavigationToProjectsList}>
+          <ImList className={styles.icon}/>
+        </div>
+        <div className={styles.navIcon} onClick = {handleNavigationToUserStats}>
+          <IoBarChart className={styles.icon}/>
+        </div>
       </nav>
     </div>
   );

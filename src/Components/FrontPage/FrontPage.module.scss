@@ -14,21 +14,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  // height: 100vh;
 }
 .FrontPageTime {
   font-size: 30px;
   color: #fff;
   display: flex;
-  // height: 150px;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
 }
 .timerHeader{
   display: flex;
@@ -42,7 +36,6 @@
 
 .refreshTimer{
   padding: 10px;
-  // color: #dd2b0c;
   width: 50px;
   justify-self: flex-end;
 }
@@ -62,15 +55,8 @@
   position: relative;
   height: 100px;
   width: 150px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
 }
 .UserAccountLink {
-  // position: absolute;
-  // top: 10px;
-  // left: 20px;
-  // background-color: #fff;
   color: #fff;
   font-size: 20px;
 }
