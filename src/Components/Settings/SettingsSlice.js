@@ -46,7 +46,12 @@ const initialState = {
 	changePasswordPopUp: false,
 	changeUsername: false,
 	todayTasksObject: null,
-	projectsCompletedTasks: []
+	projectsCompletedTasks: [],
+	dailyWorkHours: [],
+	weeklyWorkHours: [],
+	monthlyWorkHours: [],
+	currDate: null
+
 	/////Today Tasks state/////////////
 	// someDayTasks: [],
 	// tomorrowTasks: [],
@@ -90,6 +95,9 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
 		dispatch(setUserTasks(userProjectTasks))
 		dispatch(setProjectsCompletedTasks(allCompletedTasks))
 		dispatch(setTaskDataAvailable())
+		dispatch(setDailyWorkHours(data.data().projectsTasks.dailyWorkHours))
+		dispatch(setWeeklyWorkHours(data.data().projectsTasks.weeklyWorkHours))
+		dispatch(setMonthlyWorkHours(data.data().projectsTasks.monthlyWorkHours))
 		console.log(userProjectTasks);
 		// const tasksByCategories = data.data().tasksCategories
 		// dispatch(setTodayCategoryTasks(tasksByCategories.today))
@@ -370,6 +378,18 @@ const SettingSlice = createSlice({
 		
 		setProjectsCompletedTasks(state,action){
 			state.projectsCompletedTasks = action.payload
+		},
+		setDailyWorkHours(state,action){
+			state.dailyWorkHours = action.payload
+		},
+		setWeeklyWorkHours(state,action){
+			state.weeklyWorkHours = action.payload
+		},
+		setMonthlyWorkHours(state,action){
+			state.monthlyWorkHours = action.payload
+		},
+		setCurrDate(state,action){
+			state.currDate = action.payload
 		}
 	}
 });
@@ -448,6 +468,10 @@ export const {
 	updateTodaysTasksArray,
 	increaseTodaysTasksToBeCompleted,
 	setTodaysTaskHoursMinutesArray,
-	setProjectsCompletedTasks
+	setProjectsCompletedTasks,
+	setDailyWorkHours,
+	setMonthlyWorkHours,
+	setWeeklyWorkHours,
+	setCurrDate
 } = SettingSlice.actions;
 export default SettingSlice.reducer;
