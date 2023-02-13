@@ -38,7 +38,7 @@ const AddProject = ({title = "New Project"}) => {
                         tasksToBeCompleted: 0,
                         estimatedTime: 0,
                         elaspedTime: [0,0],
-                        dailyWorkHours: [],
+                        dailyWorkHoursArray: [],
                         weeklyWorkHour: [],
                         monthlyWorkHour: [],
                         currDate: "Sat Feb 10 2023",

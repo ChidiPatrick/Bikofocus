@@ -15,7 +15,11 @@ const initialState = {
   countDownRunning: false,
   triggerPlayFromTask: false,
   activeProject: null,
-  isRunning: false
+  isRunning: false,
+  dailyWorkHours: [],
+	weeklyWorkHours: [],
+	monthlyWorkHours: [],
+	// currDate: 'Sat Feb 11 2023'
 };
 const FrontPageSlice = createSlice({
   name: "FrontPage",
@@ -87,7 +91,22 @@ const FrontPageSlice = createSlice({
     },
     setIsRunning(state,action){
       state.isRunning = action.payload
-    }
+    },
+    setDailyWorkHours(state,action){
+		state.dailyWorkHours.push(action.payload)
+		},
+		updateDailyWorkHoursStore(state,action){
+			state.dailyWorkHours.push(action.payload)
+		},
+		setWeeklyWorkHours(state,action){
+			state.weeklyWorkHours = action.payload
+		},
+		setMonthlyWorkHours(state,action){
+			state.monthlyWorkHours = action.payload
+		},
+		setCurrDate(state,action){
+			state.currDate = action.payload
+		}
   },
 });
 
@@ -111,6 +130,10 @@ export const {
   setTriggerPlayFromTask,
   turnOffTriggerPlayFromTak,
   setActiveProject,
-  setIsRunning
+  setIsRunning,
+  setWeeklyWorkHours,
+  setDailyWorkHours,
+  setMonthlyWorkHours,
+   setCurrDate,
 } = FrontPageSlice.actions;
 export default FrontPageSlice.reducer;

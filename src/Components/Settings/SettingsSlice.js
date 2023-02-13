@@ -48,9 +48,7 @@ const initialState = {
 	todayTasksObject: null,
 	projectsCompletedTasks: [],
 	dailyWorkHours: [],
-	weeklyWorkHours: [],
-	monthlyWorkHours: [],
-	currDate: null
+	currDate: "Sat Feb 11 2023"
 
 	/////Today Tasks state/////////////
 	// someDayTasks: [],
@@ -87,6 +85,9 @@ export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", 
 })
 export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (userId,{dispatch,getState}) =>{
 	try{
+		const state = getState()
+		console.log(state);
+		const currProjectId = state.settings.clickedProjectIdentitfier
 		const userTasksDoc = doc(db,"users",`${userId}`,"userTasksCollection","tasks")
 		const data = await getDoc(userTasksDoc)
     	if(data.exists()){
@@ -95,10 +96,25 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
 		dispatch(setUserTasks(userProjectTasks))
 		dispatch(setProjectsCompletedTasks(allCompletedTasks))
 		dispatch(setTaskDataAvailable())
-		dispatch(setDailyWorkHours(data.data().projectsTasks.dailyWorkHours))
-		dispatch(setWeeklyWorkHours(data.data().projectsTasks.weeklyWorkHours))
-		dispatch(setMonthlyWorkHours(data.data().projectsTasks.monthlyWorkHours))
-		console.log(userProjectTasks);
+		if(currProjectId !== null) {
+			const dailyWorkHoursArray =  data.data().projectsTasks[currProjectId].dailyWorkHoursArray
+			let currWorkHourObj;
+			dispatch(setDailyWorkHours(dailyWorkHoursArray))
+			dispatch(setCurrDate(data.data().projectsTasks[currProjectId].currDate))
+			// console.log(dailyWorkHoursArray)
+			// dailyWorkHoursArray.forEach((workHoursObj, i) => {
+			// 	if(workHoursObj.date === data.data().projectsTasks[currProjectId].currDate){
+			// 		currWorkHourObj = dailyWorkHoursArray.indexOf(workHoursObj)
+			// 		console.log(`CURRENT DATE: ${dailyWorkHoursArray[currWorkHourObj].currDate}`);
+					
+			// 	}
+			// })
+			
+		}
+		
+		// dispatch(setWeeklyWorkHours(data.data().projectsTasks.weeklyWorkHours))
+		// dispatch(setMonthlyWorkHours(data.data().projectsTasks.monthlyWorkHours))
+		// console.log(userProjectTasks);
 		// const tasksByCategories = data.data().tasksCategories
 		// dispatch(setTodayCategoryTasks(tasksByCategories.today))
 		// dispatch(setTomorrowCategoryTasks(tasksByCategories.tomorrow))
@@ -379,18 +395,14 @@ const SettingSlice = createSlice({
 		setProjectsCompletedTasks(state,action){
 			state.projectsCompletedTasks = action.payload
 		},
-		setDailyWorkHours(state,action){
-			state.dailyWorkHours = action.payload
-		},
-		setWeeklyWorkHours(state,action){
-			state.weeklyWorkHours = action.payload
-		},
-		setMonthlyWorkHours(state,action){
-			state.monthlyWorkHours = action.payload
+		 setDailyWorkHours(state,action){
+		state.dailyWorkHours = [...action.payload]
+		console.log(action.payload);
 		},
 		setCurrDate(state,action){
 			state.currDate = action.payload
 		}
+		
 	}
 });
 export const {
@@ -472,6 +484,7 @@ export const {
 	setDailyWorkHours,
 	setMonthlyWorkHours,
 	setWeeklyWorkHours,
-	setCurrDate
+	updateDailyWorkHoursStore,
+	setCurrDate,
 } = SettingSlice.actions;
 export default SettingSlice.reducer;

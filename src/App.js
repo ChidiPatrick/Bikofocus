@@ -44,7 +44,7 @@ function App() {
 		if(user) {
 			dispatch(getUserId(user.uid))
 			dispatch(fetchUserSettings(user.uid))
-			dispatch(FetchTasks(user.uid))
+			dispatch(FetchTasks([user.uid]))
 			dispatch(FetchUserData(user.uid))
 		}
 	})

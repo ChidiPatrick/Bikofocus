@@ -40,7 +40,9 @@ import {
   setSomedayCategoryTasks,
 	setTomorrowCategoryTasks,
 	setTodayCategoryTasks,
-	setUpcomingCategoryTasks,} from "../Settings/SettingsSlice"
+	setUpcomingCategoryTasks,
+ 
+} from "../Settings/SettingsSlice"
 
 //////////////////////////////////////////////////
 ////Add task Component//////////////
@@ -176,6 +178,7 @@ const AddTaskComponent = () => {
     const handleAddTask = () => {
     if(inputRef.current.value === ""){
       setShowUI(false)
+      dispatch(FetchTasks(userId))
        return
       }
       

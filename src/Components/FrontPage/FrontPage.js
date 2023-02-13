@@ -29,17 +29,20 @@ import {
   turnOffCountDownRunning,
   turnOnCountDownRunning,
   turnOffTriggerPlayFromTak,
-  setIsRunning
-
+  setIsRunning,
+  setWeeklyWorkHours,
+  // setDailyWorkHours,
+  setMonthlyWorkHours,
+  updateDailyWorkHoursStore,
+   setCurrDate,
 } from "./FrontPageSlice";
 import {
   setTimeElasped,
   setElapsedTimeHoursMinutesArray, 
   FetchTasks,
-  setWeeklyWorkHours,
-  setDailyWorkHours,
-  setMonthlyWorkHours,
-  setCurrDate
+  setDailyWorkHours
+ 
+  
 } from "../Settings/SettingsSlice"
 import { getUserId } from "../SignUpForms/SignUpFormSlice";
 // import Toness from "../audioFiles/AudioFiles"
@@ -96,18 +99,17 @@ const FrontPage = ({ expiryTimestamp }) => {
   const userTasks = useSelector(state => state.settings.userTasks)
   const activePomodoroLength = useSelector(state => state.settings.activeRunningPomodoroLength)
   const countDownIsRunning = useSelector(state => state.frontPage.isRunning)
+  const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
   const [showCautionMessage,setShowCautionMessage] = useState(false)
   const currDate = useSelector(state => state.settings.currDate)
   const dailyWorkHoursArray = useSelector(state => state.settings.dailyWorkHours)
-  const weeklyWorkHourArray = useSelector(state => state.settings.weeklyWorkHour)
-  const monthlyWorkHourArray = useSelector(state => state.settings.monthlyWorkHour)
+  const monthlyWorkHourArray = useSelector(state => state.frontPage.monthlyWorkHour)
   const date = new Date().toDateString()
-  console.log(date);
-  console.log(dailyWorkHoursArray)
-
-  const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
-   const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
+  console.log(currDate);
+  console.log(dailyWorkHoursArray );
+  console.log(dailyWorkHoursArray[dailyWorkHoursArray.length - 1])
+  const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
  ////////////////////////////////////////////////////////////
    const tones = {
     Bell,Swoosh,Thriller,TubularBell,Announcement,Notification,Buzzer,Decide,Ding,Impact
@@ -141,37 +143,13 @@ const FrontPage = ({ expiryTimestamp }) => {
     console.log(minutes);
     return [parseInt(hours),parseInt(remainingMinutes)]
   }
-  const updateDailyWorkHours = async (pomodoroLength,dailyWorkHoursArray) => {
-    if(currDate === date) {
-      const currWorkHoursArray = dailyWorkHoursArray[-1]
-      currWorkHoursArray.dailyWorkHours = [...currWorkHoursArray.dailyWorkHours,pomodoroLength]
-      currWorkHoursArray.totalDailyWorkHours = currWorkHoursArray.dailyWorkHours.reduce((a,b) => a + b, 0)
-      console.log(`Current work hours: ${currWorkHoursArray}`)
+  const updateDailyWorkHours = async (pomodoroLength,dailyWorkHoursArray,currDate) => {
+   if((currDate !== date) && (dailyWorkHoursArray.length === 0) ){
+     const currDate = new Date().toDateString()
+     console.log(`Initial work hours array`);
+     dispatch(setCurrDate(currDate))
       await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.dailyWorkHours[-1]`]: currWorkHoursArray
-     })
-     dispatch(setDailyWorkHours(currWorkHoursArray))
-    }
-    else if((currDate !== date) && dailyWorkHoursArray !== undefined ){
-      const currDate = new Date().toDateString()
-      dispatch(setCurrDate(currDate))
-      await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.dailyWorkHours`]: [...dailyWorkHoursArray,{
-          date: date, 
-          dailyWorkHours: [pomodoroLength],
-          totalDailyWorkHours: [pomodoroLength]
-        }],
-     })
-     await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.currDate`]: currDate,
-     })
-     console.log('Todays first run');
-    }
-    else if((currDate !== date) && dailyWorkHoursArray === undefined ){
-      const currDate = new Date().toDateString()
-      dispatch(setCurrDate(currDate))
-      await updateDoc(userTasksRef,{
-      [`projectsTasks.${taskName}.dailyWorkHours`]: [
+      [`projectsTasks.${taskName}.dailyWorkHoursArray`]: [
         {
           date: date, 
           dailyWorkHours: [pomodoroLength],
@@ -181,8 +159,47 @@ const FrontPage = ({ expiryTimestamp }) => {
      await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.currDate`]: currDate,
      })
-     console.log(`Initial work hours array`);
+      dispatch(FetchTasks(userId))
     }
+    else if(currDate === date) {
+      console.log(`RUNNING SECOND CONDITION....`);
+      const newHoursArray = dailyWorkHoursArray;
+      let currWorkObj = {};
+      //Remove last element of the array ////
+      const filteredWorkHoursArr = newHoursArray.filter((obj,i) => {
+        if(obj.date === date){
+          currWorkObj = obj
+          return false
+        }
+        else {
+          return true
+        }
+      })
+      const newWorkHoursArray = [...currWorkObj.dailyWorkHours,pomodoroLength]
+      const newTotalDailyWorkHours = newWorkHoursArray.reduce((a,b) => parseInt(a) +parseInt( b), 0)
+      const newDailyWorkHoursObject = {dailyWorkHours: newWorkHoursArray,date,totalDailyWorkHours: newTotalDailyWorkHours}
+      const newOverallDailyWorkHoursObject = [...filteredWorkHoursArr,newDailyWorkHoursObject]
+      await updateDoc(userTasksRef,{
+      [`projectsTasks.${taskName}.dailyWorkHoursArray`]: newOverallDailyWorkHoursObject 
+     })
+     dispatch(setDailyWorkHours(newOverallDailyWorkHoursObject))
+    }
+    else if(currDate !== date){
+      const currDate = new Date().toDateString()
+      dispatch(setCurrDate(currDate))
+      await updateDoc(userTasksRef,{
+      [`projectsTasks.${taskName}.dailyWorkHoursArray`]: [...dailyWorkHoursArray,{
+          date: date, 
+          dailyWorkHours: [pomodoroLength],
+          totalDailyWorkHours: [pomodoroLength]
+        }],
+     })
+     await updateDoc(userTasksRef,{
+      [`projectsTasks.${taskName}.currDate`]: currDate,
+     })
+    }
+    ////////////////////////////////////////
+    
   }
   // const dateYesterday = new Date("february, 10, 2023")
   // const dateNow = new Date("february, 11, 2023");
@@ -209,11 +226,12 @@ const FrontPage = ({ expiryTimestamp }) => {
     const newTotalElapsedTime = newTasksElapsedTimeArray.reduce((firstValue,secondValue) => firstValue + secondValue,0)
     const newElapsedHourseMinutesArray = calculateElapsedMinutesAndHours(newTotalElapsedTime)
     dispatch(setElapsedTimeHoursMinutesArray(newElapsedHourseMinutesArray))
+     updateDailyWorkHours(activePomodoroLength,dailyWorkHoursArray,currDate)
     await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.elaspedTime`]: newElapsedHourseMinutesArray
      })
-     updateDailyWorkHours(activePomodoroLength,dailyWorkHoursArray)
-    dispatch(FetchTasks())
+    
+    dispatch(FetchTasks(userId))
   }
  
   // useEffect(() => {
