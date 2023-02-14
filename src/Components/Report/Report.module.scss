@@ -1,0 +1,63 @@
+.reportsWrapper{
+    background-color: rgb(216, 214, 214);
+    height: 100vh;
+    // padding: 10px;
+
+}
+.headerContainer{
+    background-color: #fff;
+    margin: 0 10px 10x 10px ;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+.mainHeader{
+    margin: 0;
+    padding: 10px;
+    color: black;
+}
+.chartContainer{
+    background-color: #fff;
+    height: 400px;
+    margin: 10px;
+    margin-bottom: -30px;
+    border-radius: 10px;
+}
+.chartHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+.header{
+    padding: 10px;
+    margin: 0 ;
+    color: #dd2b0c;
+}
+.reportSummaryWrapper{
+     width: 52%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+   
+}
+.graphHeader{
+    color: black; 
+    margin-top: 30px;
+}
+.navLink{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+
+    // margin-right: 10px;
+}
+.navLinkIcon{
+    font-size: 30px;
+    fill: black;
+}

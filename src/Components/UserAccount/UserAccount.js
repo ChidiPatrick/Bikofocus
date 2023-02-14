@@ -155,7 +155,7 @@ const UserAccountUI = (props) => {
             </Link>
           </li>
           <li className={styles.listItem}>
-            <Link className={styles.link} to="/statistics">
+            <Link className={styles.link} to="/reports">
               {/* <FaChartLine className={styles.icon} /> */}
               <FcBullish className={styles.icon}/>
             </Link>

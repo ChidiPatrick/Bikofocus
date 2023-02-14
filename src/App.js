@@ -29,7 +29,7 @@ import PasswordReset from './Components/SignUpForms/forgottenPassword';
 import AvatarUploadUI from './Components/avatarUploadUI/avatarUploadUI';
 import TodayTasks from './Components/Tasks/todayTasks';
 import ProjectsCompletedTasks from "./Components/allProjectCompleteTasks/projectsCompletedTasks"
-
+import Report from './Components/Report/Report';
 // const analytics = getAnalytics(app);
 
 //////////////////////////////////////
@@ -91,6 +91,7 @@ function App() {
 				<Route path = "/uploadAvatarUI" element = {<AvatarUploadUI/>}/>
 				<Route path = "/accountDetails" element = {<AccountDetails/>}/>
 				<Route path = "/completedTasks" element = {<ProjectsCompletedTasks/>}/>
+				<Route path = "/reports" element = {<Report/>}/>
 			</Routes>
 		</div>
 		
