@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useState} from "react"
 import styles from "./Report.module.scss"
 import { Link } from "react-router-dom"
 import { HiChevronLeft } from "react-icons/hi";
@@ -14,16 +14,108 @@ import {
     ResponsiveContainer,
     Legend,
 } from "recharts"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { IoIosArrowDown,IoIosArrowUp } from "react-icons/io";
+import {setDailyWorkHours} from "../Settings/SettingsSlice"
 
 const Report = () => {
+  const dispatch = useDispatch()
   const dailyWorkHours = useSelector(state => state.settings.dailyWorkHours)
+   const projects = useSelector((state) => state.settings.projects)
+   const userTasks = useSelector(state => state.settings.userTasks)
+   const [showProjects,setShowProjects] = useState(false)
   console.log(dailyWorkHours);
+  console.log(projects)
+  ///Format Date //////////////
+  const formatDate = (taskDate) => {
+    const date = new Date(taskDate)
+    const monthNum = date.getMonth()
+    let  month = null
+    const dayOfMonth = date.getDate()
+    switch(monthNum) {
+      case 0: {
+        month = "Jan"
+        break
+      }
+      case 1: {
+        month = "Feb"
+        break
+      }
+      case 2: {
+        month = "Mar"
+        break
+      }
+      case 3: {
+        month = "April"
+        break
+      }
+      case 4: {
+        month = "May"
+        break
+      }
+      case 5: {
+        month = "Jun"
+        break
+      }
+      case 6: {
+        month = "Jul"
+        break
+      }
+       case 7: {
+        month = "Aug"
+        break
+      }
+       case 6: {
+        month = "Sept"
+        break
+      }
+       case 6: {
+        month = "Oct"
+        break
+      }
+       case 6: {
+        month = "Nov"
+        break
+      }
+       case 6: {
+        month = "Dec"
+        break
+      }
+    }
+    return `${dayOfMonth} ${month}`
+  }
+  let totalHours = 0;
   const data = []
+  ///////////////////////////////////////////
+  function calculateMinutesAndHours(minutes){
+    if(minutes === NaN) return
+    const remainingMinutes = minutes % 60
+    const hours = minutes / 60
+    console.log(`You did ${parseInt(hours)}hrs:${remainingMinutes}min today`);
+    return [parseInt(hours),parseInt(remainingMinutes)]
+  }
+  /////////////////////////////////////
   const focusedTimeData = dailyWorkHours.map((dailyWorkObject,i) =>{
-    data.push({date: new Date(dailyWorkObject.date).toLocaleDateString(), totalWorkHours: dailyWorkObject.totalDailyWorkHours})
+    const cur = formatDate(dailyWorkObject.date)
+    totalHours = totalHours + dailyWorkObject.totalDailyWorkHours
+    console.log(totalHours);
+    data.push({date: formatDate(dailyWorkObject.date), totalWorkHours: (dailyWorkObject.totalDailyWorkHours / 60).toFixed(2)})
   })
   console.log(data);
+  const totalHoursTimeArray = calculateMinutesAndHours(totalHours)
+ const averageTime = totalHours / dailyWorkHours.length
+ const averageTimesArray = calculateMinutesAndHours(averageTime)
+ console.log(averageTimesArray[0]);
+ ////////////////////////////////////////////////
+ const projectSelectionHandler = (e) =>{
+  const projectTitle = e.target.innerText
+  const projectId = projectTitle.split(" ").join("")
+  const projectObject = userTasks[projectId]
+  const projectDailyWorkHoursArray = projectObject.dailyWorkHoursArray
+  console.log(projectDailyWorkHoursArray);
+  dispatch(setDailyWorkHours(projectDailyWorkHoursArray))
+  setShowProjects(!showProjects)
+ }
     return <div className={styles.reportsWrapper}>
             <div className= {styles.headerContainer}>
               <Link to = "/UserAccount" className={styles.navLink}>
@@ -31,15 +123,30 @@ const Report = () => {
               </Link>
               <h3 className= {styles.mainHeader}>Report</h3>
             </div>
+            <div className={styles.projectSelectionWrapper}>
+              <div className={ styles.selectProjectHeader } onClick = {() => setShowProjects(!showProjects)}>
+                <span>Select Project</span>
+                <IoIosArrowDown/>
+              </div>
+              {projects.map((project,index) => {
+                return <div className={showProjects ? styles.projectsWrapper : styles.hidden}>
+                    <div className={styles.projectTitle} onClick = {projectSelectionHandler} key = {index}>
+                    {project.projectTitle}
+                    </div>
+              </div>
+              })
+              }
+              
+            </div>
             <div className={styles.chartContainer}>
                 <div className={styles.chartHeader}>
                     <h4 className={styles.header}>Focus Time Chart</h4>
-                    <div className={styles.reportSummaryWrapper}>
-                        <div>Top: 8h 15m</div>
-                        <div>Average 4h 33m</div>
-                    </div>
+                    {/* <div className={styles.reportSummaryWrapper}> */}
+                        <div className={styles.timeSummary}>Total: {totalHoursTimeArray[0] = true ? totalHoursTimeArray[0]: 0}hrs : {totalHoursTimeArray[1] = true ? totalHoursTimeArray[1]: 0}min</div>
+                        <div className={styles.timeSummary}>Average: {averageTimesArray[0] =` NaN` ? `0` : averageTimesArray[0]}hrs : {averageTimesArray[1] =` NaN` ? `0` : averageTimesArray[1]}min</div>
+                    {/* </div> */}
                 </div>
-                <div>
+                <div className = {styles.chartWrapper}>
                     <h4 className={styles.graphHeader}>Daily Chart Of Focused Time </h4>
                     <ResponsiveContainer  width={"100%"} height = {300}>
                         <BarChart
@@ -49,17 +156,40 @@ const Report = () => {
                         margin = {
                             {
                              top:5,
-                             right:30,
-                             left: 20,
+                             right:5,
+                             left: 0,
                              bottom: 5
                             }}
+                       maxBarSize = {20} 
+                       barSize = {10}
+                       barGap = {2}
                         
                     >
                         <CartesianGrid strokeDasharray = "1" vertical = ""/>
                         <XAxis dataKey= "date" />
                         <YAxis />
-                        <Tooltip/>
-                        <Bar dataKey= "totalWorkHours" name="Work Hours" fill = "#dd2b0c" barSize={20}/>
+                        <Tooltip 
+                        contentStyle={{
+                          backgroundColor: "red",
+                          color: "#fff",
+                          borderRadius: "10px",
+                          overflowX: "scroll"
+
+                          
+                        }}
+                          itemStyle={{
+                            color: "#fff"
+                          }}
+                        />
+                        <Bar 
+                        dataKey= "totalWorkHours" 
+                        name="Time" 
+                        fill = "#dd2b0c" 
+                        barSize={20}
+                        
+                        
+                        unit = "Hrs"
+                        />
                     </BarChart>
                     </ResponsiveContainer>
                 </div>

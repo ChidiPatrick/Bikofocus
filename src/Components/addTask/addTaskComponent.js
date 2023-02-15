@@ -74,11 +74,6 @@ const AddTaskComponent = () => {
   const [showUI,setShowUI] = useState(false)
   const [showFinishedTasks,setShowFinishedTask] = useState((false))
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
-  const todayTasksArray = useSelector(state => state.settings.todayTasks)
-  const somedayTasksArray = useSelector(state => state.settings.someDayTasks)
-  const upcomingTasksArray = useSelector(state => state.settings.upcomingTasks)
-  const tomorrowTasksArray = useSelector(state => state.settings.tomorrowTasks)
-  const tasksCategory = useSelector(state => state.settings.tasksCategory)
   const projectsCompletedTasks = useSelector(state => state.settings.projectsCompletedTasks)
   const date = new Date()
   console.log(projectsCompletedTasks);
