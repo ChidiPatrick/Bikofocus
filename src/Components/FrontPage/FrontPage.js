@@ -106,9 +106,6 @@ const FrontPage = ({ expiryTimestamp }) => {
   const dailyWorkHoursArray = useSelector(state => state.settings.dailyWorkHours)
   const monthlyWorkHourArray = useSelector(state => state.frontPage.monthlyWorkHour)
   const date = new Date().toDateString()
-  console.log(currDate);
-  console.log(dailyWorkHoursArray );
-  console.log(dailyWorkHoursArray[dailyWorkHoursArray.length - 1])
   const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
  ////////////////////////////////////////////////////////////
    const tones = {
