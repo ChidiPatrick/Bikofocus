@@ -35,16 +35,19 @@ const PomodoroSetting = ({handleAddTask,showUI}) => {
    }
     return (
         <div className={ showUI ? style.PomodoroSettingWrapper : style.hidePomodoroSettings}>
-            <h6 className={style.PomodoroSettingHeader}>Estimated Pomodoros</h6>
+            <div className = {style.settingsInnerWrapper}>
+            <h6 className={style.PomodoroSettingHeader}>Select Number of Pomodoros</h6>
             <div className={style.stopWatchIconWrapper} >
             <StopWatchNumber/>
             </div>
-            <div className={style.taskSetting} >
+            <button className= {style.doneBtn} onClick ={() => handleAddTask()}>Done</button>
+            {/* <div className={style.taskSetting} >
                 <div className={style.taskIcon} onClick = {showPopUp}>Task Icon</div>
                 <TbFlag className={style.flagIcon}/>
                 <div className={style.tag}>Tag</div>
                 <div className={style.Task}>Task</div>
-                <button className= {style.doneBtn} onClick ={() => handleAddTask()}>Done</button>
+                
+            </div> */}
             </div>
         </div>
     )

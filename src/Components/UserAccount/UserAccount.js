@@ -11,7 +11,6 @@ import {auth} from "../Firebase/Firebase"
 // import { async } from "@firebase/util";
 // import {doc,getDoc} from "firebase/firestore"
 import { HiChevronLeft } from "react-icons/hi";
-import { IoMdFolderOpen } from "react-icons/io";
 import { ImUser } from "react-icons/im";
 import { IoIosArrowDown,IoIosArrowUp } from "react-icons/io";
 // FcList
@@ -36,11 +35,11 @@ import {
   updateNumbersArray,
   setTasksTimesArray
 } from "../Settings/SettingsSlice";
+import { FcBarChart } from "react-icons/fc";
 import { IoIosCheckmark } from "react-icons/io";
-import { 
-        ImFilesEmpt,
-        ImFolder,
-      } from "react-icons/im";
+import {ImFolder} from "react-icons/im";
+
+// ImList2
 // import {persistor} from "../Store/Store"
 // import { FetchTasks } from "../Settings/SettingsSlice";
 
@@ -143,7 +142,7 @@ const UserAccountUI = (props) => {
           <li className={styles.listItem}>
                <Link to= '/Projects'>
                   {/* <IoMdFolderOpen className={styles.icon}/> */}
-                  <FcTodoList className={styles.icon}/>
+                  < FcTodoList className={styles.icon}/>
               </Link>
           </li>
           <li className={styles.listItem}>
@@ -153,14 +152,11 @@ const UserAccountUI = (props) => {
           </li>
           <li className={styles.listItem}>
             <Link className={styles.link} to="/reports">
-              {/* <FaChartLine className={styles.icon} /> */}
-              <FcBullish className={styles.icon}/>
+              <FcBarChart className={styles.icon}/>
             </Link>
           </li>
         </ul>
       </nav>
-      {/* <SearchInput/> */}
-      {/* <input type="search" placeholder="Search" className={styles.search} /> */}
       <div className={styles.todoWrapper}>
         <div className={styles.todo}>
           <Link className={styles.link} to="/completedTasks">
@@ -179,8 +175,7 @@ const UserAccountUI = (props) => {
               <span>Add Project</span>
               </div>
               <div>
-              <IoIosPricetag className={styles.addFolderIcon}/>
-              <ImFolderPlus className={styles.addTagIcon}/>
+              <IoIosArrowForward className={styles.addTagIcon}/>
               </div>
               </div>
           </Link>

@@ -142,8 +142,8 @@ const Report = () => {
                 <div className={styles.chartHeader}>
                     <h4 className={styles.header}>Focus Time Chart</h4>
                     {/* <div className={styles.reportSummaryWrapper}> */}
-                        <div className={styles.timeSummary}>Total: {totalHoursTimeArray[0] = true ? totalHoursTimeArray[0]: 0}hrs : {totalHoursTimeArray[1] = true ? totalHoursTimeArray[1]: 0}min</div>
-                        <div className={styles.timeSummary}>Average: {averageTimesArray[0] =` NaN` ? `0` : averageTimesArray[0]}hrs : {averageTimesArray[1] =` NaN` ? `0` : averageTimesArray[1]}min</div>
+                        <div className={styles.timeSummary}>Total: {totalHoursTimeArray[0] !== NaN ? totalHoursTimeArray[0]: 0}hrs : {totalHoursTimeArray[1] !== NaN ? totalHoursTimeArray[1]: 0}min</div>
+                        <div className={styles.timeSummary}>Average: {averageTimesArray[0] === NaN ? `0` : averageTimesArray[0]}hrs : {averageTimesArray[1] === NaN ? `0` : averageTimesArray[1]}min</div>
                     {/* </div> */}
                 </div>
                 <div className = {styles.chartWrapper}>

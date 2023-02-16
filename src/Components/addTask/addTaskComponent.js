@@ -43,6 +43,7 @@ import {
 	setUpcomingCategoryTasks,
  
 } from "../Settings/SettingsSlice"
+import { ImPlay3} from "react-icons/im";
 
 //////////////////////////////////////////////////
 ////Add task Component//////////////
@@ -335,11 +336,11 @@ const AddTaskComponent = () => {
      <div className={style.tasksWrapper}>
         {tasksArray.length > 0 ? tasksArray.map((task, i) => {
         return (<div className={style.taskContainer} key ={i}>
-          <div className={style.circle} onClick = {() => handleComplete(i,tasksTimesArray,tasksArray,completedTasksArray)}></div>
            <div className={style.task}>
-            <span>{task}</span>
-            <span onClick={handleStart}>Play</span>
-          </div>
+              <div className={style.circle} onClick = {() => handleComplete(i,tasksTimesArray,tasksArray,completedTasksArray)}></div>
+              <div className={style.task}>{task}</div>
+           </div>
+            <div className={style.playBtn} onClick={handleStart}><ImPlay3 className={style.playIcon}/></div>
         </div>)
       } ) : null}
       </div>

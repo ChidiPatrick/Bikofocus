@@ -66,6 +66,7 @@
   width: 50px;
 }
 
+
 .sort{
   background-color: transparent;
   border: none;
@@ -93,15 +94,16 @@
 
 }
 .tasksWrapper{
+  
   margin-top: 20px;
   font-size: 18px;
 }
 .taskContainer{
+  // width: 100%;
   background-color: #fff;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
   border-radius: 10px;
   padding: 10px;
   margin: 3px 1px;
@@ -113,6 +115,19 @@
   border: 2px solid grey;
   margin-right: 10px;
 
+}
+.task{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+.playIcon{
+  fill: #eb2f06;
+}
+.playBtn{
+  justify-self: flex-end;
+  align-self: flex-end;
 }
 .hideShowFinishedTaskContainer{
  width: 100%;
