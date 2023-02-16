@@ -8,15 +8,18 @@ import { createResource } from "../PersonApi/PersonApi";
 import ProjectComponent from "../Projects/ProjectsComponent"
 const Projects = () => {
     const projects = useSelector(state => state.settings.projects)
+    const noInternetConnect = useSelector(state => state.settings.noInternetConnection)
+    console.log(noInternetConnect);
     console.log(projects);
     const loadingSpinner = <div className={styles.loadingSpinner}>
 			<span className={styles.loader}></span>
 		</div>
+    const connectionStatus = <div>NO INTERNET</div>
     const resource = createResource()
     return (
-        <Suspense fallback = {loadingSpinner}>
-        <ProjectComponent resource={resource}/>
-        </Suspense>
+            <Suspense fallback = {loadingSpinner}>
+                <ProjectComponent resource={resource} />
+            </Suspense>
     )
 }
 export default Projects

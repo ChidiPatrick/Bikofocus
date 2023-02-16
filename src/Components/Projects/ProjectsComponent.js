@@ -7,18 +7,20 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useSelector,useDispatch } from "react-redux";
 import { arrayRemove, deleteField, doc,updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
-import { fetchUserSettings } from "../Settings/SettingsSlice";
+import { fetchUserSettings,FetchTasks, showNoInternetConnection, hideNoInternetConnection } from "../Settings/SettingsSlice";
 import {persistor} from "../store/store"
+import {BsEmojiFrown} from "react-icons/bs";
 const Projects = ({resource}) => {
     const data = resource.data.read()
     const dispatch = useDispatch()
     const userId = useSelector(state => state.signUpSlice.userId)
     const userTasks = useSelector(state => state.settings.userTasks)
     const projects = useSelector(state => state.settings.projects)
+    const noInternetConnect = useSelector(state => state.settings.noInternetConnection)
     const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
     const navigate = useNavigate()
-	const [settings,setSettings] = useState(data.data())
-    console.log(userTasks);
+	// const [settings,setSettings] = useState(data.data())
+    console.log(noInternetConnect);
     // const projects = settings.projects
     const loadingSpinner = <div className={styles.loadingSpinner}>
 			<span className={styles.loader}></span>
@@ -52,8 +54,28 @@ const Projects = ({resource}) => {
           
             
         }
-    return ( 
-        <div className={styles.projectsContainer}>
+        const reloadProjects = () => {
+            console.log('Fetching data...');
+            dispatch(fetchUserSettings(userId))
+            dispatch(hideNoInternetConnection())
+            navigate(0)
+        }
+        const internetStatusUI = <div className={styles.interStatusWrapper}>
+                <Link to = "/settings"  className={styles.errorMsgBackBtn}>
+                    <FaChevronLeft/>
+                </Link>
+                <div className={styles.messsageWrapper}>
+                    <BsEmojiFrown className={styles.messageEmoji}/>
+                    <p className={styles.messageParagraph}>
+                        <span className={styles.oops}>Ooops!</span>
+                        No internet connection.<br/>
+                        Check your internet connectivity and try again
+                    </p>
+                     <button className={styles.reloadBtn} onClick = {reloadProjects}>Reload</button>
+                </div>
+               
+            </div>
+        const projectList = <div className={styles.projectsContainer}>
             <header className={styles.projectsHeader}>
                 <Link to = "/settings"  className={styles.backLink}>
                     <FaChevronLeft/>
@@ -79,6 +101,6 @@ const Projects = ({resource}) => {
                 })}
             </div>
         </div>
-    )
+    return noInternetConnect === true ? internetStatusUI : projectList
 }
 export default Projects

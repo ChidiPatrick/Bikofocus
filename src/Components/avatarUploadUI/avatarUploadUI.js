@@ -7,9 +7,13 @@ import { db,auth,app,storage } from '../Firebase/Firebase';
 import { Link } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import {IoMdCheckmark} from "react-icons/io";
+import { updateDoc,doc } from 'firebase/firestore';
 
 const AvatarUploadUI = () => {
     const dispatch = useDispatch()
+	const userId =  useSelector((state) => state.signUpSlice.userId)
+	 const settingsRef = doc(db,"users",`${userId}`,`userSettingsCollection`,`settings`)
+	 const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
 	const userAvatarURL = useSelector(state => state.settings.userAvatarURL)
     const [avatarFile,setAvatarFile] = useState("No file")
 	const [src,setSrc] = useState(null)
@@ -26,7 +30,11 @@ const AvatarUploadUI = () => {
 		setSelectedFile(e.target.files[0])
 		setSrc(`${setSelectedFile}`)
 	}
-	
+	const unpdateAvatarUrlLink = async (avatarURL) => {
+		await updateDoc(settingsRef,{
+			userAvatarURL: avatarURL
+    })
+	}
     const uploadTask = async(selectedFile) => {
 		if(!selectedFile) return
         console.log(selectedFile);
@@ -39,10 +47,11 @@ const AvatarUploadUI = () => {
 		},(error) => {
 			console.log(error);
 		},
-		() => {
+		 () => {
 			getDownloadURL(uploadAvatar.snapshot.ref).then((downloadURL) => {
 				dispatch(setUserAvatarURL(downloadURL))
 				setImgUrl(downloadURL)
+				unpdateAvatarUrlLink(downloadURL)
 				setShowDoneIcon(true)
 			})
 		})

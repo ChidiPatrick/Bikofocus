@@ -1,7 +1,7 @@
 import { getDoc,doc } from "firebase/firestore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {auth,db} from "../Firebase/Firebase"
-
+import { showNoInternetConnection,hideNoInternetConnection } from "../Settings/SettingsSlice";
 const FetchPerson = async () => {
     // return fetch('https://randomuser.me/api').then(x => x.json()).then(x =>x.results[0])
     const userId =  useSelector((state) => state.signUpSlice.userId)
@@ -22,7 +22,8 @@ const FetchProjectTasks = async (projectId) => {
     //    return data.data().projects[projectId].tasks
     
 }
-const wrapPromise = (promise) => {
+const WrapPromise = (promise) => {
+    const dispatch = useDispatch()
     let status = "pending";
     let result = '';
     let suspender = promise.then(r => {
@@ -40,15 +41,19 @@ const wrapPromise = (promise) => {
                 throw suspender
             }
             else if(status === "error"){
-                throw result
+                dispatch(showNoInternetConnection())
+                console.log(result);
             }
-            return result
+            else{
+                dispatch(hideNoInternetConnection())
+                return result
+        }
         }
     }
 }
 export const createResource = () => {
     return {
-        data: wrapPromise(FetchPerson()),
-        tasks: wrapPromise(FetchProjectTasks())
+        data: WrapPromise(FetchPerson()),
+        tasks: WrapPromise(FetchProjectTasks())
     }
 }

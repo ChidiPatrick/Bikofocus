@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
 import { db,auth,app,storage } from '../Firebase/Firebase';
 import {FetchUserBioData } from '../Settings/SettingsSlice';
+import { useNavigate } from 'react-router';
 
 ///////////////////////////////////////////
 const ChangePasswordPop = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const newPasswordInputRef = useRef()
     const oldPasswordInputRef = useRef()
     const userBioData = useSelector(state => state.settings.userBioData)
@@ -39,6 +41,7 @@ const handleChangePassword = () => {
         password: newPassword
     })
     dispatch(FetchUserBioData(userId))
+    navigate(0)
 }
     return  <div className={ changePasswordPopUp ? styles.popUpWrapper : styles.hidden  } id = "changeAccountPopUp" onClick={handlePopUp}>
         <div className={styles.popUpInnerWrapper}>

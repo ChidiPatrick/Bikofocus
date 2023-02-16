@@ -2,13 +2,16 @@ import React,{useRef} from 'react';
 import styles from "./PopUps.module.scss"
 import {hideChangeUsernameUI} from "../Settings/SettingsSlice"
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { db,auth,app,storage } from '../Firebase/Firebase';
 // import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
 import {FetchUserBioData } from '../Settings/SettingsSlice';
+import { Navigate } from 'react-router';
 //////////////////////////////////////
 const ChangeUsername = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const userId =  useSelector((state) => state.signUpSlice.userId)
     const changeUsername = useSelector(state => state.settings.changeUsername)
     const userBioRef = doc(db,"users",`${userId}`,`userInfoFolder`,`userData`)
@@ -27,6 +30,7 @@ const ChangeUsername = () => {
             userName: newUsername
         })
         dispatch(FetchUserBioData(userId))
+        navigate(0)
     }
     return  <div className={changeUsername ? styles.popUpWrapper : styles.hidden} id = "changeUsername" onClick={handlePopUp}>
         <div className={styles.popUpInnerWrapper}>

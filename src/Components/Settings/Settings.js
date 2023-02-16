@@ -284,7 +284,7 @@ onAuthStateChanged(auth, (user) => {
 			</Link>
 			<div className={styles.AlarmSettings}>
 					<Link to="workAlarm" className={styles.linkWrapper}>
-						<div>Work Alarm</div>
+						<div>Work Alarm Tone</div>
 						<div className={styles.alarmTone}>
 						<span className={styles.alarm}> {settings ? settings.workAlarm : workAlarm} </span>
 						<FaChevronRight className={styles.iconBack} />
@@ -292,7 +292,7 @@ onAuthStateChanged(auth, (user) => {
 					</Link>
 	
 					<Link to="breakAlarm" className={styles.linkWrapper}>
-						<div>Break Alarm</div>
+						<div>Break Alarm Tone</div>
 						<div className={styles.alarmTone}>
 						<span className={styles.alarm}>{settings ? settings.breakAlarm : breakAlarm }</span>
 						<FaChevronRight className={styles.iconBack} />

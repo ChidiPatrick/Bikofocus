@@ -53,8 +53,6 @@ const AddTaskComponent = () => {
   const dispatch = useDispatch()
   const projects = useSelector(state => state.settings.projects)
   const projectTitle = useSelector(state => state.settings.taskHeader)
-  const projectCurrTask = useSelector(state => state.settings.projectTasks)
-  const projectId = useSelector(state => state.settings.projectId)
   const userId =  useSelector((state) => state.signUpSlice.userId)
   const currTaskObject = useSelector(state => state.settings.currTasks)
   const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
@@ -269,9 +267,7 @@ const AddTaskComponent = () => {
       <div className={style.TaskHeaderWrapper}>
         <Link to = "/UserAccount" className={style.linkBtn}><FaChevronLeft/></Link>
         <h2 className={style.TaskHeader}>{projectTitle.length > 20 ? projectTitle.slice(0,17).padEnd(20,"."): projectTitle}</h2>
-        <button className={style.sort} >
-          <TbArrowsDownUp />
-        </button>
+
       </div>
       <div className={style.TaskTimeWrapper}>
         <div className={style.TaskTimeEstimateWrapper}>

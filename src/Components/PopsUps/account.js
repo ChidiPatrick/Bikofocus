@@ -1,12 +1,14 @@
 import React,{useRef} from 'react';
 import styles from "./PopUps.module.scss"
-import {showPopUp,hidePopUP} from "../Settings/SettingsSlice"
+import {showPopUp,hidePopUP,FetchUserBioData} from "../Settings/SettingsSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { updateEmail } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
+import {useNavigate} from "react-router"
 const Account = () => {
     const inputRef = useRef()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const popUp = useSelector(state => state.settings.popUp)
     const userId =  useSelector((state) => state.signUpSlice.userId)
     console.log(auth);
@@ -24,6 +26,8 @@ const Account = () => {
         inputRef.current.value = ""
         console.log(newEmail);
         updateEmail(auth.currentUser,newEmail)
+        dispatch(FetchUserBioData(userId))
+        navigate(0)
     }
     return <div className={popUp ? styles.popUpWrapper : styles.hidden  } id = "accountPop" onClick = {handlePopUp}>
         <div className={styles.popUpInnerWrapper}>

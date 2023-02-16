@@ -226,7 +226,7 @@ const SettingsComponent = ({resource}) => {
 			<div className={styles.AlarmSettings}>
 				<div className={styles.linkWrapper}>
 					<Link to="workAlarm" className={styles.workAlarm}>
-						Work Alarm
+						Work Alarm Tone
 					</Link>
 					<div className={styles.alarmTone}>
 						<span className={styles.alarm}>Bell2</span>
@@ -235,7 +235,7 @@ const SettingsComponent = ({resource}) => {
 				</div>
 				<div className={styles.linkWrapper}>
 					<Link to="workAlarm" className={styles.workAlarm}>
-						Break Alarm
+						Break Alarm Tone
 					</Link>
 					<div className={styles.alarmTone}>
 						<span className={styles.alarm}>Bell3</span>

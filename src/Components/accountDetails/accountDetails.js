@@ -24,7 +24,7 @@ const AccountDetails = () => {
     const popUp = useSelector(state => state.settings.popUp)
     const changeUserName = useSelector(state => state.settings.changeUserName)
     const userBioRef = doc(db,"users",`${userId}`,`userInfoFolder`,`userData`)
-    console.log(changeUserName);
+    console.log(userBioData);
     ///////////////////////////////////////
     const showAccountPopUp = () => {
         dispatch(showPopUp())
@@ -35,14 +35,12 @@ const AccountDetails = () => {
     }
     ///////////////////////////////////////
     const handleChangeUsername = (e) => {
-        console.log(e);
         dispatch(showUsernameUI())
     }
     //////////////////////////////////////////
     const logOutUser = () => {
         signOut(auth)
         navigate('/')
-        console.log("logged out");
     }
     
     /////////////////////////////////////////
@@ -80,7 +78,7 @@ const AccountDetails = () => {
             <div className= {styles.newEmail} onClick = {showAccountPopUp}>
                 <span>Account</span>
                 <div className={styles.rightContainer}>
-                    <span>okaforPatrick@gmail.com</span>
+                    <span>{userBioData.email.slice(0,17).padEnd(20,".")}</span>
                     <FaChevronRight className= {styles.navLinkIconRight}/>
                 </div>
             </div>

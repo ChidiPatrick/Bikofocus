@@ -8,8 +8,8 @@ const initialState = {
 	shortBreakLengthSelected: false,
 	longBreakLengthSelected: false,
 	longBreakAfterSelected: false,
-	pomodoroCurrLength: 45,
-	shortBreakCurrLength: 10,
+	pomodoroCurrLength: 2,
+	shortBreakCurrLength: 2,
 	longBreakCurrLength: 15,
 	longBreakAfterCurrLength: 4,
 	goForBreak: false,
@@ -48,24 +48,9 @@ const initialState = {
 	todayTasksObject: null,
 	projectsCompletedTasks: [],
 	dailyWorkHours: [],
-	currDate: "Sat Feb 11 2023"
+	currDate: "Sat Feb 11 2023",
+	noInternetConnection: false
 
-	/////Today Tasks state/////////////
-	// someDayTasks: [],
-	// tomorrowTasks: [],
-	// upcomingTasks: [],
-	// tasksCategory: "today",
-	// showTasksCategoryPopUp: false,
-	// todaysTasksEstimatedTimeArray: [0,0],
-	// todaysCompletedTasks: 0,
-    // todaysTasksToBeCompleted: 0,
-    // todaysEstimatedTasksTime: 0,
-    // todaysTasksElaspedTime: [0,0],
-    // todaysTasks: [],
-    // todaysTotalEstimatedTasksTime: 0,
-    // todaysCompletedTasksArray: [],
-    // todaysTasksTimesArray: [],
-	// todaysTasksHoursMinutesArray: [0,0]
 	
 };
 export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", async (userId,{dispatch,getState}) =>{
@@ -75,6 +60,7 @@ export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", 
     	if(data.exists()){
         console.log(data.data());
 		dispatch(getUserProjects(data.data().projects))
+		dispatch(setUserAvatarURL(data.data().userAvatarURL))
 		console.log(data.data().projects);
          return data
    	 }
@@ -134,7 +120,7 @@ export const FetchUserBioData = createAsyncThunk("settings/fetchUserBioData",asy
 		const data = await getDoc(userBioInfo)
     	if(data.exists()){
 		const userBioData = data.data()
-		dispatch(userBioInfo)
+		dispatch(setUserBioInformation(userBioData))
    	 }
 	}
 	catch(err) {
@@ -358,40 +344,6 @@ const SettingSlice = createSlice({
 		setTodaysTasksEstimatedTimeArray(state,action){
 			state.todaysTasksEstimatedTimeArray = action.payload
 		},
-		// setTodaysCompletedTasks(state,action){
-		// 	state.todaysCompletedTasks = action.payload
-		// },
-		// setTodaysEstimatedTasksTime(state,action){
-		// 	state.todaysEstimatedTasksTime = action.payload
-		// },
-		// setTodaysTasksToBeCompleted(state,action){
-		// 	state.todaysTasksToBeCompleted = action.payload
-		// },
-		// setTodaysTasksElapsedTime(state,action){
-		// 	state.todaysTasksElaspedTime = action.payload
-		// },
-		// setTodaysTasks(state,action){
-		// 	state.todayTasks = action.payload
-		// },
-		// setTodaysTotalEstimatedTime(state,action){
-		// 	state.todaysTotalEstimatedTasksTime = action.payload
-		// },
-		// setTodaysCompletedTasksArray(state,action){
-		// 	state.todaysCompletedTasksArray = action.payload
-		// },
-		// setTodaysTasksTimeArray(state,action){
-		// 	state.todaysTasksTimesArray = action.payload
-		// },
-		// updateTodaysTasksArray(state,action){
-		// 	state.todaysTasks.push(action.payload)
-		// },
-		// increaseTodaysTasksToBeCompleted(state,action){
-		// 	state.todaysTasksToBeCompleted = state.todaysTasksToBeCompleted + 1
-		// },
-		// setTodaysTaskHoursMinutesArray(state,action){
-		// 	state.todaysTasksHoursMinutesArray = action.payload
-		// }
-		
 		setProjectsCompletedTasks(state,action){
 			state.projectsCompletedTasks = action.payload
 		},
@@ -401,6 +353,12 @@ const SettingSlice = createSlice({
 		},
 		setCurrDate(state,action){
 			state.currDate = action.payload
+		},
+		showNoInternetConnection(state,action){
+			state.noInternetConnection = true
+		},
+		hideNoInternetConnection(state,action){
+			state.noInternetConnection = false
 		}
 		
 	}
@@ -486,5 +444,7 @@ export const {
 	setWeeklyWorkHours,
 	updateDailyWorkHoursStore,
 	setCurrDate,
+	showNoInternetConnection,
+	hideNoInternetConnection
 } = SettingSlice.actions;
 export default SettingSlice.reducer;
