@@ -108,6 +108,7 @@ const FrontPage = ({ expiryTimestamp }) => {
   const date = new Date().toDateString()
   const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
  ////////////////////////////////////////////////////////////
+ 
    const tones = {
     Bell,Swoosh,Thriller,TubularBell,Announcement,Notification,Buzzer,Decide,Ding,Impact
    }

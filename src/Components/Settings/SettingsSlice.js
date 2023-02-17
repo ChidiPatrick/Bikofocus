@@ -49,7 +49,11 @@ const initialState = {
 	projectsCompletedTasks: [],
 	dailyWorkHours: [],
 	currDate: "Sat Feb 11 2023",
-	noInternetConnection: false
+	noInternetConnection: false,
+	fetchedSettingsData: false,
+	fetchedUserData: false,
+	fetchedUserTask: false,
+
 
 	
 };
@@ -87,27 +91,8 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
 			let currWorkHourObj;
 			dispatch(setDailyWorkHours(dailyWorkHoursArray))
 			dispatch(setCurrDate(data.data().projectsTasks[currProjectId].currDate))
-			// console.log(dailyWorkHoursArray)
-			// dailyWorkHoursArray.forEach((workHoursObj, i) => {
-			// 	if(workHoursObj.date === data.data().projectsTasks[currProjectId].currDate){
-			// 		currWorkHourObj = dailyWorkHoursArray.indexOf(workHoursObj)
-			// 		console.log(`CURRENT DATE: ${dailyWorkHoursArray[currWorkHourObj].currDate}`);
-					
-			// 	}
-			// })
 			
 		}
-		
-		// dispatch(setWeeklyWorkHours(data.data().projectsTasks.weeklyWorkHours))
-		// dispatch(setMonthlyWorkHours(data.data().projectsTasks.monthlyWorkHours))
-		// console.log(userProjectTasks);
-		// const tasksByCategories = data.data().tasksCategories
-		// dispatch(setTodayCategoryTasks(tasksByCategories.today))
-		// dispatch(setTomorrowCategoryTasks(tasksByCategories.tomorrow))
-		// dispatch(setUpcomingCategoryTasks(tasksByCategories.upcoming))
-		// dispatch(setSomedayCategoryTasks(tasksByCategories.someday))
-		
-		
    	 }
 	}
 	catch(err) {
@@ -359,9 +344,22 @@ const SettingSlice = createSlice({
 		},
 		hideNoInternetConnection(state,action){
 			state.noInternetConnection = false
+		},
+		setFetchedAllData(state,action){
+			state.fetchedAllData = true
+		},
+	},
+	extraReducers: (builder) => {
+			builder.addCase(FetchUserData.fulfilled, (state,action) => {
+				state.fetchedUserData = true
+			})
+			.addCase(fetchUserSettings.fulfilled, (state,action) =>{
+				state.fetchedSettingsData = true
+			})
+			builder.addCase(FetchTasks.fulfilled, (state,action) =>{
+				state.fetchedUserTask = true
+			})
 		}
-		
-	}
 });
 export const {
 	showMinutes,
@@ -445,6 +443,7 @@ export const {
 	updateDailyWorkHoursStore,
 	setCurrDate,
 	showNoInternetConnection,
-	hideNoInternetConnection
+	hideNoInternetConnection,
+	setFetchedAllData
 } = SettingSlice.actions;
 export default SettingSlice.reducer;

@@ -13,7 +13,6 @@ const Account = () => {
     const userId =  useSelector((state) => state.signUpSlice.userId)
     console.log(auth);
     const handlePopUp = (e) => {
-        console.log(e.target.id)
         if(e.target.id === "accountPop" || e.target.id === "cancleBtnId"){
             dispatch(hidePopUP())
         }
@@ -27,6 +26,7 @@ const Account = () => {
         console.log(newEmail);
         updateEmail(auth.currentUser,newEmail)
         dispatch(FetchUserBioData(userId))
+        dispatch(hidePopUP())
         navigate(0)
     }
     return <div className={popUp ? styles.popUpWrapper : styles.hidden  } id = "accountPop" onClick = {handlePopUp}>

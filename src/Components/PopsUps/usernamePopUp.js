@@ -30,6 +30,7 @@ const ChangeUsername = () => {
             userName: newUsername
         })
         dispatch(FetchUserBioData(userId))
+        dispatch(hideChangeUsernameUI())
         navigate(0)
     }
     return  <div className={changeUsername ? styles.popUpWrapper : styles.hidden} id = "changeUsername" onClick={handlePopUp}>

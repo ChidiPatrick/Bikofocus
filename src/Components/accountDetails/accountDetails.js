@@ -13,6 +13,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
 import { signOut } from 'firebase/auth';
 import { ImUser } from "react-icons/im";
+import { persistor, Persistor } from '../store/store';
 
 
 const AccountDetails = () => {
@@ -40,6 +41,7 @@ const AccountDetails = () => {
     //////////////////////////////////////////
     const logOutUser = () => {
         signOut(auth)
+        persistor.purge()
         navigate('/')
     }
     

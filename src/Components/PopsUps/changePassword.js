@@ -41,6 +41,7 @@ const handleChangePassword = () => {
         password: newPassword
     })
     dispatch(FetchUserBioData(userId))
+    dispatch(hideChangePasswordUI())
     navigate(0)
 }
     return  <div className={ changePasswordPopUp ? styles.popUpWrapper : styles.hidden  } id = "changeAccountPopUp" onClick={handlePopUp}>

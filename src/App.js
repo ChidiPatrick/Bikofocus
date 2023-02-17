@@ -1,7 +1,7 @@
-import React,{ Suspense } from 'react';
+import React,{ Suspense, useState,useEffect } from 'react';
 import './App.scss';
 import FrontPage from './Components/FrontPage/FrontPage';
-import { Routes, Route, Link } from 'react-router';
+import { Routes, Route, useNavigate, } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import BreakUI from './Components/BreakUI/BreakUI';
 import UserAccountUI from './Components/UserAccount/UserAccount';
@@ -36,10 +36,7 @@ import Report from './Components/Report/Report';
 function App() {
 	// const [user,loading,erro] = useAuthState(auth)
 	const dispatch = useDispatch()
-	const app = initializeApp(firebaseConfig);
-	
-	const verified = useSelector(state => state.signUpSlice.verified)
-	
+	const navigate = useNavigate()
 	onAuthStateChanged(auth, (user) => {
 		if(user) {
 			dispatch(getUserId(user.uid))
@@ -48,28 +45,38 @@ function App() {
 			dispatch(FetchUserData(user.uid))
 		}
 	})
+	const fetchedSettingsData = useSelector(state => state.settings.fetchedSettingsData)
+	const fetchedUserBioData = useSelector(state => state.settings.fetchedUserData)
+	const fetchedUserTask = useSelector(state => state.settings.fetchedUserTask)
+	const [isLoading,setIsLoading] = useState(true)
+	console.log(fetchedSettingsData);
 	////////////////////////////////////////////////////
 	const minute = useSelector((state) => state.settings.pomodoroCurrLength);
 	const shortBreakLength = useSelector(state => state.settings.shortBreakCurrLength)
 	console.log(minute);
 	const timeMinutes = new Date();
 	const timeSeconds = new Date()
-	
-	
+	//////////////////////////////////////
 	///Implement time conversion here /////
 	timeMinutes.setSeconds(timeMinutes.getSeconds() +  60 * minute);
 	timeSeconds.setSeconds(timeSeconds.getSeconds() + (60 * shortBreakLength))
 	const displayBreak = useSelector((state) => state.frontPage.break);
-	console.log(timeMinutes);
+	useEffect(() => {
+		if(fetchedUserTask === true && fetchedSettingsData === true && fetchedUserBioData === true){
+			console.log("Fetched all!!");
+			setIsLoading(false)
+		}
+	}, [isLoading])
 	let frontpage = null;
 	if (displayBreak) {
 		frontpage = <BreakUI expiryTimestamp={timeSeconds} />;
 	} else {
 		frontpage = <FrontPage expiryTimestamp={timeMinutes} />;
 	}
-	return (
-		
-		<div className="App">
+	const loadingSpinner = <div className= "loadingSpinner">
+								<span className= "loader"></span>
+							</div>
+	const app = <div className="App">
 			<Routes>
 				<Route path="/" element={frontpage} />
 				<Route path="/UserAccount" element={<UserAccountUI />} />
@@ -94,8 +101,7 @@ function App() {
 				<Route path = "/reports" element = {<Report/>}/>
 			</Routes>
 		</div>
-		
-	);
+	return (  app );
 }
 
 export default App;
