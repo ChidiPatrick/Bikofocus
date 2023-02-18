@@ -30,7 +30,7 @@ const SignInUser = () => {
         signInWithEmailAndPassword(auth,values.email,values.password)
         .then((user) => {
             if(user) {
-                navigate('/settings')
+                navigate('/timerPage')
             }
         })
      },
@@ -65,7 +65,7 @@ const SignInUser = () => {
                 <input 
                 type = "submit" 
                 className ={[styles.ctaBtn,styles.signIn].join(" ")} 
-                value ="SignIn"
+                value ="Log In"
                 // onClick={goToSettings}
                 />
                 <input 

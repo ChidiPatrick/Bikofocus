@@ -6,8 +6,10 @@
 	// flex-direction: column;
 	width: 90%;
 	margin: 0 10px;
-	min-height: 100vh;
 	position: relative;
+}
+.SignUpWrapper{
+	background-color: transparent;
 }
 .inputEl,
 .userNameInput {
@@ -15,9 +17,9 @@
 	padding: 10px;
 	margin: 10px 0;
 	height: 15px;
-	border: none;
 	font-size: 20px;
 	border-bottom: solid 1px grey;
+	border-radius: 10px;
 	&::placeholder {
 		font-size: 18px;
 		// text-align: center;
@@ -31,6 +33,7 @@
 .label {
 	display: flex;
 	// justify-content: flex-start;
+	color: #fff;
 	align-items: flex-start;
 	flex-direction: column;
 	width: 100%;
@@ -58,7 +61,7 @@
 
 }
 .signIn{
-	background-color: tomato;
+	background-color: red;
 	color:  #fff;
 	border: none;
 	margin-right: 20px;
@@ -76,11 +79,11 @@
 	border-radius: 100px;
 }
 .signUp{
-	border: solid 1px tomato;
+	border: solid 1px red;
 	background-color: transparent;
-	color: tomato;
+	color: #fff;
 	&:hover{
-		background-color: tomato;
+		background-color: red;
 		color: #fff;
 	}
 }
@@ -89,7 +92,7 @@
 	margin-top: 30px;
 }
 .forgottenPasswordLink{
-	color: tomato;
+	color: red;
 	display: block;
 	margin-top: 20px;
 

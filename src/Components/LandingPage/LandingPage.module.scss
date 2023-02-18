@@ -1,0 +1,36 @@
+.landingPage{
+   height: 100vh;
+   background-image: linear-gradient((rgba(0,0,0,.7),rgba(0,0,0,.7))),url("../images/pomodoro-timer1.png");
+}
+.header{
+    margin: 20px ;
+    height: 200px;
+    background-position: 50% 50%;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.headerHeading{
+    color: #fff;
+    line-height: 1.8;   
+    margin: 10px;
+}
+.heroImageFigure{
+    // width: 390px;
+    margin: 10px 0;
+
+}
+.heroImage{
+   width: 100%;
+}
+.quotePoints{
+    font-weight: 600;
+    color: red;
+}
+.welcomeMessage{
+    color: #fff;
+    display: block;
+ 
+    margin-top: 10px;
+
+}

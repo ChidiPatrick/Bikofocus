@@ -30,6 +30,7 @@ import AvatarUploadUI from './Components/avatarUploadUI/avatarUploadUI';
 import TodayTasks from './Components/Tasks/todayTasks';
 import ProjectsCompletedTasks from "./Components/allProjectCompleteTasks/projectsCompletedTasks"
 import Report from './Components/Report/Report';
+import LandingPage from './Components/LandingPage/LandingPage';
 // const analytics = getAnalytics(app);
 
 //////////////////////////////////////
@@ -37,12 +38,14 @@ function App() {
 	// const [user,loading,erro] = useAuthState(auth)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const [isSignedIn,setIsSignedIn] = useState(false)
 	onAuthStateChanged(auth, (user) => {
 		if(user) {
 			dispatch(getUserId(user.uid))
 			dispatch(fetchUserSettings(user.uid))
 			dispatch(FetchTasks([user.uid]))
 			dispatch(FetchUserData(user.uid))
+			setIsSignedIn(true)
 		}
 	})
 	const fetchedSettingsData = useSelector(state => state.settings.fetchedSettingsData)
@@ -78,7 +81,8 @@ function App() {
 							</div>
 	const app = <div className="App">
 			<Routes>
-				<Route path="/" element={frontpage} />
+				<Route path="/" element={isSignedIn ? frontpage : <LandingPage/>} />
+				<Route path="/timerPage" element={frontpage} />
 				<Route path="/UserAccount" element={<UserAccountUI />} />
 				<Route path="/project" element={<AddTask />} />
 				<Route path="/tomorrowTodo" element={<AddTask />} />

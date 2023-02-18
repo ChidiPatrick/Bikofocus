@@ -65,21 +65,6 @@ const SignUpForm = () => {
 	const  createUserTasksCollection = async (userId) => {
 	const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection/tasks`)
 	await setDoc(userTasksRef,{
-		// tasksCategories: {
-		// 	today: {
-		// 		 completedTasks: 0,
-        //          tasksToBeCompleted: 0,
-        //          estimatedTime: 0,
-        //          elaspedTime: [0,0],
-        //          tasks: [],
-        //          totalEstimatedTasksTime: 0,
-        //          completedTasksArray: [],
-        //          tasksTimesArray: [],
-		// 	},
-		// 	tomorrow: {},
-		// 	upcoming: {},
-		// 	someday: {},
-		// },
 		completed: [],
 		projectsTasks: {},
 		projectsTasksTimesArrays : []
@@ -131,10 +116,8 @@ const SignUpForm = () => {
 	   userData.push(values)
 	   console.log(userData);
 	   dispatch(getUserData({...values}))
-	   
 	  createNewUser(values)
-	 
-	   navigate('/verifyEmail')
+	  navigate('/timerPage')
 	//    dispatch(createUniqueUserName(`${values.userName}${uuid().slice(0,7)}`))
 	//   createUserCollection(values)
 	 
