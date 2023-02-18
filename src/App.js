@@ -45,7 +45,7 @@ function App() {
 			dispatch(fetchUserSettings(user.uid))
 			dispatch(FetchTasks([user.uid]))
 			dispatch(FetchUserData(user.uid))
-			setIsSignedIn(true)
+			console.log(user)
 		}
 	})
 	const fetchedSettingsData = useSelector(state => state.settings.fetchedSettingsData)
@@ -81,8 +81,8 @@ function App() {
 							</div>
 	const app = <div className="App">
 			<Routes>
-				<Route path="/" element={isSignedIn ? frontpage : <LandingPage/>} />
-				<Route path="/timerPage" element={frontpage} />
+				<Route path="/" element={<LandingPage/>} />
+				<Route path="/timerPage" element={frontpage} /> 
 				<Route path="/UserAccount" element={<UserAccountUI />} />
 				<Route path="/project" element={<AddTask />} />
 				<Route path="/tomorrowTodo" element={<AddTask />} />

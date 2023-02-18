@@ -121,7 +121,7 @@ const UserAccountUI = (props) => {
       <nav className={styles.Nav}>
         <ul className={styles.listContainer}>
           <li className={[styles.listItem, styles.navBtn].join(" ")}>
-            <Link to = "/" className ={styles.backBtn}>
+            <Link to = "/timerPage" className ={styles.backBtn}>
               <HiChevronLeft className={styles.navigateBackIcon}/>
             </Link>
           </li>
@@ -201,8 +201,11 @@ const UserAccountUI = (props) => {
            return <div  className={collapseProjectContainer ? styles.project : styles.collapseProjects} ref = {linkRef} onClick = {() => handleClicked(projects,i)} key = {i}>
               <div className={styles.projectWrapper}>
                 <div className={styles.colorAndProjectWrapper}>
-                  <span style={{backgroundColor: `${project.projectColor}`}} className={styles.projectColor}></span>
-                  <p className={styles.projectName}>{project.projectTitle}</p>
+                  <div className={styles.projectInnerWrapper}>
+                    <span style={{backgroundColor: `${project.projectColor}`}} className={styles.projectColor}></span>
+                    <p className={styles.projectName}>{project.projectTitle}</p>
+                  </div>
+                  <IoIosArrowForward className={styles.addTagIcon}/>
                 </div>
               </div>
             </div>

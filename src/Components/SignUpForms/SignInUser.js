@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import styles from "./SignUpForm.module.scss"
 import {useNavigate} from "react-router"
 import { useFormik} from 'formik';
@@ -11,11 +11,19 @@ const SignInUser = () => {
     // const [signInWithEmailAndPassword,user,loading,error] = useSignInWithEmailAndPassword(auth)
     const [user,loading,error] = useAuthState(auth)
    const navigate = useNavigate()
-    const goToSettings = () => {
-        navigate("/settings")
-        
-    }
+   const [showMessage, setShowMessage] = useState(false)
+   let [counter,setCounter] = useState(0)
+    
    console.log(user);
+   const handleCounter = () => {
+   setCounter(counter + 1)
+    console.log(counter);
+    if(counter === 2){
+        setShowMessage(true)
+    }
+
+    
+   }
  const formik = useFormik({
 		initialValues: {
 			email: "",
@@ -27,46 +35,54 @@ const SignInUser = () => {
 
 		}),
 		onSubmit: (values) => {
-        signInWithEmailAndPassword(auth,values.email,values.password)
-        .then((user) => {
-            if(user) {
-                navigate('/timerPage')
+                signInWithEmailAndPassword(auth,values.email,values.password)
+                .then((user) => {
+                    if(user){
+                        navigate('/timerPage')
+                    }
+                })
             }
-        })
-     },
 	})
     return (
         <form className={styles.signInUserForm}   autoComplete="off" onSubmit={formik.handleSubmit}>
-            <label htmlFor="email" className={styles.label}>
+            <div className={showMessage ? styles.errorMessage : styles.hidden}>
+                Please Enter correct email,password and check your internet connection
+            </div>
+          <div className={styles.inputFieldWrapper}>
+                <label htmlFor="email" className={styles.signLabel}>
                 <span>Email</span>
                 <input 
                 type="email" 
-                className={styles.inputEl} 
+                className={styles.signInputEl} 
                 id ="email" 
                 onChange={formik.handleChange} 
                 required
+                placeholder="youremail@yourdomain.com"
                 value={formik.values.email}
                 />
             </label>
             {formik.errors.userName ? <div className={styles.required}>{formik.errors.userName}</div> : null}
-            <label htmlFor="password" className={styles.label}>
+            <label htmlFor="password" className={styles.signLabel}>
                 <span>Password</span>
                 <input 
                 type ="password" 
-                className={styles.inputEl} 
+                className={styles.signInputEl} 
                 onChange={formik.handleChange} 
                 id ="password" 
                 required
+                placeholder="Strongpassword34!"
                 value= {formik.values.password}
                 />
             </label>
             {formik.errors.password ? <div className={styles.required}>{formik.errors.password}</div> : null}
+          </div>
+            
             <div className={styles.CTAButtons}>
                 <input 
                 type = "submit" 
                 className ={[styles.ctaBtn,styles.signIn].join(" ")} 
                 value ="Log In"
-                // onClick={goToSettings}
+                onClick={handleCounter}
                 />
                 <input 
                 type = "submit" 

@@ -60,7 +60,7 @@ const PasswordReset = () => {
             <div className={styles.CTAButtons}>
                 <input 
                 type = "submit" 
-                className ={styles.forgottenPassword} 
+                className ={styles.forgottenPasswordBtn} 
                 value ="Reset Password"
                 // onClick={() => navigate("/settings")}
                 />

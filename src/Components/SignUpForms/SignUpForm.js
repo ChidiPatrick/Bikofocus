@@ -128,35 +128,35 @@ const SignUpForm = () => {
 		<form className={styles.SignUpWrapper}  onSubmit={formik.handleSubmit}>
 			
 			 {/* <PopUpUI heading="ERROR" modalState={modalState} message="Fill out every field with correct and complete data"/> */}
-			<label htmlFor= 'firstName'  className={styles.label}> <span className={styles.labelTitle}>First name</span>
-				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="firstName" className={styles.inputEl} type= "text" required 
+			<label htmlFor= 'firstName'  className={styles.signUpLabel}> <span className={styles.signUpLabelTitle}>First name</span>
+				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="firstName" className={styles.signupInputEl} type= "text" required 
 				 value={formik.values.firstName} name = "firstName"/>
 			</label>
 			{formik.errors.firstName ? <div className={styles.required}>{formik.errors.firstName}</div> : null}
-			<label htmlFor= 'lastName'  className={styles.label}> <span className={styles.labelTitle}>Last name</span>
-				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="lastName" className={styles.inputEl} type= "text" required
+			<label htmlFor= 'lastName'  className={styles.signUpLabel}> <span className={styles.signUpLabelTitle}>Last name</span>
+				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="lastName" className={styles.signupInputEl} type= "text" required
 				 value={formik.values.lastName} name = "lastName"/>
 			</label>
 			{formik.errors.firstName ? <div className={styles.required}>{formik.errors.lastName}</div> : null}
-			<label htmlFor= 'userName'  className={styles.label}> <span className={styles.labelTitle}>User name</span>
-				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="userName" className={styles.inputEl} type= "text" required
+			<label htmlFor= 'userName'  className={styles.signUpLabel}> <span className={styles.signUpLabelTitle}>User name</span>
+				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="userName" className={styles.signupInputEl} type= "text" required
 				 value={formik.values.userName} name = "userName"/>
 			</label>
 			{formik.errors.firstName ? <div className={styles.required}>{formik.errors.userName}</div> : null}
-			<label htmlFor= 'email'  className={styles.label}> <span className={styles.labelTitle}>email</span>
+			<label htmlFor= 'email'  className={styles.signUpLabel}> <span className={styles.signUpLabelTitle}>email</span>
 				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="email" 
-				className={styles.inputEl} type= "email" 
+				className={styles.signupInputEl} type= "email" 
 				required value={formik.values.email} name = "email"/>
 			</label>
 			{formik.errors.firstName ? <div className={styles.required}>{formik.errors.email}</div> : null}
-			<label htmlFor= 'password'  className={styles.label}> <span className={styles.labelTitle}>Password</span>
+			<label htmlFor= 'password'  className={styles.signUpLabel}> <span className={styles.signUpLabelTitle}>Password</span>
 				<input onBlur = {formik.handleBlur} onChange={formik.handleChange} id ="password" 
 				placeholder="Yourpassword9!@#?" 
-				className={styles.inputEl} type= "password" 
+				className={styles.signupInputEl} type= "password" 
 				required value={formik.values.password} name = "password"/>
 			</label>
 			{formik.errors.password ? <div className={styles.required}>{formik.errors.password}</div> : null}
-			<button  className={[ styles.inputEl, styles.submitBtn ].join(' ')} type="submit" >SignUp</button>
+			<button  className={[ styles.signupInputEl, styles.submitBtn ].join(' ')} type="submit" >SignUp</button>
 		</form>
 
 	);

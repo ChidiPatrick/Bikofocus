@@ -1,25 +1,38 @@
 .SignUpWrapper,
 .signInUserForm {
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-	// flex-direction: column;
 	width: 90%;
 	margin: 0 10px;
 	position: relative;
+	@media (min-width: 750px) {
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+}
+.inputFieldWrapper{
+	// width: 100%;
+	@media (min-width: 750px) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 100px;
+	}
 }
 .SignUpWrapper{
 	background-color: transparent;
+	
 }
-.inputEl,
-.userNameInput {
+.signInputEl,
+.userNameInput,
+.signupInputEl {
 	width: 100%;
 	padding: 10px;
 	margin: 10px 0;
 	height: 15px;
 	font-size: 20px;
+	border: none;
 	border-bottom: solid 1px grey;
-	border-radius: 10px;
+	// border-radius: 10px;
 	&::placeholder {
 		font-size: 18px;
 		// text-align: center;
@@ -27,16 +40,35 @@
 	&:focus{
 		outline: none;
 		border: none;
-		border-bottom: solid 1px tomato;
+		border: solid 1px red;
 	}
 }
-.label {
+.signInputEl{
+	border-radius: 100px;
+	// width: 300px;
+	// @media (min-width: 750px){
+	// 	width: 40%;
+	// }
+}
+.signupInputEl{
+	border-radius: 0;
+	border:none;
+	border-bottom: solid 1px red;
+}
+.signLabel,
+.signUpLabel {
 	display: flex;
-	// justify-content: flex-start;
 	color: #fff;
 	align-items: flex-start;
 	flex-direction: column;
 	width: 100%;
+	@media (min-width: 750px) {
+		width: 40%;
+	}
+}
+.signUpLabel,
+.label{
+	color: black
 }
 .labelTitle{
 	display: block;
@@ -44,7 +76,7 @@
 .submitBtn {
 	height: 40px;
 	padding: 10px;
-	background-color: tomato;
+	background-color: red;
 	color: #fff;
 	border: none;
 	font-size: 20px;
@@ -70,30 +102,44 @@
 		// color: tomato;
 	}
 }
-.forgottenPassword{
-	background-color: tomato;
+.forgottenPasswordBtn{
+	background-color: red;
 	color:  #fff;
 	padding: 10px;
-	width: 150px;
+	width: 170px;
 	font-size: 20px;
+	border: none;
 	border-radius: 100px;
 }
 .signUp{
 	border: solid 1px red;
 	background-color: transparent;
-	color: #fff;
+	color: red;
 	&:hover{
 		background-color: red;
-		color: #fff;
+		color: red;
 	}
 }
 .CTAButtons{
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-top: 30px;
+	
 }
 .forgottenPasswordLink{
 	color: red;
 	display: block;
 	margin-top: 20px;
 
+}
+.errorMessage{
+	color: red;
+}
+.hidden{
+	visibility: hidden;
+}
+.SignUpWrapper{
+	width: 80%;
+	margin: 0 auto;
 }

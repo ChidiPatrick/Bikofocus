@@ -10,7 +10,7 @@ const LandingPage = () => {
                     <span className={styles.quotePoints}>MORE PRODUCTIVE</span><br/>
                     you need to be become  <span className={styles.quotePoints}>MASTER </span>of your 
                     <span className={styles.quotePoints}> MINUTES </span> "
-                    <span className={styles.welcomeMessage}>Welcome to Bikofocus</span>
+                    <span className={styles.welcomeMessage}>Welcome to <span className={styles.bikofocus}>Bikofocus</span></span>
                 </div>
            </header> 
             <SignInUser/>
