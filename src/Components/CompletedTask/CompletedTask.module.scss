@@ -2,6 +2,12 @@
     // width: 100%;
     min-height: 100px;
     color: black;
+    // font-size: 30px;
+    @media (min-width: 600px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+  }
+    
 }
 .finishedTasksWrapper{
     background-color: #fff;
@@ -9,6 +15,10 @@
     padding: 5px;
     border-radius: 5px;
     margin: 10px 5px;
+    @media (min-width: 600px) {
+    font-size: 20px;
+  }
+   
 }
 .taskDate{
     // min-width: 100px;

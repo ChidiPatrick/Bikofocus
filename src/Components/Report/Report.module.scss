@@ -1,8 +1,9 @@
 .reportsWrapper{
     background-color: rgb(216, 214, 214);
-    height: 100vh;
-    // padding: 10px;
+    min-height: 100vh;
+    overflow: scroll;
 
+    // padding: 10px;
 }
 .headerContainer{
     background-color: #fff;
@@ -16,18 +17,26 @@
     margin: 0;
     padding: 10px;
     color: black;
+    @media (min-width: 450px) {
+        font-size: 25px;
+    }
 }
 .projectSelectionWrapper{
     background-color: #fff;
     padding: 10px;
     color: black;
     font-weight: 600;
+    margin: 10px;
+    border-radius: 10px;
 }
 .selectProjectHeader{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    @media (min-width: 450px) {
+        font-size: 20px;
+    }
 }
 .projectsWrapper{
     // background-color: grey;
@@ -46,7 +55,7 @@
     background-color: #fff;
     min-height: 470px;
     margin: 10px;
-    margin-bottom: -30px;
+    margin-bottom: 20px;
     border-radius: 10px;
     
     
@@ -61,6 +70,9 @@
     padding: 10px;
     margin: 0 ;
     color: #dd2b0c;
+     @media (min-width: 450px) {
+        font-size: 25px;
+    }
 }
 .timeSummary{
     padding: 0 10px;
@@ -76,6 +88,9 @@
 .graphHeader{
     color: black; 
     margin-top: 30px;
+    @media (min-width: 450px) {
+        font-size: 25px;
+    }
 }
 .navLink{
     text-decoration: none;

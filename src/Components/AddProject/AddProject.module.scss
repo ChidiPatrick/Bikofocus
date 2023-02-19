@@ -15,6 +15,10 @@
 }
 .projectTitle{
     justify-self: flex-start;
+    font-size: 20px;
+    @media (min-width: 600px) {
+        font-size: 25px;
+    }
 
 }
 .projectInput{
@@ -50,7 +54,10 @@
     &:focus{
         outline: none;
     }
-    &::placeholder {
-
-    }
+    
+}
+.colorPickerWrapper{
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgb(238, 236, 236);
 }

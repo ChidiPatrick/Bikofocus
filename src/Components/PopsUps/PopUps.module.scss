@@ -17,7 +17,7 @@
     margin: 0 auto;
     background-color: white;
     height: 150px;
-    width: 250px;
+    // width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,6 +39,7 @@
     border-bottom: solid 1px tomato;
     background-color: #fff;
     outline: none;
+    
     &::placeholder{
         font-size: 17px;
     }

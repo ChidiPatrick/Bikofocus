@@ -16,8 +16,9 @@ const ProjectsCompletedTasks = () => {
             </Link>
             <span>Completed Tasks</span>
         </h3>
-        {projectsCompletedTasks.length > 0 ?  projectsCompletedTasks.map((task,index) => {
-        return <div className={styles.completedTasks} key = {index}>
+        <div className={styles.completedTasksInnerWrapper}>
+            {projectsCompletedTasks.length > 0 ?  projectsCompletedTasks.map((task,index) => {
+            return <div className={styles.completedTasks} key = {index}>
                 <div className={styles.tasksCompletionDate}>
                   <span>{task.date}</span>
                   <span>{task.time}</span>
@@ -36,6 +37,8 @@ const ProjectsCompletedTasks = () => {
         
     </div>
         }
+        
+        </div>
         
     </div>;
 }

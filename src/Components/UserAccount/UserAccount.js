@@ -119,13 +119,14 @@ const UserAccountUI = (props) => {
   return (
     <div className={styles.UserAccountUI}>
       <nav className={styles.Nav}>
-        <ul className={styles.listContainer}>
-          <li className={[styles.listItem, styles.navBtn].join(" ")}>
+        <div className={styles.listContainer}>
+          <div className={styles.avatarLinkWrapper}>
+          <div className={[styles.listItem, styles.navBtn].join(" ")}>
             <Link to = "/timerPage" className ={styles.backBtn}>
               <HiChevronLeft className={styles.navigateBackIcon}/>
             </Link>
-          </li>
-          <li className={[styles.listItem,styles.avatarParentContainer].join(' ')}>
+          </div>
+          <div className={[styles.listItem,styles.avatarParentContainer].join(' ')}>
             <Link className={styles.link}  to = "/accountDetails">
                 { avatarURL ?
                   <figure className = {styles.settingsAvatar}>
@@ -134,34 +135,39 @@ const UserAccountUI = (props) => {
                   :
                   <ImUser className = {styles.fallbackAvatar}/>
                 }
-               
             </Link>
              <span className={styles.userName}>{userBioData.userName.slice(0,5).padEnd(8,".")}</span>
-          </li>
-         
-          <li className={styles.listItem}>
+          </div>
+          </div>
+         <div className={styles.innerHeaderWrapper}>
+                <div className={styles.listItem}>
                <Link to= '/Projects'>
                   {/* <IoMdFolderOpen className={styles.icon}/> */}
                   < FcTodoList className={styles.icon}/>
               </Link>
-          </li>
-          <li className={styles.listItem}>
+          </div>
+          <div className={styles.listItem}>
             <Link className={styles.link} to = {user && user.uid ? "/settings" : "/signInForm" }>
               <FcSettings className={styles.icon} />
             </Link>
-          </li>
-          <li className={styles.listItem}>
+          </div>
+          <div className={styles.listItem}>
             <Link className={styles.link} to="/reports">
               <FcBarChart className={styles.icon}/>
             </Link>
-          </li>
-        </ul>
+          </div>
+         </div>
+          
+        </div>
       </nav>
       <div className={styles.todoWrapper}>
         <div className={styles.todo}>
           <Link className={styles.link} to="/completedTasks">
-            <BiCheckCircle className={styles.completedIcon} />
-            <span className={styles.todayTodo}>Completed Tasks</span>
+            <div className={styles.completedLeftWrapper}>
+                <BiCheckCircle className={styles.completedIcon} />
+              <span className={styles.todayTodo}>Completed Tasks</span>
+            </div>
+            
             <IoIosArrowForward className={styles.arrowForward}/>
           </Link>
         </div>
@@ -182,8 +188,11 @@ const UserAccountUI = (props) => {
         </div>
         <div className={ styles.projectsFolderWrapper} onClick = {handleProjectsCollapse}>
           <div className={styles.projectsListHeader}>
-              <ImFolder className= {styles.projectsFolderIcon}/>
-              <div className= {styles.projectsTitleContainer}>My Projects</div>
+              <div className={styles.projectFolderAndTitle}>
+                <ImFolder className= {styles.projectsFolderIcon}/>
+                <div className= {styles.projectsTitleContainer}>My Projects</div>
+              </div>
+              
               <div className={styles.dropDownIconContainer}>
                 {
                  collapseProjectContainer ? < IoIosArrowUp className={[styles.projectsFolderIcon, styles.dropDownIcon].join(" ")}/>

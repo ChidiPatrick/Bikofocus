@@ -50,18 +50,19 @@ const SignInUser = () => {
             </div>
           <div className={styles.inputFieldWrapper}>
                 <label htmlFor="email" className={styles.signLabel}>
-                <span>Email</span>
-                <input 
-                type="email" 
-                className={styles.signInputEl} 
-                id ="email" 
-                onChange={formik.handleChange} 
-                required
-                placeholder="youremail@yourdomain.com"
-                value={formik.values.email}
-                />
-            </label>
-            {formik.errors.userName ? <div className={styles.required}>{formik.errors.userName}</div> : null}
+                    <span>Email</span>
+                    <input 
+                    type="email" 
+                    className={styles.signInputEl} 
+                    id ="email" 
+                    onChange={formik.handleChange} 
+                    required
+                    placeholder="youremail@yourdomain.com"
+                    value={formik.values.email}
+                    />
+                    {formik.errors.userName ? <div className={styles.required}>{formik.errors.userName}</div> : null}
+                </label>
+            
             <label htmlFor="password" className={styles.signLabel}>
                 <span>Password</span>
                 <input 
@@ -73,8 +74,9 @@ const SignInUser = () => {
                 placeholder="Strongpassword34!"
                 value= {formik.values.password}
                 />
+                {formik.errors.password ? <div className={styles.required}>{formik.errors.password}</div> : null}
             </label>
-            {formik.errors.password ? <div className={styles.required}>{formik.errors.password}</div> : null}
+            
           </div>
             
             <div className={styles.CTAButtons}>

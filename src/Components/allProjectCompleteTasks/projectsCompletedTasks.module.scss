@@ -1,7 +1,17 @@
 .completedTasksWrapper{
     height: 100vh;
     padding: 10px;
+    @media (min-width: 600px) {
+        font-size: 20px;
+    }
 
+}
+.completedTasksInnerWrapper{
+    @media (min-width: 650px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 20px;
+    }
 }
 .completedTasksHeader{
     margin: 0;

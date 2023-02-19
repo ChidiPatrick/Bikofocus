@@ -17,6 +17,7 @@ const Projects = () => {
     const connectionStatus = <div>NO INTERNET</div>
     const resource = createResource()
     return (
+                
             <Suspense fallback = {loadingSpinner}>
                 <ProjectComponent resource={resource} />
             </Suspense>

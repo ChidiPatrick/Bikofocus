@@ -1,16 +1,21 @@
 .UserAccountUI {
   // background-color: rgb(216, 215, 215);
   min-height: 100vh;
+  max-width: 960px;
   margin-top: -20px;
   box-sizing: border-box;
   padding: 5px;
+  font-size: 20px;
+   @media (min-width: 960px) {
+    background-color: rgb(235, 233, 233);
+  }
 }
 .Nav {
   height: 50px;
   width: 100%;
   margin-bottom: 50px;
 }
-.arrowForward{}
+
 .listContainer {
   display: flex;
   justify-content: space-between;
@@ -19,6 +24,27 @@
   text-decoration: none;
   padding: 10px 5px
   // width: 100%;
+}
+.avatarLinkWrapper{
+  display: flex;
+  align-items: center;
+}
+.innerHeaderWrapper{
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  @media (min-width: 450px) {
+    width: 250px;
+  }
+  @media (min-width: 500px) {
+    width: 300px;
+  }
+  @media (min-width: 620px) {
+    width: 300px;
+  }
+   @media (min-width: 650px) {
+    width: 300px;
+  }
 }
 .listItem {
   padding: 10px;
@@ -31,7 +57,15 @@
   justify-content: space-between;
   align-items: center;
 }
-
+.completedLeftWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 190px;
+   @media (min-width: 650px) {
+    min-width: 250px;
+  }
+}
 .styles.navBtn{
   align-self: flex-start;
   padding: 0;
@@ -48,19 +82,19 @@
   font-size: 30px;
   fill: rgb(204, 204, 204);
 }
-.icon,
-.sunIcon,
-.todayTodo,
-.upcomingIcon,
-.somedayIcon,
-.eventIcon,
-.completedIcon,
-.tomorrowIcon {
+// .icon,
+
+.todayTodo {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   color: black;
   font-size: 20px;
+  width: 150px;
+   @media (min-width: 650px) {
+    width: 300px;
+    font-size: 25px;
+  }
 }
 .arrowForward{
   font-size: 20px;
@@ -84,9 +118,17 @@
   display: flex;
   justify-content: flex-start;
 }
-
+// .iconFigure{
+//   margin: 0;
+//   height: 30px;
+//   width: 30px;
+// }
 .completedIcon {
   fill: rgb(73, 197, 73);
+  @media (min-width: 600px) {
+    
+   
+  }
   
 }
 .tomorrowIcon {
@@ -118,6 +160,12 @@
   color: black;
   padding-right: 10px;
 }
+.projects{
+  @media (min-width: 500px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .project{
   display: flex;
   color: black;
@@ -133,6 +181,9 @@
 .addProjectWrapper{
   margin: 0;
   margin-top: 20px;
+   @media (min-width: 650px) {
+    font-size: 25px;
+  }
 
 }
 .AddProject{
@@ -147,6 +198,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+   @media (min-width: 650px) {
+    justify-content: space-between;
+    // width: 200px;
+  }
 }
 
 .addFolderIcon{
@@ -160,6 +215,10 @@
 }
 .addProjectIcon{
   font-size: 30px;
+  margin-right: 15px;
+  @media (min-width: 650px) {
+     margin-right: 25px;
+  }
 }
 .colorAndProjectWrapper{
   display: flex;
@@ -241,7 +300,13 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  width: 100%;
+  // width: 100%;
+}
+.projectFolderAndTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
 }
 .projectsFolderIcon{
   fill: #FF3D00;
@@ -251,6 +316,9 @@
   width: 80%;
   display: flex;
   justify-self: flex-start;
+  @media (min-width: 650px) {
+    font-size: 25px;
+  }
 }
 .projectsListContainer{
   border-left: solid 1px #FF3D00;

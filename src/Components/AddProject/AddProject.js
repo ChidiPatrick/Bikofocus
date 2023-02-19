@@ -94,7 +94,8 @@ const AddProject = ({title = "New Project"}) => {
             </div>
             
         </div>
-           <CirclePicker 
+        <div className={styles.colorPickerWrapper}>
+            <CirclePicker 
             color = {blockPickerColor}
             onChange = {(color) => {
             setBlockPickerColor(color.hex)
@@ -103,8 +104,10 @@ const AddProject = ({title = "New Project"}) => {
            width = "100%"
            circleSize= {35}
            circleSpacing ={16}
-           style = {{marginLeft: "16px"}}
+           style = {{marginLeft: "16px", justifyContent: "space between", backgroundColor: '#fff'}}
            />
+        </div>
+           
         </div>
     )
 }

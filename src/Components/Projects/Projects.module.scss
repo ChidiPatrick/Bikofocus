@@ -1,5 +1,5 @@
 .projectsContainer{
-  padding: 5px;
+  padding: 10px;
 }
 .projectsHeader{
     display: flex;
@@ -8,6 +8,14 @@
     padding: 10px;
     border-bottom: solid 1px grey;
     height: 30px;
+   
+}
+.projectsWrapper{
+  @media (min-width: 650px) {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+  }
 }
 .backLink{
     margin-right: 40px;
@@ -25,6 +33,14 @@
     align-items: center;
     justify-content: space-between;
     // flex-direction: c;
+}
+.projectsHeading{
+  width: 90%;
+  font-size: 23px;
+  @media (min-width: 600px) {
+    font-size: 30px;
+    
+  }
 }
 .projectColor{
     display: block;
@@ -59,6 +75,9 @@
 .interStatusWrapper{
   height: 100vh;
   position: relative;
+  @media (min-width: 650px)  {
+    background-color: rgb(235, 235, 235);
+  }
  
 }
 .errorMsgBackBtn{
@@ -77,6 +96,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  @media (min-width: 450px) {
+    width: 80%;
+    margin: 0 auto;
+  }
   
 }
 .messageParagraph{

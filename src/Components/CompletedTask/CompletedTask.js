@@ -22,9 +22,9 @@ const CompletedTasks = ({completedTasksArray, showFinishedTasks}) => {
                         </div>
                         <div className={styles.finishedTaskInnerWrapper}>
                             <div className={styles.finishedTask}>{task.taskTitle}</div>
-                            <div className={styles.pomodoroIcon}>
+                            {/* <div className={styles.pomodoroIcon}>
                                 <FaStopwatch className={styles.stopwatch}/>
-                            </div>
+                            </div> */}
                         </div>
                         
                     </div>

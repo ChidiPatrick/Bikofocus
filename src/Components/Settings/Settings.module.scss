@@ -88,6 +88,9 @@
 	font-size:  20px;
 	align-self: center;
 	margin-right: 50px;
+	@media (min-width: 650px) {
+		font-size: 25px;
+	}
 }
 
 .AlarmSettings {

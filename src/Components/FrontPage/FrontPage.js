@@ -315,7 +315,7 @@ const FrontPage = ({ expiryTimestamp }) => {
     }
     else if(!userId){
       alert("Please register or login sign in to access this page")
-      navigate('/signInForm')
+      navigate('/landingPage')
 
     }
     else{
@@ -330,7 +330,7 @@ const FrontPage = ({ expiryTimestamp }) => {
     }
      else if(!userId){
       alert("Please register or sign in with your login details to access this page")
-      navigate('/signInForm')
+      navigate('/landingPage')
     }
     else{
       navigate('/accountDetails')
@@ -343,7 +343,7 @@ const FrontPage = ({ expiryTimestamp }) => {
     }
      else if(!userId){
       alert("Please register or sign in with your login details to access this page")
-      navigate('/signInForm')
+      navigate('/landingPage')
     }
     else{
       navigate('/settings')
@@ -356,7 +356,7 @@ const FrontPage = ({ expiryTimestamp }) => {
     }
      else if(!userId){
       alert("Please register or sign in with your login details to access this page")
-      navigate('/signInForm')
+      navigate('/landingPage')
     }
     else{
       navigate('/Projects')
@@ -369,31 +369,14 @@ const FrontPage = ({ expiryTimestamp }) => {
     }
      else if(!userId){
       alert("Please register or sign in with your login details to access this page")
-      navigate('/signInForm')
+      navigate('/landingPage')
     }
     else{
-      navigate('/')
+      navigate('/reports')
     }
   }
   return (
     <div className={styles.FrontPageMainWrapper}>
-      <div className={styles.navContainerWrapper}>
-        <nav className={styles.navContainer}>
-          <div className={styles.navIcon} onClick = {handleNavigationToUserAccount}>
-            <ImUser className={styles.icon}/>  
-          </div>
-          <div className={styles.navIcon} onClick = {handleNavigationToTimerSettings}>
-            <ImHourGlass className={styles.icon}/>
-          </div>
-          <div className={styles.navIcon} onClick = {handleNavigationToProjectsList}>
-            <ImList className={styles.icon}/>
-          </div>
-          <div className={styles.navIcon} onClick = {handleNavigationToUserStats}>
-            <IoBarChart className={styles.icon}/>
-          </div>
-        </nav>
-      </div>
-      
       <div className={showCautionMessage ? styles.popUp: styles.hidden} onClick = {() => setShowCautionMessage(!showCautionMessage)}>
         <div className={styles.cautionMessage} >
           <div className={styles.iconConatainer}>
@@ -447,9 +430,24 @@ const FrontPage = ({ expiryTimestamp }) => {
               </button>
             </div>
           </div>
-          {/* <div>{seconds}</div> */}
+        
         </div>
-        {/* <Link /> */}
+        <div className={styles.navContainerWrapper}>
+          <nav className={styles.navContainer}>
+            <div className={styles.navIcon} onClick = {handleNavigationToUserAccount}>
+              <ImUser className={styles.icon}/>  
+            </div>
+            <div className={styles.navIcon} onClick = {handleNavigationToTimerSettings}>
+              <ImHourGlass className={styles.icon}/>
+            </div>
+            <div className={styles.navIcon} onClick = {handleNavigationToProjectsList}>
+              <ImList className={styles.icon}/>
+            </div>
+            <div className={styles.navIcon} onClick = {handleNavigationToUserStats}>
+              <IoBarChart className={styles.icon}/>
+            </div>
+          </nav>
+      </div>
       </div>
       
     </div>
