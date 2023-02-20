@@ -61,7 +61,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  min-width: 150px;
    @media (min-width: 650px) {
     min-width: 250px;
   }
@@ -125,6 +125,7 @@
 // }
 .completedIcon {
   fill: rgb(73, 197, 73);
+  margin-right: 20px;
   @media (min-width: 600px) {
     
    

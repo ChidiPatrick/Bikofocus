@@ -114,12 +114,9 @@ const SignUpForm = () => {
 
 		onSubmit: values => {
 	   userData.push(values)
-	   console.log(userData);
 	   dispatch(getUserData({...values}))
-	  createNewUser(values)
-	  navigate('/timerPage')
-	//    dispatch(createUniqueUserName(`${values.userName}${uuid().slice(0,7)}`))
-	//   createUserCollection(values)
+	   createNewUser(values)
+	   navigate('/timerPage')
 	 
 
      },

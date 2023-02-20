@@ -4,6 +4,10 @@
 	margin: 0 10px;
 	position: relative;
 	@media (min-width: 750px) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		width: 80%;
 		margin: 0 auto;
 		
@@ -75,10 +79,14 @@
 }
 .signUpLabel,
 .label{
-	color: black
+	color: black;
+	width: 100%
 }
 .labelTitle{
 	display: block;
+}
+.signUpLabelTitle{
+	// width: 100%;
 }
 .submitBtn {
 	height: 40px;

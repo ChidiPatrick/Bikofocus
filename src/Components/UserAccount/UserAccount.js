@@ -147,7 +147,7 @@ const UserAccountUI = (props) => {
               </Link>
           </div>
           <div className={styles.listItem}>
-            <Link className={styles.link} to = {user && user.uid ? "/settings" : "/signInForm" }>
+            <Link className={styles.link} to = "/settings">
               <FcSettings className={styles.icon} />
             </Link>
           </div>

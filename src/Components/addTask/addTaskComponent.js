@@ -259,7 +259,7 @@ const AddTaskComponent = () => {
   const handleStart = () => {
     dispatch(setActiveProject(projectTitle))
     dispatch(setActivePomodoroLength(pomodoroCurrLength))
-     navigate('/')
+     navigate('/timerPage')
   } 
   
   return (
