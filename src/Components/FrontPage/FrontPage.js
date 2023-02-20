@@ -311,7 +311,7 @@ const FrontPage = ({ expiryTimestamp }) => {
   const handleNavigation = () => {
     if(isRunning) {
       setShowCautionMessage(!showCautionMessage)
-      navigate('/')
+      navigate('/timerPage')
     }
     else if(!userId){
       alert("Please register or login sign in to access this page")
