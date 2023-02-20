@@ -7,7 +7,7 @@ const workAlarmTones = (props) => {
 	return (
 		<div className={styles.AlarmTonesWrapper}>
 			<header className={styles.AlarmToneHeader}>
-				<Link to={-1} className={styles.backLink}>
+				<Link to = "/settings" className={styles.backLink}>
 					<HiChevronLeft className={styles.goBackIcon} />
 				</Link>
 				<h3 className={styles.AlarmHeader}>Work Alarm</h3>

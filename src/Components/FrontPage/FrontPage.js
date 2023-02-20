@@ -40,7 +40,7 @@ import {
   setTimeElasped,
   setElapsedTimeHoursMinutesArray, 
   FetchTasks,
-  setDailyWorkHours
+  setDailyWorkHours,
  
   
 } from "../Settings/SettingsSlice"
@@ -107,8 +107,11 @@ const FrontPage = ({ expiryTimestamp }) => {
   const monthlyWorkHourArray = useSelector(state => state.frontPage.monthlyWorkHour)
   const date = new Date().toDateString()
   const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
+  const longBreakAfter = useSelector(state => state.settings.longBreakAfterCurrLength)
+	const numbTasksPerformed = useSelector(state => state.settings.numbTasksPerformed)
  ////////////////////////////////////////////////////////////
- 
+  console.log(numbTasksPerformed);
+  console.log(longBreakAfter);
    const tones = {
     Bell,Swoosh,Thriller,TubularBell,Announcement,Notification,Buzzer,Decide,Ding,Impact
    }
@@ -199,25 +202,6 @@ const FrontPage = ({ expiryTimestamp }) => {
     ////////////////////////////////////////
     
   }
-  // const dateYesterday = new Date("february, 10, 2023")
-  // const dateNow = new Date("february, 11, 2023");
-  // console.log(dateNow.toDateString() === dateYesterday.toDateString());
-  //// Update Elasped Time ////////
-  // const updateElapsedTime = async (currPomodoroLength) => {
-  //   const activeProjectId = activeProject.split(" ").join("")
-  //   const currProject = userTasks[activeProjectId]
-  //   const totalElaspedTime = currProject.totalElaspedTime
-  //   const newTotalElapsedTime = totalElaspedTime + activePomodoroLength
-  //   const elapsedTimeHoursMinutesArray = calculateMinutesAndHours(newTotalElapsedTime)
-    // await updateDoc(userTasksRef,{
-    //   [`projectsTasks.${activeProject}.totalElaspedTime`]: newTotalElapsedTime,
-    //  })
-    // await updateDoc(userTasksRef,{
-    //   [`projectsTasks.${activeProject}.elaspedTime`]: elapsedTimeHoursMinutesArray,
-    //  })
-    //  updateTotalElaspedTime(newTotalElapsedTime)
-    //  dispatch(FetchTasks())
-  // }
   ////////////////////////////////////////////////
   const handleTimeElapsed = async (timeElapsed,activeRunningPomodoroLength) => {
     const newTasksElapsedTimeArray = [...timeElapsed,parseInt(activeRunningPomodoroLength)]
@@ -232,38 +216,19 @@ const FrontPage = ({ expiryTimestamp }) => {
     dispatch(FetchTasks(userId))
   }
  
-  // useEffect(() => {
-  //   if(countDownIsRunning)
-  //   return pauseCountDown()
-  // },[countDownIsRunning])
-  // useEffect(() => {
-  //   if(countDownRunning) {
-  //     start()
-  //   }
-  //   else {
-  //     return
-  //   }
-  // },[countDownRunning])
-  
   const getDate = () => {
     const time = new Date();
     time.setSeconds(time.getSeconds() + (60 * pomodoroTime));
     return time
    
   };
-  //  useEffect(() => {
-  //   if(!isRunning && !countDownRunning){
-  //     restart(getDate(),false)
-  //   }
-  // },[countDownRunning,isRunning])
-  // console.log(expiryTimestamp);
+  
   const onExpiry = () => {
     workAlarm.play();
     handleTimeElapsed(timeElapsed,parseInt(activePomodoroLength),dailyWorkHoursArray)
     dispatch(resetState());
     restart(getDate(), false);
     dispatch(breakStart());
-    // updateElapsedTime(activePomodoroLength)
     dispatch(turnOffCountDownRunning())
     dispatch(turnOffTriggerPlayFromTak())
     dispatch(setIsRunning(isRunning))

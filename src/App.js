@@ -56,13 +56,12 @@ function App() {
 	////////////////////////////////////////////////////
 	const minute = useSelector((state) => state.settings.pomodoroCurrLength);
 	const shortBreakLength = useSelector(state => state.settings.shortBreakCurrLength)
-	console.log(minute);
 	const timeMinutes = new Date();
 	const timeSeconds = new Date()
 	//////////////////////////////////////
 	///Implement time conversion here /////
 	timeMinutes.setSeconds(timeMinutes.getSeconds() +  60 * minute);
-	timeSeconds.setSeconds(timeSeconds.getSeconds() + (60 * shortBreakLength))
+	timeSeconds.setSeconds(timeSeconds.getSeconds() + ( 60 * shortBreakLength))
 	const displayBreak = useSelector((state) => state.frontPage.break);
 	useEffect(() => {
 		if(fetchedUserTask === true && fetchedSettingsData === true && fetchedUserBioData === true){

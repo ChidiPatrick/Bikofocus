@@ -11,7 +11,6 @@ const TonesSlice = createSlice({
     reducers: {
         getWorkAlarmTone(state,action){
             state.workAlarm = action.payload
-            console.log( action.payload);
         },
         getBreakAlarmTone(state,action) {
             state.breakAlarm = action.payload

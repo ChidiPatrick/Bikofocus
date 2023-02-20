@@ -32,12 +32,12 @@ const PasswordReset = () => {
      },
 	})
     return (
-        <form className={styles.signInUserForm}   autoComplete="off" onSubmit={formik.handleSubmit}>
+        <form className={styles.forgottenPasswordForm}   autoComplete="off" onSubmit={formik.handleSubmit}>
             <label htmlFor="email" className={styles.label}>
                 <span>Email</span>
                 <input 
                 type="email" 
-                className={styles.inputEl} 
+                className={styles.signupInputEl} 
                 id ="email" 
                 onChange={formik.handleChange} 
                 required
@@ -49,7 +49,7 @@ const PasswordReset = () => {
                 <span>New Password</span>
                 <input 
                 type ="password" 
-                className={styles.inputEl} 
+                className={styles.signupInputEl} 
                 onChange={formik.handleChange} 
                 id ="password" 
                 required

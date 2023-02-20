@@ -54,7 +54,6 @@ const initialState = {
 	fetchedUserData: false,
 	fetchedUserTask: false,
 
-
 	
 };
 export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", async (userId,{dispatch,getState}) =>{
@@ -348,6 +347,7 @@ const SettingSlice = createSlice({
 		setFetchedAllData(state,action){
 			state.fetchedAllData = true
 		},
+		
 	},
 	extraReducers: (builder) => {
 			builder.addCase(FetchUserData.fulfilled, (state,action) => {
@@ -444,6 +444,6 @@ export const {
 	setCurrDate,
 	showNoInternetConnection,
 	hideNoInternetConnection,
-	setFetchedAllData
+	setFetchedAllData,
 } = SettingSlice.actions;
 export default SettingSlice.reducer;

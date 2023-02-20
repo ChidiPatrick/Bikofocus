@@ -117,8 +117,8 @@ onAuthStateChanged(auth, (user) => {
 	const selectRef = useRef();
 	const Minutes = [];
 	let selectedTime = 45;
-	for (let i = 0; i <= 60; i++) {
-		Minutes.push(i + 1);
+	for (let i = 1; i < 60; i++) {
+		Minutes.push(i);
 	}
 	const avatarRef = useRef()
 	
