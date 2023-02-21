@@ -12,5 +12,4 @@ import Announcement from "./Announcement.mp3"
 const Tones = {
     Bell,Impact,Buzzer,Swoosh,Decide,Ding,Notification,Thriller,TubularBell,Announcement
 }
-console.log(Tones);
 export default Tones

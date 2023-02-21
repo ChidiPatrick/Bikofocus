@@ -54,13 +54,9 @@ const AddProject = ({title = "New Project"}) => {
         dispatch(FetchTasks(userId))
     }
     const getInputValue =  () =>  {
-        // dispatch(createProject({projectName: inputRef.current.value, projectColor: blockPickerColor}))
         addProject(inputRef.current.value)
         inputRef.current.value = ""
         dispatch(deActivateProjectBtn())
-       
-        // createUserCollection("AMadi",{projectName: inputRef.current.value, projectColor: blockPickerColor})
-    
     }
     
     return (

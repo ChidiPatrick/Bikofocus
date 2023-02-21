@@ -3,11 +3,10 @@ import styles from "./PopUps.module.scss"
 import {hideChangeUsernameUI} from "../Settings/SettingsSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { db,auth,app,storage } from '../Firebase/Firebase';
+import { db} from '../Firebase/Firebase';
 // import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
 import {FetchUserBioData } from '../Settings/SettingsSlice';
-import { Navigate } from 'react-router';
 //////////////////////////////////////
 const ChangeUsername = () => {
     const dispatch = useDispatch()

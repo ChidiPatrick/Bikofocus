@@ -3,7 +3,6 @@ import styles from "./Report.module.scss"
 import { Link } from "react-router-dom"
 import { HiChevronLeft } from "react-icons/hi";
 import {
-    LineChart,
     BarChart,
     Bar,
     Line,
@@ -24,8 +23,6 @@ const Report = () => {
    const projects = useSelector((state) => state.settings.projects)
    const userTasks = useSelector(state => state.settings.userTasks)
    const [showProjects,setShowProjects] = useState(false)
-  console.log(dailyWorkHours);
-  console.log(projects)
   ///Format Date //////////////
   const formatDate = (taskDate) => {
     const date = new Date(taskDate)
@@ -85,27 +82,25 @@ const Report = () => {
     return `${dayOfMonth} ${month}`
   }
   let totalHours = 0;
+  let averageTime = 0
   const data = []
   ///////////////////////////////////////////
   function calculateMinutesAndHours(minutes){
     if(minutes === NaN) return
     const remainingMinutes = minutes % 60
     const hours = minutes / 60
-    console.log(`You did ${parseInt(hours)}hrs:${remainingMinutes}min today`);
     return [parseInt(hours),parseInt(remainingMinutes)]
   }
   /////////////////////////////////////
   const focusedTimeData = dailyWorkHours.map((dailyWorkObject,i) =>{
     const cur = formatDate(dailyWorkObject.date)
     totalHours = totalHours + dailyWorkObject.totalDailyWorkHours
-    console.log(totalHours);
+    averageTime = totalHours / (i + 1)
     data.push({date: formatDate(dailyWorkObject.date), totalWorkHours: (dailyWorkObject.totalDailyWorkHours / 60).toFixed(2)})
   })
-  console.log(data);
   const totalHoursTimeArray = calculateMinutesAndHours(totalHours)
- const averageTime = totalHours / dailyWorkHours.length
  const averageTimesArray = calculateMinutesAndHours(averageTime)
- console.log(averageTimesArray[0]);
+
  ////////////////////////////////////////////////
  const projectSelectionHandler = (e) =>{
   const projectTitle = e.target.innerText
@@ -129,8 +124,8 @@ const Report = () => {
                 <IoIosArrowDown/>
               </div>
               {projects.map((project,index) => {
-                return <div className={showProjects ? styles.projectsWrapper : styles.hidden}>
-                    <div className={styles.projectTitle} onClick = {projectSelectionHandler} key = {index}>
+                return <div className={showProjects ? styles.projectsWrapper : styles.hidden} key = {index}>
+                    <div className={styles.projectTitle} onClick = {projectSelectionHandler} >
                     {project.projectTitle}
                     </div>
               </div>
@@ -141,10 +136,8 @@ const Report = () => {
             <div className={styles.chartContainer}>
                 <div className={styles.chartHeader}>
                     <h4 className={styles.header}>Focus Time Chart</h4>
-                    {/* <div className={styles.reportSummaryWrapper}> */}
                         <div className={styles.timeSummary}>Total: {totalHoursTimeArray[0] !== NaN ? totalHoursTimeArray[0]: 0}hrs : {totalHoursTimeArray[1] !== NaN ? totalHoursTimeArray[1]: 0}min</div>
-                        <div className={styles.timeSummary}>Average: {averageTimesArray[0] === NaN ? `0` : averageTimesArray[0]}hrs : {averageTimesArray[1] === NaN ? `0` : averageTimesArray[1]}min</div>
-                    {/* </div> */}
+                        <div className={styles.timeSummary}>Average: {averageTimesArray[0] !== NaN ? averageTimesArray[0] : 0}hrs : {averageTimesArray[1] !== NaN ? averageTimesArray[1] : 0}min</div>
                 </div>
                 <div className = {styles.chartWrapper}>
                     <h4 className={styles.graphHeader}>Daily Chart Of Focused Time </h4>

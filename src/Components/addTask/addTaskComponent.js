@@ -1,13 +1,9 @@
 import React,{useRef,useState,useEffect} from "react";
 import style from "./addTask.module.scss";
 import { useNavigate } from "react-router";
-import {ButtonBack} from "../NavButtons/NavButton";
-import { TbArrowsDownUp } from "react-icons/tb";
-// import AddTaskInput from "../addTaskInput/addTaskInput"
 import PomodoroSetting from "../PomodoroSetting/PomodoroSetting"
 import { useDispatch, useSelector } from "react-redux";
 import { 
-  getProjectT, 
   getProjectTodos,
   FetchTasks,
   updateCurrProjectTasks,
@@ -21,28 +17,16 @@ import {
   setTasksTimesArray,
   setCurrTasks,
   setActivePomodoroLength,
-  setProjectsCompletedTasks,
-  
   reduceTasksToBeCompleted
 } from "../Settings/SettingsSlice";
 import {setActiveProject} from "../FrontPage/FrontPageSlice"
-import { ImBin,ImRadioUnchecked } from "react-icons/im";
-import { hidePomodoroSettings,showPomodoroSettings } from "../PomodoroSetting/PomodoroSettingSlice";
 import CompletedTasks from "../CompletedTask/CompletedTask";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { db } from "../Firebase/Firebase";
-import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
-import { setTriggerPlayFromTask } from "../FrontPage/FrontPageSlice";
+import { updateDoc,doc,increment } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { FaChevronLeft } from 'react-icons/fa';
 import TasksCategoryPopUp from "../tasksCategoryPopUp/tasksCategoryPopUp"
-import {
-  setSomedayCategoryTasks,
-	setTomorrowCategoryTasks,
-	setTodayCategoryTasks,
-	setUpcomingCategoryTasks,
- 
-} from "../Settings/SettingsSlice"
 import { ImPlay3} from "react-icons/im";
 
 //////////////////////////////////////////////////
@@ -51,35 +35,25 @@ import { ImPlay3} from "react-icons/im";
 const AddTaskComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const projects = useSelector(state => state.settings.projects)
   const projectTitle = useSelector(state => state.settings.taskHeader)
   const userId =  useSelector((state) => state.signUpSlice.userId)
   const currTaskObject = useSelector(state => state.settings.currTasks)
   const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
   const tasksArray = useSelector(state => state.settings.tasks)
-  const elapsedTime = useSelector(state => state.settings.elapsedTime)
   const tasksToBeCompleted = useSelector(state => state.settings.tasksToBeCompleted)
-  const estimatedTime = useSelector(state => state.settings.estimatedTime)
   const completedTasks = useSelector(state => state.settings.completedTasks)
   const pomodoroCurrLength = useSelector(state => state.settings.pomodoroCurrLength)
   const totalEstimatedTasksTime = useSelector(state => state.settings.totalEstimatedTasksTime)
   const numbSelectedPomodoros = useSelector(state => state.settings.numbSelectedPomodoro)
-  // const tasksHoursMinutesArray = useSelector(state => state.settings.tasksHourMinutesArray)
   const [tasksHoursMinutesArray,setTasksHoursMinutesArray] = useState(calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros)))
-  // const [elaspedTimeHoursMinutesArray,setElapsedTimeHoursMinutes] = useState(calculateMinutesAndHours(elapsedTime))
   const completedTasksArray = useSelector(state => state.settings.completedTasksArray)
   const tasksTimesArray = useSelector(state => state.settings.tasksTimesArray)
   const elapsedTimeHoursMinutesArray = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
   const [showUI,setShowUI] = useState(false)
   const [showFinishedTasks,setShowFinishedTask] = useState((false))
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
-  const projectsCompletedTasks = useSelector(state => state.settings.projectsCompletedTasks)
   const date = new Date()
-  console.log(projectsCompletedTasks);
    ///////////////////////////////////////////////////////////////
-   console.log(elapsedTimeHoursMinutesArray)
-//  const tasksHoursMinutesArray =   calculateMinutesAndHours(calcTotalTasksTime(totalEstimatedTasksTime,pomodoroCurrLength,numbSelectedPomodoros))
- 
   useEffect(() =>{
     const cleanUp = () => {
       dispatch(setNumSelectedPomodoro(0))
@@ -95,7 +69,6 @@ const AddTaskComponent = () => {
   ///Evaluate this code///
   function calcTotalTasksTime(totalTime,currPomodoroLength,numbSelectedPomodoro) {
     const totalTasksTime = totalTime + (currPomodoroLength * numbSelectedPomodoro)
-    console.log(totalTasksTime);
     return totalTasksTime
   }
   const updateTasksHourMinutesArray = (minutes) => {
@@ -107,14 +80,12 @@ const AddTaskComponent = () => {
     const newTime = currPomodoroLength * numbSelectedPomodoros
     const newArray = [...tasksTimesArray,newTime]
     dispatch(setTasksTimesArray(newArray))
-    // console.log(`New Time: ${newTime} /n New Time Array: ${newArray}, Old array: ${tasksTimesArray}`);
     await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.tasksTimesArray`]: newArray
     })
   }
   /////////Update Tasks in the server ////
   const taskUpdateHandler = async (task,oldTaskObject,updatedTaskArray) => {
-    const oldObjectTasksArray = oldTaskObject.tasks
     const newTaskObjectArray =[...updatedTaskArray,task]
     const newTasksObject = {...oldTaskObject,tasks: newTaskObjectArray}
     await updateDoc(userTasksRef,{
@@ -123,7 +94,6 @@ const AddTaskComponent = () => {
   }
   const incrementTasksTodo = async (tasksToBeCompleted) => {
     const totalTasks = tasksToBeCompleted + 1
-    console.log(totalTasks)
     dispatch(increaseTasksToBeCompleted())
     await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.tasksToBeCompleted`]: totalTasks
@@ -138,7 +108,6 @@ const AddTaskComponent = () => {
     })
   }
   const removeTaskTime = async (tasksTimesArray,tasksIndex) => {
-    console.log(typeof tasksTimesArray);
     //1. Remove task time
     const newTasksTimesArray = tasksTimesArray.filter((task,index) => tasksIndex !== index)
     //2. Update tasksTimesArray
@@ -196,9 +165,7 @@ const AddTaskComponent = () => {
     dispatch(updateProjectTasks(newTasksArray))
   }
   const updateCompletedTasksArray = async (completedTasksArray,tasksArray,index) => {
-    // const completedTaskTitle = tasksArray[index]
-    // const newCompletedTasksArray = [...completedTasksArray,tasksArray[index]]
-     const date = new Date()
+    const date = new Date()
     const newCompletedTasksArray = [...completedTasksArray,{date: date.toDateString(),taskTitle: tasksArray[index], time: date.toLocaleTimeString()}]
     console.log(newCompletedTasksArray);
     dispatch(setCompletedTasksArray(newCompletedTasksArray))
@@ -211,35 +178,16 @@ const AddTaskComponent = () => {
     const date = new Date()
     const newCompletedTasksArray = [...completedTasksArray,{date: date.toDateString(),taskTitle: tasksArray[taskIndex], time: date.toLocaleTimeString()}]
     dispatch(setCompletedTasksArray(newCompletedTasksArray))
-   const newTasksArray = tasksArray.filter((task,index) => {
-    if(taskIndex === index){
-      const newProjectsCompletedTasks = [...projectsCompletedTasks,{
-        date: date.toDateString(),
-        taskTitle: tasksArray[index],
-        time: date.toLocaleTimeString()
-      }]
-      dispatch(setProjectsCompletedTasks(newProjectsCompletedTasks))
-      
-      return false
-    }
-    else if (index !== taskIndex) {
-      return true
-    }
-     
-   })
-  //  const newTasksArray = updateProjectsCompletedTasks(taskIndex,index,tasksArray)
-   console.log(newTasksArray);
+   const newTasksArray = tasksArray.filter((task,index) => index !== taskIndex)
    dispatch(setCurrTasks(newTasksArray))
    await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.tasks`]: newTasksArray
      })
   }
   const handleComplete = async (index,tasksTimesArray,tasksArray,completedTasksArray) => {
-    console.log(tasksTimesArray);
     updateCurrTasksArray(tasksArray,index)
     const numCompletedTasks = completedTasks + 1
     dispatch(setCompletedTasks(numCompletedTasks))
-    // dispatch()
     removeTaskTime(tasksTimesArray,index)
     removeAndUpdateTaskFromTasksArray(index,tasksArray,completedTasksArray)
     decrementTasksTodo(tasksToBeCompleted)

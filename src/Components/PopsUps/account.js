@@ -1,6 +1,6 @@
 import React,{useRef} from 'react';
 import styles from "./PopUps.module.scss"
-import {showPopUp,hidePopUP,FetchUserBioData} from "../Settings/SettingsSlice"
+import {hidePopUP,FetchUserBioData} from "../Settings/SettingsSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { updateEmail } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase';
@@ -11,7 +11,6 @@ const Account = () => {
     const navigate = useNavigate()
     const popUp = useSelector(state => state.settings.popUp)
     const userId =  useSelector((state) => state.signUpSlice.userId)
-    console.log(auth);
     const handlePopUp = (e) => {
         if(e.target.id === "accountPop" || e.target.id === "cancleBtnId"){
             dispatch(hidePopUP())
@@ -23,7 +22,6 @@ const Account = () => {
     const changeEmail = async () => {
         const newEmail = inputRef.current.value
         inputRef.current.value = ""
-        console.log(newEmail);
         updateEmail(auth.currentUser,newEmail)
         dispatch(FetchUserBioData(userId))
         dispatch(hidePopUP())

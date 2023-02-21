@@ -1,11 +1,8 @@
 import React from "react";
 import styles from "./CompletedTask.module.scss"
-import { BiCalendar, BiCheckCircle } from "react-icons/bi";
-import { FaStopwatch,FaAngleRight,FaCaretRight} from "react-icons/fa";
 import { IoIosCheckmark } from "react-icons/io";
 ////////////////////////////////////////////////
 const CompletedTasks = ({completedTasksArray, showFinishedTasks}) => {
-    console.log(completedTasksArray);
     return(
         completedTasksArray.length > 0 ?
         <div className={showFinishedTasks ? styles.finishedTaskComponent : styles.hideTasks}>
@@ -22,9 +19,6 @@ const CompletedTasks = ({completedTasksArray, showFinishedTasks}) => {
                         </div>
                         <div className={styles.finishedTaskInnerWrapper}>
                             <div className={styles.finishedTask}>{task.taskTitle}</div>
-                            {/* <div className={styles.pomodoroIcon}>
-                                <FaStopwatch className={styles.stopwatch}/>
-                            </div> */}
                         </div>
                         
                     </div>

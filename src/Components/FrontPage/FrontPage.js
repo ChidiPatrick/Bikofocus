@@ -1,15 +1,10 @@
-import React, { useContext, } from "react";
+import React from "react";
 import styles from "./FrontPage.module.scss";
-import { IoIosArrowDown } from "react-icons/io";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {  useTimer } from "react-timer-hook";
 import btnStyles from "../Button/Button.module.scss";
-import { Link,  useNavigate } from "react-router-dom";
-// import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {auth} from "../Firebase/Firebase"
-// import {persistor} from "../Store/Store"
-// import ReactAudioPlayer from "react-audio-player";
 import UIFx from "uifx";
 import {
   showStartBtn,
@@ -21,30 +16,21 @@ import {
   showContinueBtn,
   hideContinueBtn,
   resetState,
-  breakEnd,
   breakStart,
-  endCounting,
   startCounting,
-  updateCurrnetTime,
   turnOffCountDownRunning,
   turnOnCountDownRunning,
   turnOffTriggerPlayFromTak,
   setIsRunning,
-  setWeeklyWorkHours,
-  // setDailyWorkHours,
-  setMonthlyWorkHours,
-  updateDailyWorkHoursStore,
    setCurrDate,
 } from "./FrontPageSlice";
 import {
-  setTimeElasped,
   setElapsedTimeHoursMinutesArray, 
   FetchTasks,
   setDailyWorkHours,
  
   
 } from "../Settings/SettingsSlice"
-import { getUserId } from "../SignUpForms/SignUpFormSlice";
 // import Toness from "../audioFiles/AudioFiles"
 import Bell from "../audioFiles/Bell.mp3"
 import Impact  from "../audioFiles/Impact.mp3"
@@ -56,17 +42,13 @@ import Notification from "../audioFiles/Notification.mp3"
 import Thriller from "../audioFiles/Thriller.mp3"
 import TubularBell from "../audioFiles/TubularBell.mp3"
 import Announcement from "../audioFiles/Announcement.mp3"
-import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
+import { updateDoc,doc} from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
 import { IoIosArrowBack,} from "react-icons/io";
 import { IoBarChart, } from "react-icons/io5";
 import { 
-        ImFilesEmpt,
-        ImFolder,
-        ImStopwatch,
         ImHourGlass,
         ImLoop2,
-        ImLock,
         ImNotification,
         ImPause2,
         ImStop2,
@@ -88,36 +70,23 @@ const FrontPage = ({ expiryTimestamp }) => {
   const Pause = useSelector((state) => state.frontPage.Pause);
   const Continue = useSelector((state) => state.frontPage.Continue);
   const stop = useSelector((state) => state.frontPage.stop);
-  const counting = useSelector((state) => state.frontPage.counting);
   const pomodoroTime = useSelector(state => state.settings.pomodoroCurrLength)
-  const countDownRunning = useSelector(state => state.frontPage.countDownRunning)
-  const triggerPlayFromTask = useSelector(state => state.frontPage.triggerPlayFromTask)
-  // const activeRunningPomodoroLength = useSelector(state => state.settings.activeRunningPomodoroLength)
-  const activeProject = useSelector(state => state.frontPage.activeProject)
-  console.log(triggerPlayFromTask);
   const userId =  useSelector((state) => state.signUpSlice.userId)
-  const userTasks = useSelector(state => state.settings.userTasks)
   const activePomodoroLength = useSelector(state => state.settings.activeRunningPomodoroLength)
-  const countDownIsRunning = useSelector(state => state.frontPage.isRunning)
   const taskName = useSelector(state => state.settings.clickedProjectIdentitfier)
   const userTasksRef = doc(db,"users",`${userId}`,`userTasksCollection`,`tasks`)
   const [showCautionMessage,setShowCautionMessage] = useState(false)
   const currDate = useSelector(state => state.settings.currDate)
   const dailyWorkHoursArray = useSelector(state => state.settings.dailyWorkHours)
-  const monthlyWorkHourArray = useSelector(state => state.frontPage.monthlyWorkHour)
   const date = new Date().toDateString()
   const timeElapsed = useSelector(state => state.settings.elapsedTimeHoursMinutesArray)
   const longBreakAfter = useSelector(state => state.settings.longBreakAfterCurrLength)
 	const numbTasksPerformed = useSelector(state => state.settings.numbTasksPerformed)
  ////////////////////////////////////////////////////////////
-  console.log(numbTasksPerformed);
-  console.log(longBreakAfter);
    const tones = {
     Bell,Swoosh,Thriller,TubularBell,Announcement,Notification,Buzzer,Decide,Ding,Impact
    }
-   console.log(tones[tone]);
   const workAlarm = new UIFx(tones[tone], { volume: 0.4, throttleMs: 100 });
-  console.log(tone);
   const navigate = useNavigate()
   const {
     seconds,
@@ -135,19 +104,16 @@ const FrontPage = ({ expiryTimestamp }) => {
     onExpire: () => onExpiry()
 
   });
-  console.log(isRunning);
+
   //Handle Time Elapsed ///
   function calculateElapsedMinutesAndHours(minutes){
     const remainingMinutes = minutes % 60
     const hours = minutes / 60
-    // dispatch(setElapsedTimeHoursMinutesArray([parseInt(hours),remainingMinutes]))
-    console.log(minutes);
     return [parseInt(hours),parseInt(remainingMinutes)]
   }
   const updateDailyWorkHours = async (pomodoroLength,dailyWorkHoursArray,currDate) => {
    if((currDate !== date) && (dailyWorkHoursArray.length === 0) ){
      const currDate = new Date().toDateString()
-     console.log(`Initial work hours array`);
      dispatch(setCurrDate(currDate))
       await updateDoc(userTasksRef,{
       [`projectsTasks.${taskName}.dailyWorkHoursArray`]: [
@@ -163,7 +129,6 @@ const FrontPage = ({ expiryTimestamp }) => {
       dispatch(FetchTasks(userId))
     }
     else if(currDate === date) {
-      console.log(`RUNNING SECOND CONDITION....`);
       const newHoursArray = dailyWorkHoursArray;
       let currWorkObj = {};
       //Remove last element of the array ////
@@ -233,8 +198,6 @@ const FrontPage = ({ expiryTimestamp }) => {
     dispatch(turnOffTriggerPlayFromTak())
     dispatch(setIsRunning(isRunning))
   };
-  const Style = [styles.FrontPageTime];
-  // let classes = [classNames(btnStyles.BtnStart)];
   const startCountDown = (e) => {
     restart(getDate(), false);
     start();
@@ -243,8 +206,6 @@ const FrontPage = ({ expiryTimestamp }) => {
     dispatch(turnOnCountDownRunning())
     dispatch(setIsRunning(isRunning))
   };
-   
-  // dispatch(updateCurrnetTime({ minute }));
   const pauseCountDown = () => {
     pause();
     dispatch(hidePauseBtn());

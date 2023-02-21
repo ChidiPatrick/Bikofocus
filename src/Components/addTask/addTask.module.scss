@@ -3,6 +3,7 @@
   min-height: 100vh;
   position: relative;
   padding: 10px;
+  overflow: scroll;
  
   
 }
@@ -164,12 +165,12 @@
 
 }
 .hideShowFinishedTask{
-   background-color: #fff;
+  background-color: #fff;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 52%;
+  width: 80%;
   margin: 10px auto;
   border-radius: 100px;
 }

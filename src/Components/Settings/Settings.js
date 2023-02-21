@@ -1,19 +1,14 @@
 import React, { useState, useRef,useEffect,Suspense } from 'react';
 import styles from './Settings.module.scss';
 import { Link } from 'react-router-dom';
-// import NavButton from '../NavButtons/NavButton';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import {useCollection, useDocument, useDocumentData, useDocumentOnce} from "react-firebase-hooks/firestore"
-import { db,auth,app,storage } from '../Firebase/Firebase';
-import {doc,collection,getDoc,updateDoc} from "firebase/firestore"
-import { getAuth,onAuthStateChanged } from 'firebase/auth';
+import { db,auth,storage } from '../Firebase/Firebase';
+import {doc,updateDoc} from "firebase/firestore"
+import { onAuthStateChanged } from 'firebase/auth';
 import { ImUser } from "react-icons/im";
-// import Spinner from '../Spinner/Spinner';
-// import Projects from '../Projects/Projects';
 import {
 	showMinutes,
 	hideMinutes,
-	updateTime,
 	showLongBreak,
 	hideLongBreak,
 	showLongBreakAfter,
@@ -36,31 +31,19 @@ import {
 	
 } from '../Settings/SettingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useAuthState } from "react-firebase-hooks/auth";
 import { createResource } from '../PersonApi/PersonApi';
 import {ref,getDownloadURL,uploadBytesResumable} from "@firebase/storage";
 
 ////////////////////////////////////
 const Settings = (props) => {	
-onAuthStateChanged(auth, (user) => {
-	console.log(user.id);
-})
 	///////////////////
 	//HOOKS//
-	const [ checked, setChecked ] = useState(false);
 	const [selectedFile,setSelectedFile] = useState(null)
 	const [imgUrl,setImgUrl] = useState("")
-	const userAvatarURL = useSelector(state => state.settings.userAvatarURL)
-    const [avatarFile,setAvatarFile] = useState("No file")
-	const [src,setSrc] = useState(null)
-	const [preview,setPreview] = useState(null)
-    const [showPreview,setShowPreview] = useState(false)
 	const [loadingPercentage,setLoadingPercentage] = useState(`${0}%`)
 	///GLOBALS/////////
 	const dispatch = useDispatch();
 	////Select Display states/////
-	console.log(selectedFile);
-	const selected = useSelector((state) => state.settings.selected);
 	const pomodoroLengthSelected = useSelector((state) => state.settings.pomodoroLengthSelected);
 	const shortBreakLengthSelected = useSelector((state) => state.settings.shortBreakLengthSelected);
 	const longBreakLengthSelected = useSelector((state) => state.settings.longBreakLengthSelected);
@@ -80,49 +63,15 @@ onAuthStateChanged(auth, (user) => {
 	const [settings,setSettings] = useState(userSettings)
 	const userBioData = useSelector(state => state.settings.userBioData)
 	const avatarURL = useSelector(state => state.settings.userAvatarURL)
-	
-	console.log(avatarURL);
 	//////////////////////////////////////
-	// const [user, loading, error ] = useAuthState(auth)
-	const uploadTask = async(selectedFile) => {
-		if(!selectedFile) return
-        console.log(selectedFile);
-		const storageRef = ref(storage, `/usersAvatars/${selectedFile.name}`)
-		const  uploadAvatar = uploadBytesResumable(storageRef, selectedFile)
-		uploadAvatar.on("state_changed", (snapshot) => {
-			const progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100
-			setLoadingPercentage(progress)
-		},(error) => {
-			console.log(error);
-		},
-		() => {
-			getDownloadURL(uploadAvatar.snapshot.ref).then((downloadURL) => {
-				dispatch(setUserAvatarURL(downloadURL))
-				setImgUrl(downloadURL)
-			})
-		})
-	} 
-	
-    // }
 	dispatch(getUserSettings())
-	let userData = []
-	console.log(userBioData);
-	// const usersId = localStorage.getItem("userId")
-	console.log(userSettings);
-	/////Get data function	
     const settingsRef = doc(db,"users",`${userId}`,"userSettingsCollection","settings")
-	/////// Settings handlers ////////////////
-	
-	////////////////////////////////////
 	const selectRef = useRef();
 	const Minutes = [];
 	let selectedTime = 45;
 	for (let i = 1; i < 60; i++) {
 		Minutes.push(i);
 	}
-	const avatarRef = useRef()
-	
-	console.log(imgUrl);
 	///////////////////////////////////
 	//GET SELECTED MINUTE
 	const getPomodoroTime = (e) => {
@@ -130,12 +79,10 @@ onAuthStateChanged(auth, (user) => {
 		dispatch(updatePomodoroTime(e.target.value));
 	};
 	const getShortBreakTime = (e) => {
-		let curValue = e.target.value;
 		dispatch(hideShortBreak());
 		dispatch(updateShortBreakTime(e.target.value));
 	};
 	const getLongBreakTime = (e) => {
-		let curValue = e.target.value;
 		dispatch(hideLongBreak());
 		dispatch(updateLongBreakTime(e.target.value));
 	};
@@ -180,30 +127,6 @@ onAuthStateChanged(auth, (user) => {
 			dispatch(hideLongBreak());
 		}
 	};
-	const autoStartNextPomodoroHandler = () => {
-		if (!autoStartNextPomodoro) {
-			dispatch(enableAutoStartPomodoro());
-		}
-		if (autoStartNextPomodoro) {
-			dispatch(disableAutoStartPomodoro());
-		}
-	};
-	const autoBreakStartHandler = () => {
-		if (!autoStartBreak) {
-			dispatch(enableAutoStartBreak());
-		}
-		if (autoStartBreak) {
-			dispatch(disableAutoStartBreak());
-		}
-	};
-	const disableBreakHandler = () => {
-		if (!goForBreak) {
-			dispatch(enableGoForBreak());
-		}
-		if (goForBreak) {
-			dispatch(disableGoForBreak());
-		}
-	};
 	const updatePomodoroLength = async (e) =>  {
 			getPomodoroTime(e)
 			togglePomodoroSelect()
@@ -211,8 +134,6 @@ onAuthStateChanged(auth, (user) => {
 				pomodoroLength: e.target.value
 			});
 			dispatch(getUserSettings())
-			
-			// 
 		}
 		const updateShortBreakLength = async (e) => {
 			getShortBreakTime(e)
@@ -239,12 +160,6 @@ onAuthStateChanged(auth, (user) => {
 			})
 			dispatch(getUserSettings())
 		}
-		const updateAutoStartBreak = async (e) => {
-			await updateDoc(settingsRef, {
-				autoStartBreaks: settings.disableBreak
-			});
-			
-		}
 		
 	///////TESTING SUSPENSE //////////////////
 	const resource = createResource()
@@ -252,9 +167,6 @@ onAuthStateChanged(auth, (user) => {
 			<span className={styles.loader}></span>
 		</div>
 	return (
-		//  <Suspense fallback= {loadingSpinner}>
-		// 	<SettingsComponent resource = {resource}/>
-		//   </Suspense>
 		<div className={styles.Setting}>
 			<div className={styles.HeaderWrapper}>
 				<Link to= "/userAccount" className={styles.navLink}>

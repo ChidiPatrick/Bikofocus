@@ -12,15 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {hideTaskCategoryPopUp} from "../Settings/SettingsSlice"
 //////////////////////////////////////////////////
 const TasksCategoryPopUp = () => {
-    const [showPopUp,setShowPopUp] = useState(true)
     const dispatch = useDispatch()
     const todayTasksRef = useRef()
     const tomorrowTasksRef = useRef()
     const somedayTasksRef = useRef()
     const upcomingTasksRef = useRef()
-    const tasksCategory = useSelector(state => state.settings.tasksCategory)
     const showTasksCategoryPopUp = useSelector(state => state.settings.showTasksCategoryPopUp)
-    console.log(showTasksCategoryPopUp);
     //////////////////////////////////////////////////
     const todayTasksHandler =  () => {
         dispatch(setTaskCategory(todayTasksRef.current.id))

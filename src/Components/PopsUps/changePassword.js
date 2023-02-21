@@ -1,9 +1,9 @@
 import React,{useState,useRef} from 'react';
 import styles from "./PopUps.module.scss"
-import {showChangePasswordUI,hideChangePasswordUI} from "../Settings/SettingsSlice"
+import {hideChangePasswordUI} from "../Settings/SettingsSlice"
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
-import { db,auth,app,storage } from '../Firebase/Firebase';
+import { updateDoc,doc} from "firebase/firestore";
+import { db} from '../Firebase/Firebase';
 import {FetchUserBioData } from '../Settings/SettingsSlice';
 import { useNavigate } from 'react-router';
 
@@ -18,7 +18,6 @@ const ChangePasswordPop = () => {
     const changePasswordPopUp = useSelector(state => state.settings.changePasswordPopUp)
     const userBioRef = doc(db,"users",`${userId}`,`userInfoFolder`,`userData`)
     ///////////////////////////////////////////
-    console.log(userBioData);
     const handlePopUp = (e) => {
         if(e.target.id === "changeAccountPopUp" || e.target.id === "cancleBtnId"){
             dispatch(hideChangePasswordUI())

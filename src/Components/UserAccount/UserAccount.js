@@ -1,33 +1,24 @@
-import React,{useState,useEffect,useRef} from "react";
+import React,{useState,useRef} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./UserAccount.module.scss";
-import {BiCheckCircle } from "react-icons/bi";
 import { IoIosArrowForward } from "react-icons/io";
 import { useDispatch,useSelector } from "react-redux";
-import { IoIosAdd,IoIosPricetag,IoIosClose } from "react-icons/io";
-import { ImFolderPlus } from "react-icons/im";
+import { IoIosAdd} from "react-icons/io";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {auth} from "../Firebase/Firebase"
-// import { async } from "@firebase/util";
-// import {doc,getDoc} from "firebase/firestore"
 import { HiChevronLeft } from "react-icons/hi";
 import { ImUser } from "react-icons/im";
 import { IoIosArrowDown,IoIosArrowUp } from "react-icons/io";
-// FcList
-// FcTodoList
-// FcBullish
 import { FcSettings, FcTodoList,FcBullish } from "react-icons/fc";
 import { 
   getProjectTasks,
   getProjectTitle,
-  getProjectTodos,
   setProjectId,
   setCurrTasks ,
   setClickedProjectId,
   setCompletedTasks,
 	setEstimatedTime,
 	setTasksToBeCompleted,
-	// setTimeElasped,
   setElapsedTimeHoursMinutesArray,
   setCompletedTasksArray,
   setTotalEstimatedTaskTime,
@@ -36,53 +27,18 @@ import {
   setTasksTimesArray
 } from "../Settings/SettingsSlice";
 import { FcBarChart } from "react-icons/fc";
-import { IoIosCheckmark } from "react-icons/io";
 import {ImFolder} from "react-icons/im";
-
-// ImList2
-// import {persistor} from "../Store/Store"
-// import { FetchTasks } from "../Settings/SettingsSlice";
-
 const UserAccountUI = (props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [user,loadingUser,loginError] = useAuthState(auth);
   const projects = useSelector((state) => state.settings.projects)
-  const tasks = useSelector(state => state.settings.tasks)
-  // const [projects,setProjects] = useState(projectsData)
-  const userId = useSelector(state => state.signUpSlice.userId)
   const userTasks = useSelector(state => state.settings.userTasks)
   const numbersArray = useSelector(state => state.settings.numbersArray)
   const avatarURL = useSelector(state => state.settings.userAvatarURL)
   const userBioData = useSelector(state => state.settings.userBioData)
   const [collapseProjectContainer,setCollapseProjectContainer] = useState(false)
-  console.log(userTasks);
   /////////Get projects /////////////////
-  console.log(projects);
-  const removeNum = (array,numIndex) => {
-    const newArray = numbersArray.filter((num,index) => numIndex !== index)
-    const totalNum = newArray.reduce((i,s) => i+s,0)
-    console.log(totalNum);
-    dispatch(updateNumbersArray(newArray))
-  }
-  console.log(numbersArray);
   const linkRef = useRef()
-  console.log(projects);
-  const loadingSpinner = <div className={styles.loadingSpinner}>
-			<span className={styles.loader}></span>
-		</div>
-   function calculateMinutesAndHours(minutes){
-    const remainingMinutes = minutes % 60
-    const hours = minutes / 60
-    dispatch(setTasksHourMinutesArray([parseInt(hours),remainingMinutes]))
-    return [parseInt(hours),remainingMinutes]
-  }
-  
-  function calcTotalTasksTime(totalTime,currPomodoroLength,numbSelectedPomodoro) {
-    const totalTasksTime = totalTime + (currPomodoroLength * numbSelectedPomodoro)
-    console.log(totalTasksTime);
-    return totalTasksTime
-  }
     const getProjectTaskData = (projectTask) => {
       dispatch(setCompletedTasks(projectTask.completedTasks))
       dispatch(setTasksToBeCompleted(projectTask.tasksToBeCompleted))
@@ -95,7 +51,6 @@ const UserAccountUI = (props) => {
     const selectProject = (projects,projectId) => {
       projects.filter((project,index) => {
         if (index === projectId){
-          console.log(userTasks);
           const taskName = project.projectTitle.split(" ").join("")
           dispatch(setClickedProjectId(taskName))
           dispatch(setCurrTasks(userTasks[taskName]))
@@ -160,7 +115,7 @@ const UserAccountUI = (props) => {
           
         </div>
       </nav>
-      <div className={styles.todoWrapper}>
+      {/* <div className={styles.todoWrapper}>
         <div className={styles.todo}>
           <Link className={styles.link} to="/completedTasks">
             <div className={styles.completedLeftWrapper}>
@@ -171,7 +126,7 @@ const UserAccountUI = (props) => {
             <IoIosArrowForward className={styles.arrowForward}/>
           </Link>
         </div>
-      </div>
+      </div> */}
       
         <div className={styles.addProjectWrapper}>
           <Link className={styles.linkToAddProject} to="/AddProject">

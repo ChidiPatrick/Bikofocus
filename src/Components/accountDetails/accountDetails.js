@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import styles from './accountDetails.module.scss'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Account from '../PopsUps/account';
@@ -6,26 +6,19 @@ import ChangePasswordPopUp from '../PopsUps/changePassword';
 import { showChangePasswordUI,showUsernameUI,showPopUp } from '../Settings/SettingsSlice';
 import ChangeUsernamePopUp from '../PopsUps/usernamePopUp';
 import { useDispatch, useSelector } from 'react-redux';
-import {setUserAvatarURL} from "../Settings/SettingsSlice"
-import {ref,getDownloadURL,uploadBytesResumable} from "@firebase/storage"
-import { db,auth,app,storage } from '../Firebase/Firebase';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { updateDoc,doc, arrayUnion, increment } from "firebase/firestore";
+import { db,auth } from '../Firebase/Firebase';
+import { Link,useNavigate } from 'react-router-dom';
+import { doc} from "firebase/firestore";
 import { signOut } from 'firebase/auth';
 import { ImUser } from "react-icons/im";
-import { persistor, Persistor } from '../store/store';
+import { persistor } from '../store/store';
 
 
 const AccountDetails = () => {
     const avatarURL = useSelector(state => state.settings.userAvatarURL)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userId =  useSelector((state) => state.signUpSlice.userId)
     const userBioData = useSelector(state => state.settings.userBioData)
-    const popUp = useSelector(state => state.settings.popUp)
-    const changeUserName = useSelector(state => state.settings.changeUserName)
-    const userBioRef = doc(db,"users",`${userId}`,`userInfoFolder`,`userData`)
-    console.log(userBioData);
     ///////////////////////////////////////
     const showAccountPopUp = () => {
         dispatch(showPopUp())

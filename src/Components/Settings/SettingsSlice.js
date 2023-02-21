@@ -60,21 +60,17 @@ export const fetchUserSettings = createAsyncThunk("settings/fetchUserSettings", 
 		const settingsRef = doc(db,"users",`${userId}`,"userSettingsCollection","settings")
 		const data = await getDoc(settingsRef)
     	if(data.exists()){
-        console.log(data.data());
 		dispatch(getUserProjects(data.data().projects))
 		dispatch(setUserAvatarURL(data.data().userAvatarURL))
-		console.log(data.data().projects);
          return data
    	 }
 	}
 	catch(err) {
-		console.log(err);
 	}
 })
 export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (userId,{dispatch,getState}) =>{
 	try{
 		const state = getState()
-		console.log(state);
 		const currProjectId = state.settings.clickedProjectIdentitfier
 		const userTasksDoc = doc(db,"users",`${userId}`,"userTasksCollection","tasks")
 		const data = await getDoc(userTasksDoc)
@@ -94,7 +90,6 @@ export const FetchTasks = createAsyncThunk("settings/fetchProjectTasks",async (u
    	 }
 	}
 	catch(err) {
-		console.log(err);
 	}
 })
 export const FetchUserBioData = createAsyncThunk("settings/fetchUserBioData",async (userId,{dispatch,getState}) =>{
@@ -107,7 +102,6 @@ export const FetchUserBioData = createAsyncThunk("settings/fetchUserBioData",asy
    	 }
 	}
 	catch(err) {
-		console.log(err);
 	}
 })
 export const FetchUserData = createAsyncThunk("settings/fetchUserData",async (userId,{dispatch,getState}) =>{
@@ -117,11 +111,9 @@ export const FetchUserData = createAsyncThunk("settings/fetchUserData",async (us
 		if(userData.exists()){
 			const userBio = userData.data()
 			dispatch(setUserBioData(userBio))
-			console.log(userBio);
 		}
 	}
 	catch(err) {
-		console.log(err);
 	}
 })
 const SettingSlice = createSlice({
@@ -290,8 +282,6 @@ const SettingSlice = createSlice({
 		},
 		showUsernameUI(state,action){
 			state.changeUsername = true
-			console.log("Showing change...");
-			console.log(state.changeUsername);
 		},
 		hideChangeUsernameUI(state,action){
 			state.changeUsername = false
@@ -332,7 +322,6 @@ const SettingSlice = createSlice({
 		},
 		 setDailyWorkHours(state,action){
 		state.dailyWorkHours = [...action.payload]
-		console.log(action.payload);
 		},
 		setCurrDate(state,action){
 			state.currDate = action.payload
