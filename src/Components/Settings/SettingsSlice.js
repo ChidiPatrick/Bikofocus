@@ -1,7 +1,5 @@
-import { async } from '@firebase/util';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {doc,getDoc} from "firebase/firestore"
-import { act } from 'react-dom/test-utils';
 import { db } from '../Firebase/Firebase';
 const initialState = {
 	pomodoroLengthSelected: false,
@@ -46,13 +44,14 @@ const initialState = {
 	changePasswordPopUp: false,
 	changeUsername: false,
 	todayTasksObject: null,
-	projectsCompletedTasks: [],
 	dailyWorkHours: [],
 	currDate: "Sat Feb 11 2023",
 	noInternetConnection: false,
 	fetchedSettingsData: false,
 	fetchedUserData: false,
 	fetchedUserTask: false,
+	projectsCompletedTasks: [],
+	
 
 	
 };

@@ -19,6 +19,7 @@ const initialState = {
   dailyWorkHours: [],
 	weeklyWorkHours: [],
 	monthlyWorkHours: [],
+  projectsCompletedTasks: [],
 	// currDate: 'Sat Feb 11 2023'
 };
 const FrontPageSlice = createSlice({
