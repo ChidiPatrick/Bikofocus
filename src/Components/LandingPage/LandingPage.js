@@ -8,7 +8,7 @@ const LandingPage = () => {
            <header className= {styles.header}> 
                  <div className={styles.headerHeading}>" If you want to be <br/>
                     <span className={styles.quotePoints}>MORE PRODUCTIVE</span><br/>
-                    you need to be become  <span className={styles.quotePoints}>MASTER </span>of your 
+                    you need to become  <span className={styles.quotePoints}>MASTER </span>of your 
                     <span className={styles.quotePoints}> MINUTES </span> "
                     <span className={styles.welcomeMessage}>Welcome to <span className={styles.bikofocus}>Bikofocus</span></span>
                 </div>
